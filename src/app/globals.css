@@ -373,6 +373,45 @@
 }
 
 /* ==========================================================================
+   Theme switch
+   A circular clip-path reveal from the toggle, via the View Transitions API.
+   The old snapshot stays put and the new one is wiped in over the top.
+   ========================================================================== */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  /* Cross-fading would muddy the wipe; the clip-path is the whole effect. */
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+}
+
+html[data-theme-switching]::view-transition-new(root) {
+  animation: theme-reveal 450ms var(--ease-out-expo) both;
+}
+
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(
+      0% at var(--theme-origin-x, 50%) var(--theme-origin-y, 50%)
+    );
+  }
+  to {
+    clip-path: circle(
+      var(--theme-reveal-radius, 150%) at var(--theme-origin-x, 50%)
+        var(--theme-origin-y, 50%)
+    );
+  }
+}
+
+/* ==========================================================================
    Tooltip
    ========================================================================== */
 
