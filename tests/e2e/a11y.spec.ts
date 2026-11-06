@@ -1,7 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/en", "/pt-br"];
+const ROUTES = [
+  "/en",
+  "/pt-br",
+  // Scanning the design system directly means a violation is caught in the
+  // primitive, not once it has been composed into six different pages.
+  "/en/dev/kitchen-sink",
+];
 
 for (const route of ROUTES) {
   test(`${route} has no accessibility violations`, async ({ page }) => {
