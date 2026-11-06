@@ -1,26 +1,280 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Design tokens
+   One accent (green), two surfaces, a hairline, and a glass. Everything else
+   is composed from these. Light is the base; dark overrides only the values.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  color-scheme: light;
+
+  --bg: #fbfbfd;
+  --bg-elevated: #ffffff;
+  --bg-sunken: #f2f2f5;
+
+  --fg: #1d1d1f;
+  --fg-muted: #5c5c61;
+  --fg-subtle: #68686d;
+
+  --border: rgb(0 0 0 / 0.08);
+  --border-strong: rgb(0 0 0 / 0.14);
+
+  /*
+   * The green is darker than Apple's systemGreen because it has to carry
+   * text. #14793c clears 4.5:1 on every light surface, including the
+   * --accent-soft pill (4.95) and the frosted nav (5.44), and white on it
+   * reaches 5.48. See tests/unit/contrast.test.ts.
+   */
+  --accent: #14793c;
+  --accent-hover: #0f6330;
+  --accent-soft: #e8f7ee;
+  --accent-fg: #ffffff;
+  --accent-ring: rgb(20 121 60 / 0.35);
+
+  --glass: rgb(255 255 255 / 0.72);
+  --glass-border: rgb(0 0 0 / 0.07);
+
+  /* Aurora stops for the hero mesh. Low opacity by design. */
+  --aurora-1: #30d158;
+  --aurora-2: #0fa968;
+  --aurora-3: #7ee8a2;
+  --aurora-4: #0b3d2e;
+  --aurora-alpha: 0.2;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04), 0 1px 3px rgb(0 0 0 / 0.06);
+  --shadow-md:
+    0 4px 8px -2px rgb(0 0 0 / 0.06), 0 12px 24px -8px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 8px 16px -4px rgb(0 0 0 / 0.06), 0 24px 48px -12px rgb(0 0 0 / 0.14);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+/* System preference, unless the user explicitly chose light. */
+:root:not([data-theme="light"]) {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #000000;
+    --bg-elevated: #111113;
+    --bg-sunken: #0a0a0b;
+
+    --fg: #f5f5f7;
+    --fg-muted: #a1a1a6;
+    --fg-subtle: #8a8a8f;
+
+    --border: rgb(255 255 255 / 0.1);
+    --border-strong: rgb(255 255 255 / 0.18);
+
+    --accent: #30d158;
+    --accent-hover: #4ade80;
+    --accent-soft: rgb(48 209 88 / 0.12);
+    --accent-fg: #00210d;
+    --accent-ring: rgb(48 209 88 / 0.4);
+
+    --glass: rgb(22 22 24 / 0.72);
+    --glass-border: rgb(255 255 255 / 0.09);
+
+    --aurora-alpha: 0.26;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+    --shadow-md: 0 4px 24px -8px rgb(0 0 0 / 0.7);
+    --shadow-lg: 0 8px 48px -12px rgb(0 0 0 / 0.8);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Explicit dark wins in both directions. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #000000;
+  --bg-elevated: #111113;
+  --bg-sunken: #0a0a0b;
+
+  --fg: #f5f5f7;
+  --fg-muted: #a1a1a6;
+  --fg-subtle: #8a8a8f;
+
+  --border: rgb(255 255 255 / 0.1);
+  --border-strong: rgb(255 255 255 / 0.18);
+
+  --accent: #30d158;
+  --accent-hover: #4ade80;
+  --accent-soft: rgb(48 209 88 / 0.12);
+  --accent-fg: #00210d;
+  --accent-ring: rgb(48 209 88 / 0.4);
+
+  --glass: rgb(22 22 24 / 0.72);
+  --glass-border: rgb(255 255 255 / 0.09);
+
+  --aurora-alpha: 0.26;
+
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.5);
+  --shadow-md: 0 4px 24px -8px rgb(0 0 0 / 0.7);
+  --shadow-lg: 0 8px 48px -12px rgb(0 0 0 / 0.8);
+}
+
+/* ==========================================================================
+   Tailwind theme bridge
+   ========================================================================== */
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-elevated: var(--bg-elevated);
+  --color-bg-sunken: var(--bg-sunken);
+
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-fg-subtle: var(--fg-subtle);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-fg: var(--accent-fg);
+
+  --color-glass: var(--glass);
+  --color-glass-border: var(--glass-border);
+
+  --font-sans:
+    var(--font-inter), ui-sans-serif, -apple-system, BlinkMacSystemFont,
+    "Segoe UI", system-ui, sans-serif;
+  --font-mono:
+    var(--font-jetbrains-mono), ui-monospace, "SF Mono", Menlo, monospace;
+
+  /* Fluid type scale. Each step is clamp(min, preferred, max). */
+  --text-display: clamp(3rem, 1.5rem + 6.2vw, 6rem);
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.035em;
+  --text-display--font-weight: 600;
+
+  --text-h1: clamp(2.25rem, 1.4rem + 3.4vw, 4rem);
+  --text-h1--line-height: 1.04;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h1--font-weight: 600;
+
+  --text-h2: clamp(1.75rem, 1.3rem + 1.8vw, 2.75rem);
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.025em;
+  --text-h2--font-weight: 600;
+
+  --text-h3: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  --text-h3--line-height: 1.2;
+  --text-h3--letter-spacing: -0.02em;
+  --text-h3--font-weight: 600;
+
+  --text-lead: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-lead--line-height: 1.5;
+  --text-lead--letter-spacing: -0.012em;
+
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.65;
+  --text-body--letter-spacing: -0.006em;
+
+  --text-small: 0.9375rem;
+  --text-small--line-height: 1.55;
+
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.4;
+  --text-label--letter-spacing: 0.02em;
+
+  --radius-control: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-hero: 2rem;
+
+  --shadow-soft: var(--shadow-sm);
+  --shadow-raised: var(--shadow-md);
+  --shadow-floating: var(--shadow-lg);
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --container-content: 75rem;
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-feature-settings: "ss01", "ss03", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* One ring, everywhere, only for keyboard users. */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection {
+    background-color: var(--accent-soft);
+    color: var(--fg);
+  }
+
+  :where(h1, h2, h3, h4) {
+    text-wrap: balance;
+  }
+
+  :where(p) {
+    text-wrap: pretty;
+  }
+}
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@utility text-balance-tight {
+  text-wrap: balance;
+  letter-spacing: -0.02em;
+}
+
+/* Frosted material used by the nav and overlays. */
+@utility glass {
+  background-color: var(--glass);
+  border-color: var(--glass-border);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+}
+
+@utility measure {
+  max-width: 68ch;
+}
+
+/* ==========================================================================
+   Motion: opt-out is global and absolute.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
