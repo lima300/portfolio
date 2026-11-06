@@ -278,3 +278,116 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   Reveal
+   Section entrances: fade + rise + a touch of blur resolving to sharp.
+
+   The *hidden* state is what needs guarding, not the animation. Scoping it to
+   `scripting: enabled` means content is simply visible when JavaScript is off
+   -- there is no state in which a reveal can leave text permanently
+   invisible. The reduced-motion clause does the same for anyone who asked for
+   less movement, which is why the component itself needs no JS branch.
+   ========================================================================== */
+
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    opacity: 0;
+    translate: 0 1rem;
+    filter: blur(3px);
+    transition:
+      opacity 500ms var(--ease-out-expo),
+      translate 500ms var(--ease-out-expo),
+      filter 500ms var(--ease-out-expo);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+
+  [data-reveal="visible"] {
+    opacity: 1;
+    translate: none;
+    filter: blur(0);
+  }
+}
+
+/* ==========================================================================
+   Parallax
+   Pure CSS scroll-driven motion: no scroll listener, no main-thread work.
+   Browsers without `animation-timeline` simply render the element at rest.
+   ========================================================================== */
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-parallax] {
+      animation: parallax-drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+      will-change: translate;
+    }
+  }
+}
+
+@keyframes parallax-drift {
+  from {
+    translate: 0 var(--parallax-from, 2rem);
+  }
+  to {
+    translate: 0 var(--parallax-to, -2rem);
+  }
+}
+
+/* ==========================================================================
+   Magnetic
+   The pointer handler only writes two custom properties; the transform is
+   declarative, so the element stays on the compositor.
+   ========================================================================== */
+
+[data-magnetic] {
+  translate: var(--magnetic-x, 0) var(--magnetic-y, 0);
+  transition: translate 400ms var(--ease-out-expo);
+}
+
+[data-magnetic="active"] {
+  /* While tracking the cursor, follow it closely rather than easing back. */
+  transition: translate 80ms linear;
+}
+
+/* ==========================================================================
+   Toast
+   ========================================================================== */
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: 0 1rem;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+    scale: 1;
+  }
+}
+
+[data-toast] {
+  animation: toast-in 300ms var(--ease-out-expo) both;
+}
+
+/* ==========================================================================
+   Tooltip
+   ========================================================================== */
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    scale: 0.96;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+[data-tooltip][data-state="delayed-open"],
+[data-tooltip][data-state="instant-open"] {
+  animation: tooltip-in 140ms var(--ease-out-expo) both;
+}

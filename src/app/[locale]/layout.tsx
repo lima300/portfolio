@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/components/features/theme-provider";
+import { ToastProvider } from "@/components/ui/toast";
 import { bcp47, locales } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { I18nProvider } from "@/i18n/provider";
@@ -83,13 +84,15 @@ export default async function RootLayout({
       <body className="flex min-h-full flex-col">
         <ThemeProvider>
           <I18nProvider locale={locale} messages={messages}>
-            <a
-              href="#main"
-              className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-100 focus-visible:rounded-control focus-visible:bg-accent focus-visible:px-4 focus-visible:py-2 focus-visible:text-small focus-visible:font-medium focus-visible:text-accent-fg"
-            >
-              {messages.a11y.skipToContent}
-            </a>
-            {children}
+            <ToastProvider>
+              <a
+                href="#main"
+                className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-100 focus-visible:rounded-control focus-visible:bg-accent focus-visible:px-4 focus-visible:py-2 focus-visible:text-small focus-visible:font-medium focus-visible:text-accent-fg"
+              >
+                {messages.a11y.skipToContent}
+              </a>
+              {children}
+            </ToastProvider>
           </I18nProvider>
         </ThemeProvider>
       </body>

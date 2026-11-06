@@ -47,17 +47,17 @@ standard as the site.
 
 ## Stack
 
-| Concern   | Choice                                                                 | Why                                                                                             |
-| --------- | ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| Framework | **Next.js 16** — App Router, React Server Components, Cache Components | Content ships as HTML; only interactive leaves cost JavaScript                                  |
-| Language  | **TypeScript** `strict`                                                | No `any` escape hatches in application code                                                     |
-| Styling   | **Tailwind CSS v4** with `@theme` tokens                               | Tokens live in CSS custom properties — one source of truth, so theming works at runtime         |
-| Motion    | **Motion** + CSS scroll-driven animations                              | Only `transform`, `opacity`, `filter`, `clip-path`; every effect behind a reduced-motion guard  |
-| Theming   | **next-themes** on `data-theme`                                        | Three real states — System / Light / Dark — with no flash before hydration                      |
-| i18n      | Native `[locale]` routing + `next/root-params`                         | Typed catalogues, zero client runtime ([ADR 0002](docs/adr/0002-native-i18n.md))                |
-| Icons     | **lucide-react**                                                       | Tree-shaken, one icon per import                                                                |
-| Testing   | **Vitest** · **Playwright** · **axe-core**                             | Unit, end-to-end and accessibility in one pipeline                                              |
-| Packaging | **pnpm**, pinned via `packageManager`                                  | Strict `node_modules` — an undeclared dependency fails to import instead of working by accident |
+| Concern   | Choice                                                                   | Why                                                                                                                                      |
+| --------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Framework | **Next.js 16** — App Router, React Server Components, Cache Components   | Content ships as HTML; only interactive leaves cost JavaScript                                                                           |
+| Language  | **TypeScript** `strict`                                                  | No `any` escape hatches in application code                                                                                              |
+| Styling   | **Tailwind CSS v4** with `@theme` tokens                                 | Tokens live in CSS custom properties — one source of truth, so theming works at runtime                                                  |
+| Motion    | No library — CSS transitions, scroll-driven animations, View Transitions | Only `transform`, `opacity`, `filter`, `clip-path`; the whole motion layer costs under 2 kB ([ADR 0004](docs/adr/0004-native-motion.md)) |
+| Theming   | **next-themes** on `data-theme`                                          | Three real states — System / Light / Dark — with no flash before hydration                                                               |
+| i18n      | Native `[locale]` routing + `next/root-params`                           | Typed catalogues, zero client runtime ([ADR 0002](docs/adr/0002-native-i18n.md))                                                         |
+| Icons     | **lucide-react** + hand-written brand SVGs                               | Tree-shaken, one icon per import; lucide no longer ships brand marks                                                                     |
+| Testing   | **Vitest** · **Playwright** · **axe-core**                               | Unit, end-to-end and accessibility in one pipeline                                                                                       |
+| Packaging | **pnpm**, pinned via `packageManager`                                    | Strict `node_modules` — an undeclared dependency fails to import instead of working by accident                                          |
 
 ## Architecture
 

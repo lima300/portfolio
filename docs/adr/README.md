@@ -11,3 +11,4 @@ Format: [MADR](https://adr.github.io/madr/), trimmed.
 | [0001](0001-stack.md)         | Next.js App Router, TypeScript strict, Tailwind v4        | Accepted |
 | [0002](0002-native-i18n.md)   | Native typed dictionaries instead of an i18n library      | Accepted |
 | [0003](0003-design-tokens.md) | CSS custom properties as the single source of style truth | Accepted |
+| [0004](0004-native-motion.md) | A native motion layer instead of an animation library     | Accepted |
