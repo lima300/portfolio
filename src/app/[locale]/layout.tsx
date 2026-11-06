@@ -72,6 +72,12 @@ export default async function RootLayout({
       lang={bcp47[locale]}
       // next-themes sets `data-theme` before hydration; React must accept the DOM.
       suppressHydrationWarning
+      /*
+       * `globals.css` sets `scroll-behavior: smooth`. This lets Next suspend it
+       * for the duration of a route change, so navigating does not animate a
+       * long scroll back to the top.
+       */
+      data-scroll-behavior="smooth"
       className={`${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">

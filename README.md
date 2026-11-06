@@ -115,15 +115,16 @@ pnpm dev             # http://localhost:3000 → redirects to /en or /pt-br
 
 ### Scripts
 
-| Command          | Does                                                                |
-| ---------------- | ------------------------------------------------------------------- |
-| `pnpm dev`       | Dev server with Turbopack                                           |
-| `pnpm build`     | Production build — prerenders every locale                          |
-| `pnpm verify`    | **Format, lint, typecheck and unit tests.** Run this before pushing |
-| `pnpm typecheck` | Regenerates route types, then `tsc --noEmit`                        |
-| `pnpm test`      | Vitest                                                              |
-| `pnpm test:e2e`  | Playwright against a production build, including the `axe` scan     |
-| `pnpm format`    | Prettier, with Tailwind class sorting                               |
+| Command             | Does                                                                      |
+| ------------------- | ------------------------------------------------------------------------- |
+| `pnpm dev`          | Dev server with Turbopack                                                 |
+| `pnpm build`        | Production build — prerenders every locale                                |
+| `pnpm verify`       | **Format, lint, typecheck and unit tests.** Run this before pushing       |
+| `pnpm typecheck`    | Regenerates route types, then `tsc --noEmit`                              |
+| `pnpm test`         | Vitest                                                                    |
+| `pnpm test:e2e`     | Playwright against a production build, including the `axe` scan           |
+| `pnpm test:e2e:dev` | Playwright against `next dev` — catches React's development-only warnings |
+| `pnpm format`       | Prettier, with Tailwind class sorting                                     |
 
 > The `pre-commit` hook runs `lint-staged`; `commit-msg` runs `commitlint`.
 > Both are installed by `pnpm install` via `husky`.

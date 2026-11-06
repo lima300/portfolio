@@ -97,8 +97,13 @@ jobs:
 
       # Covers the production build, locale routing, theming and an axe-core
       # scan of every route in both languages.
-      - name: Playwright
+      - name: Playwright (production build)
         run: pnpm test:e2e
+
+      # React's diagnostic warnings only exist in its development build, so
+      # this run is the only thing that can catch them.
+      - name: Playwright (dev server)
+        run: pnpm test:e2e:dev
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}

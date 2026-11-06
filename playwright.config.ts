@@ -1,6 +1,23 @@
 import { defineConfig, devices } from "@playwright/test";
 
-const PORT = 3100;
+/*
+ * Two targets, one at a time.
+ *
+ * `prod` (default) runs the real suite against a production build — that is
+ * the artefact that ships, and dev-mode overlays would pollute the
+ * accessibility scan.
+ *
+ * `dev` runs the `*.dev.spec.ts` files against `next dev`, because React's
+ * diagnostic warnings (hydration mismatches, invalid nesting, scripts
+ * rendered by components) exist only in its development build.
+ *
+ * They are separate runs rather than two webServers because Next allows a
+ * single dev server per directory: starting one here would collide with the
+ * `pnpm dev` you already have open.
+ */
+const isDev = process.env.E2E_TARGET === "dev";
+
+const PORT = isDev ? 3101 : 3100;
 const baseURL = `http://127.0.0.1:${PORT}`;
 
 export default defineConfig({
@@ -16,21 +33,31 @@ export default defineConfig({
     trace: "on-first-retry",
   },
 
-  projects: [
-    {
-      name: "desktop-chromium",
-      use: { ...devices["Desktop Chrome"] },
-    },
-    {
-      name: "mobile-safari",
-      use: { ...devices["iPhone 14"] },
-    },
-  ],
+  projects: isDev
+    ? [
+        {
+          name: "dev-server",
+          use: { ...devices["Desktop Chrome"] },
+          testMatch: "**/*.dev.spec.ts",
+        },
+      ]
+    : [
+        {
+          name: "desktop-chromium",
+          use: { ...devices["Desktop Chrome"] },
+          testIgnore: "**/*.dev.spec.ts",
+        },
+        {
+          name: "mobile-safari",
+          use: { ...devices["iPhone 14"] },
+          testIgnore: "**/*.dev.spec.ts",
+        },
+      ],
 
-  // Tests run against a production build: that is the artefact that ships,
-  // and dev-mode overlays would pollute the accessibility scan.
   webServer: {
-    command: `pnpm build && pnpm exec next start --port ${PORT}`,
+    command: isDev
+      ? `pnpm exec next dev --port ${PORT}`
+      : `pnpm build && pnpm exec next start --port ${PORT}`,
     url: baseURL,
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

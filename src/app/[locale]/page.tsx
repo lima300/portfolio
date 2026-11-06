@@ -69,6 +69,9 @@ export default async function HomePage() {
             </Link>
             <Link
               href={`/${locale}/resume`}
+              // The route arrives with the secondary pages; until then a
+              // prefetch would 404 in the console.
+              prefetch={false}
               className="inline-flex items-center gap-2 rounded-control border border-border-strong px-5 py-2.5 text-small font-medium transition-colors duration-200 hover:bg-bg-sunken"
             >
               <Download aria-hidden className="size-4" />
