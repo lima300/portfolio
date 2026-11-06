@@ -1,0 +1,26 @@
+name: Bug report
+description: Something on the site is broken or looks wrong.
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Page
+      placeholder: https://otaviolima.dev/en/work/...
+  - type: dropdown
+    id: theme
+    attributes:
+      label: Theme
+      options: [Light, Dark, Both]
+  - type: input
+    id: env
+    attributes:
+      label: Browser and device
+      placeholder: Safari 18 on iPhone 14
