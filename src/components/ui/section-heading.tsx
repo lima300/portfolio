@@ -9,6 +9,12 @@ type SectionHeadingProps = {
   description?: ReactNode;
   /** Defaults to h2; pass h1 for the one top-level heading on a page. */
   as?: "h1" | "h2" | "h3";
+  /**
+   * Lets the enclosing `<section>` point at this heading with
+   * `aria-labelledby`, turning it into a named landmark a screen-reader user
+   * can jump straight to.
+   */
+  headingId?: string;
   align?: "start" | "center";
   className?: string;
 };
@@ -18,6 +24,7 @@ export function SectionHeading({
   title,
   description,
   as: Heading = "h2",
+  headingId,
   align = "start",
   className,
 }: SectionHeadingProps) {
@@ -37,7 +44,10 @@ export function SectionHeading({
         </p>
       ) : null}
 
-      <Heading className={cn(sizes[Heading], "text-balance-tight")}>
+      <Heading
+        id={headingId}
+        className={cn(sizes[Heading], "text-balance-tight")}
+      >
         {title}
       </Heading>
 

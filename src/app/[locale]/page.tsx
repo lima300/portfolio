@@ -1,5 +1,6 @@
 import { Contact } from "@/components/sections/contact";
 import { Hero } from "@/components/sections/hero";
+import { ImpactStrip } from "@/components/sections/impact-strip";
 
 /*
  * The home page: one scroll, in the order a recruiter reads.
@@ -12,6 +13,7 @@ export default function HomePage() {
   return (
     <main id="main" className="flex-1">
       <Hero />
+      <ImpactStrip />
 
       {/* Anchor targets for the nav until the real sections land. */}
       <div id="work" className="scroll-mt-24" />
