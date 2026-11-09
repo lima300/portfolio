@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 
 import { ThemeProvider } from "@/components/features/theme-provider";
+import { SiteFooter } from "@/components/sections/site-footer";
+import { SiteHeader } from "@/components/sections/site-header";
 import { ToastProvider } from "@/components/ui/toast";
 import { bcp47, locales } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
@@ -91,7 +93,9 @@ export default async function RootLayout({
               >
                 {messages.a11y.skipToContent}
               </a>
+              <SiteHeader />
               {children}
+              <SiteFooter />
             </ToastProvider>
           </I18nProvider>
         </ThemeProvider>

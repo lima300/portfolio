@@ -16,6 +16,9 @@ const en = {
     languageSwitch: "Change language",
     openMenu: "Open menu",
     closeMenu: "Close menu",
+    primaryNavigation: "Primary",
+    socialLinks: "Elsewhere",
+    homeLink: "Otávio Lima — home",
   },
   theme: {
     system: "System",
@@ -37,9 +40,28 @@ const en = {
     downloadResume: "Download résumé",
     copyEmail: "Copy email",
   },
+  contact: {
+    eyebrow: "Contact",
+    heading: "Let's build something that lasts.",
+    body: "I'm open to Senior and Staff frontend roles, remote, working with US and global teams. The fastest way to reach me is email — one click copies it.",
+    emailCopied: "Email copied to clipboard",
+    emailCopyFailed: "Couldn't copy — the address is otavio.lima.vga@gmail.com",
+    copyEmail: "Copy email",
+    copied: "Copied",
+  },
+  localTime: {
+    /** `{time}` is replaced with a locale-formatted clock. */
+    label: "It's {time} in Brazil",
+    morning: "probably on the first coffee ☕",
+    afternoon: "probably deep in a refactor",
+    evening: "probably recording something 🎥",
+    night: "probably asleep — I'll reply in the morning",
+  },
   footer: {
     builtWith: "Built with Next.js, TypeScript and Tailwind CSS.",
     sourceOnGithub: "Source on GitHub",
+    colophon: "How this site was built",
+    rights: "All rights reserved.",
   },
 } as const;
 
