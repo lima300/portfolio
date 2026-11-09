@@ -52,6 +52,8 @@ const config = {
         "ci",
         "repo",
         "tests",
+        "unit",
+        "e2e",
       ],
     ],
     "subject-case": [2, "always", "lower-case"],

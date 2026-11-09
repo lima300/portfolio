@@ -81,17 +81,30 @@ test.describe("tooltip", () => {
     await page.goto(KITCHEN_SINK);
 
     const trigger = page.getByRole("button", { name: "GitHub profile" }).nth(1);
-    await trigger.focus();
 
-    await expect(page.getByRole("tooltip")).toContainText("GitHub");
+    /*
+     * `toPass` retries the focus as well as the assertion. Focusing before
+     * hydration completes is a no-op as far as Radix is concerned, and under
+     * parallel load that window is wide enough to matter — retrying the
+     * assertion alone would just watch a tooltip that was never asked to open.
+     */
+    await expect(async () => {
+      await trigger.focus();
+      await expect(page.getByRole("tooltip")).toContainText("GitHub", {
+        timeout: 1000,
+      });
+    }).toPass({ timeout: 15_000 });
   });
 
   test("dismisses on Escape", async ({ page }) => {
     await page.goto(KITCHEN_SINK);
 
     const trigger = page.getByRole("button", { name: "GitHub profile" }).nth(1);
-    await trigger.focus();
-    await expect(page.getByRole("tooltip")).toBeVisible();
+
+    await expect(async () => {
+      await trigger.focus();
+      await expect(page.getByRole("tooltip")).toBeVisible({ timeout: 1000 });
+    }).toPass({ timeout: 15_000 });
 
     await page.keyboard.press("Escape");
     await expect(page.getByRole("tooltip")).toBeHidden();
