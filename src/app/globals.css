@@ -430,3 +430,132 @@ html[data-theme-switching]::view-transition-new(root) {
 [data-tooltip][data-state="instant-open"] {
   animation: tooltip-in 140ms var(--ease-out-expo) both;
 }
+
+/* ==========================================================================
+   Aurora
+   The hero's green mesh. Built from radial gradients rather than blurred
+   shapes: a `filter: blur(80px)` over a 700px element is one of the most
+   expensive things you can ask a compositor for, while a radial gradient
+   that fades to transparent costs nothing and looks the same.
+
+   Only `translate` and `scale` animate, so the whole thing stays on the
+   compositor. Three blobs at different durations and negative delays, so the
+   composite drifts organically instead of pulsing in unison.
+   ========================================================================== */
+
+[data-aurora] {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Resolves into the page instead of ending on a hard edge. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 55%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(to bottom, #000 0%, #000 55%, transparent 100%);
+}
+
+[data-aurora] > span {
+  position: absolute;
+  display: block;
+  border-radius: 9999px;
+  opacity: var(--aurora-alpha);
+}
+
+[data-aurora] > span:nth-child(1) {
+  top: -20rem;
+  left: -12rem;
+  width: 46rem;
+  height: 46rem;
+  background: radial-gradient(circle, var(--aurora-1) 0%, transparent 68%);
+}
+
+[data-aurora] > span:nth-child(2) {
+  top: -14rem;
+  right: -10rem;
+  width: 38rem;
+  height: 38rem;
+  background: radial-gradient(circle, var(--aurora-2) 0%, transparent 70%);
+}
+
+[data-aurora] > span:nth-child(3) {
+  top: 4rem;
+  left: 32%;
+  width: 34rem;
+  height: 34rem;
+  background: radial-gradient(circle, var(--aurora-3) 0%, transparent 72%);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /*
+   * Gated on data-visible so the drift stops once the hero scrolls away.
+   * An animation nobody can see is pure battery drain.
+   */
+  [data-aurora][data-visible="true"] > span {
+    animation: aurora-drift 22s ease-in-out infinite alternate;
+    will-change: translate, scale;
+  }
+
+  [data-aurora][data-visible="true"] > span:nth-child(2) {
+    animation-duration: 28s;
+    animation-delay: -6s;
+  }
+
+  [data-aurora][data-visible="true"] > span:nth-child(3) {
+    animation-duration: 34s;
+    animation-delay: -13s;
+  }
+}
+
+@keyframes aurora-drift {
+  from {
+    translate: 0 0;
+    scale: 1;
+  }
+  to {
+    translate: 6% 4%;
+    scale: 1.14;
+  }
+}
+
+/* ==========================================================================
+   Word reveal
+   The headline rises into place a word at a time, each word masked by its
+   own clipping wrapper.
+
+   As with Reveal, the animation carries its own start state via
+   `animation-fill-mode: both` and is declared only under
+   `prefers-reduced-motion: no-preference`. With motion reduced the rule never
+   applies, so the headline is simply there -- no JavaScript branch, and no
+   state in which the most important sentence on the page is invisible.
+   ========================================================================== */
+
+[data-word] {
+  display: inline-block;
+  overflow: hidden;
+  /* Descenders (g, y, p) would otherwise be clipped by the mask. */
+  padding-bottom: 0.14em;
+  margin-bottom: -0.14em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-word] > span {
+    display: inline-block;
+    animation: word-rise 700ms var(--ease-out-expo) both;
+    animation-delay: var(--word-delay, 0ms);
+  }
+}
+
+@keyframes word-rise {
+  from {
+    translate: 0 110%;
+    opacity: 0;
+  }
+  to {
+    translate: 0 0;
+    opacity: 1;
+  }
+}

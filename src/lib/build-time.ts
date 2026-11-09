@@ -2,6 +2,8 @@ import { cacheLife } from "next/cache";
 
 import type { Locale } from "@/i18n/config";
 
+import { yearsOfExperience } from "@/data/experience";
+
 import { formatBrazilTime, timeOfDay, type TimeOfDay } from "./brazil-time";
 
 /**
@@ -37,4 +39,15 @@ export async function getBrazilTimeSnapshot(locale: Locale): Promise<{
 
   const now = new Date();
   return { time: formatBrazilTime(now, locale), period: timeOfDay(now) };
+}
+
+/**
+ * Years of professional experience, derived from the first role rather than
+ * written down — so "6+ years" cannot quietly go stale, and nobody has to
+ * remember to bump it on an anniversary.
+ */
+export async function getYearsOfExperience(): Promise<number> {
+  "use cache";
+  cacheLife("days");
+  return yearsOfExperience(new Date());
 }

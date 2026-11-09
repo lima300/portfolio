@@ -35,10 +35,14 @@ const en = {
     availability: "Open to Senior/Staff Frontend roles",
     headline: "Frontend that scales. Interfaces that feel effortless.",
     subline:
-      "Senior Frontend Engineer, 6+ years. Micro-frontends, design systems and the developer experience around them. Remote from Brazil (GMT-3), overlapping US hours.",
+      "Senior Frontend Engineer, {years}+ years. I build micro-frontends, design systems and the developer experience around them. Remote from Brazil (GMT-3), with a working day that overlaps US hours.",
     viewWork: "View work",
     downloadResume: "Download résumé",
     copyEmail: "Copy email",
+  },
+  impact: {
+    eyebrow: "By the numbers",
+    heading: "What that work actually moved.",
   },
   contact: {
     eyebrow: "Contact",

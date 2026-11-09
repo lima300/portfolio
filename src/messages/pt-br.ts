@@ -36,10 +36,14 @@ const ptBr: Messages = {
     availability: "Aberto a vagas Sênior/Staff de Frontend",
     headline: "Frontend que escala. Interfaces que parecem simples.",
     subline:
-      "Engenheiro Frontend Sênior, 6+ anos. Micro-frontends, design systems e a experiência de desenvolvimento por trás deles. Remoto do Brasil (GMT-3), com sobreposição ao horário dos EUA.",
+      "Engenheiro Frontend Sênior, {years}+ anos. Construo micro-frontends, design systems e a experiência de desenvolvimento por trás deles. Remoto do Brasil (GMT-3), com um dia de trabalho que cruza com o horário dos EUA.",
     viewWork: "Ver projetos",
     downloadResume: "Baixar currículo",
     copyEmail: "Copiar e-mail",
+  },
+  impact: {
+    eyebrow: "Em números",
+    heading: "O que esse trabalho de fato mudou.",
   },
   contact: {
     eyebrow: "Contato",
