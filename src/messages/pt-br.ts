@@ -45,6 +45,31 @@ const ptBr: Messages = {
     eyebrow: "Em números",
     heading: "O que esse trabalho de fato mudou.",
   },
+  work: {
+    eyebrow: "Projetos selecionados",
+    heading: "Plataformas que seguiram rápidas enquanto cresciam.",
+    description:
+      "Três sistemas, cada um respondendo à mesma pergunta que todo frontend compartilhado encontra: como vários times publicam de forma independente sem quebrar uns aos outros?",
+    caseStudy: "Estudo de caso",
+    viewLive: "Ver online",
+    viewCode: "Código",
+    confidential: "Trabalho de cliente — código e telas não divulgados",
+    role: "Função",
+  },
+  experience: {
+    eyebrow: "Experiência",
+    heading:
+      "Seis anos, a maior parte deles deixando frontends grandes menores.",
+    present: "Atual",
+    education: "Formação",
+    highlights: "Destaques",
+  },
+  skills: {
+    eyebrow: "Capacidades",
+    heading: "O que eu uso, e para quê.",
+    description:
+      "Agrupado pelo problema, não pelo logo. Sem barras de proficiência: um 80% autoatribuído não é informação.",
+  },
   contact: {
     eyebrow: "Contato",
     heading: "Vamos construir algo que dure.",

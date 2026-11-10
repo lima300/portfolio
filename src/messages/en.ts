@@ -44,6 +44,30 @@ const en = {
     eyebrow: "By the numbers",
     heading: "What that work actually moved.",
   },
+  work: {
+    eyebrow: "Selected work",
+    heading: "Platforms that stayed fast as they grew.",
+    description:
+      "Three systems, each answering the same question a shared frontend always runs into: how do several teams ship independently without breaking each other?",
+    caseStudy: "Case study",
+    viewLive: "Live",
+    viewCode: "Code",
+    confidential: "Client work — code and screenshots withheld",
+    role: "Role",
+  },
+  experience: {
+    eyebrow: "Experience",
+    heading: "Six years, mostly spent making large frontends smaller.",
+    present: "Present",
+    education: "Education",
+    highlights: "Highlights",
+  },
+  skills: {
+    eyebrow: "Capabilities",
+    heading: "What I reach for, and what I reach for it to do.",
+    description:
+      "Grouped by the problem rather than the logo. No proficiency bars: a self-assigned 80% is not information.",
+  },
   contact: {
     eyebrow: "Contact",
     heading: "Let's build something that lasts.",

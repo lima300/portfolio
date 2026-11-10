@@ -559,3 +559,31 @@ html[data-theme-switching]::view-transition-new(root) {
     opacity: 1;
   }
 }
+
+/* ==========================================================================
+   Spotlight
+   A soft glow that follows the cursor across a card. The handler only writes
+   two custom properties; the gradient itself is declarative, so nothing is
+   recalculated in JavaScript per frame.
+   ========================================================================== */
+
+[data-spotlight]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out-expo);
+  background: radial-gradient(
+    22rem circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+    var(--accent-soft),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  [data-spotlight]:hover::before {
+    opacity: 1;
+  }
+}
