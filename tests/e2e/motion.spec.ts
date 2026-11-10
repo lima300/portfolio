@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Locator, type Page } from "@playwright/test";
 
 const KITCHEN_SINK = "/en/dev/kitchen-sink";
 
@@ -74,6 +74,26 @@ test.describe("count up", () => {
  * keyboard to dismiss them with — so asserting them on a simulated phone
  * tests the wrong contract.
  */
+/**
+ * Focuses a trigger until its tooltip opens.
+ *
+ * Focusing before hydration completes is a no-op as far as Radix is
+ * concerned, and under parallel load that window is wide enough to matter.
+ * Retrying the focus alone does not help either: an element that is already
+ * focused fires no further focus event, so every retry after the first is
+ * silent. Blurring first is what makes each attempt a real event.
+ */
+async function focusUntilTooltip(page: Page, trigger: Locator) {
+  await expect(async () => {
+    await page.evaluate(() => {
+      const active = document.activeElement;
+      if (active instanceof HTMLElement) active.blur();
+    });
+    await trigger.focus();
+    await expect(page.getByRole("tooltip")).toBeVisible({ timeout: 1000 });
+  }).toPass({ timeout: 15_000 });
+}
+
 test.describe("tooltip", () => {
   test.skip(({ isMobile }) => !!isMobile, "no hover or keyboard on touch");
 
@@ -82,18 +102,8 @@ test.describe("tooltip", () => {
 
     const trigger = page.getByRole("button", { name: "GitHub profile" }).nth(1);
 
-    /*
-     * `toPass` retries the focus as well as the assertion. Focusing before
-     * hydration completes is a no-op as far as Radix is concerned, and under
-     * parallel load that window is wide enough to matter — retrying the
-     * assertion alone would just watch a tooltip that was never asked to open.
-     */
-    await expect(async () => {
-      await trigger.focus();
-      await expect(page.getByRole("tooltip")).toContainText("GitHub", {
-        timeout: 1000,
-      });
-    }).toPass({ timeout: 15_000 });
+    await focusUntilTooltip(page, trigger);
+    await expect(page.getByRole("tooltip")).toContainText("GitHub");
   });
 
   test("dismisses on Escape", async ({ page }) => {
@@ -101,10 +111,7 @@ test.describe("tooltip", () => {
 
     const trigger = page.getByRole("button", { name: "GitHub profile" }).nth(1);
 
-    await expect(async () => {
-      await trigger.focus();
-      await expect(page.getByRole("tooltip")).toBeVisible({ timeout: 1000 });
-    }).toPass({ timeout: 15_000 });
+    await focusUntilTooltip(page, trigger);
 
     await page.keyboard.press("Escape");
     await expect(page.getByRole("tooltip")).toBeHidden();
