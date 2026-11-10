@@ -587,3 +587,37 @@ html[data-theme-switching]::view-transition-new(root) {
     opacity: 1;
   }
 }
+
+/* ==========================================================================
+   Timeline
+   The progress line fills as the timeline travels through the viewport —
+   a scroll-driven animation, so there is no scroll listener and no
+   main-thread work.
+
+   The overlay only exists where that is supported *and* motion is not
+   reduced. Everywhere else there is simply the muted rule, which is a
+   perfectly good timeline.
+   ========================================================================== */
+
+[data-timeline-progress] {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    [data-timeline-progress] {
+      display: block;
+      transform-origin: top center;
+      scale: 1 0;
+      animation: timeline-fill linear both;
+      animation-timeline: view();
+      animation-range: entry 90% exit 10%;
+    }
+  }
+}
+
+@keyframes timeline-fill {
+  to {
+    scale: 1 1;
+  }
+}
