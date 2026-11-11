@@ -1,4 +1,4 @@
-import { ArrowUpRight, ExternalLink, Lock } from "lucide-react";
+import { ArrowRight, ArrowUpRight, ExternalLink, Lock } from "lucide-react";
 import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
@@ -169,6 +169,14 @@ export async function SelectedWork() {
             </li>
           ))}
         </ul>
+
+        <Link
+          href={routes.lab(locale)}
+          className="inline-flex w-fit items-center gap-1.5 self-end text-small font-medium text-fg-muted transition-colors duration-200 hover:text-accent"
+        >
+          {messages.work.moreInLab}
+          <ArrowRight aria-hidden className="size-4" />
+        </Link>
       </Container>
     </section>
   );

@@ -136,3 +136,49 @@ test.describe("colophon", () => {
     ).toBeVisible();
   });
 });
+
+test.describe("lab", () => {
+  test("opens from the selected work section", async ({ page }) => {
+    await page.goto("/en");
+    const work = page.getByRole("region", {
+      name: /platforms that stayed fast/i,
+    });
+    await work.getByRole("link", { name: /side projects in the lab/i }).click();
+
+    await expect(page).toHaveURL(/\/en\/lab$/);
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Zeno's Paradox" }),
+    ).toBeVisible();
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Barber Time" }),
+    ).toBeVisible();
+  });
+
+  test("links every project to its code, named per project", async ({
+    page,
+  }) => {
+    await page.goto("/en/lab");
+
+    for (const [name, repo] of [
+      ["Zeno's Paradox", "achilles-torroise-paradox"],
+      ["Barber Time", "barber-time"],
+    ]) {
+      const link = page.getByRole("link", { name: `Code: ${name}` });
+      await expect(link).toHaveAttribute(
+        "href",
+        `https://github.com/lima300/${repo}`,
+      );
+      await expect(link).toHaveAttribute("rel", /noreferrer/);
+    }
+  });
+
+  test("is translated", async ({ page }) => {
+    await page.goto("/pt-br/lab");
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: /coisas menores, feitas para aprender algo/i,
+      }),
+    ).toBeVisible();
+  });
+});

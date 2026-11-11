@@ -8,6 +8,7 @@ const ROUTES = [
   "/en/about",
   "/en/resume",
   "/pt-br/colophon",
+  "/pt-br/lab",
 ];
 
 /**

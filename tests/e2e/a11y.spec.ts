@@ -13,6 +13,7 @@ const ROUTES = [
   "/pt-br/resume",
   "/en/resume",
   "/en/colophon",
+  "/en/lab",
 ];
 
 /**

@@ -56,6 +56,7 @@ const ptBr: Messages = {
     viewCode: "Código",
     confidential: "Trabalho de cliente — código e telas não divulgados",
     role: "Função",
+    moreInLab: "Projetos pessoais no lab",
   },
   caseStudy: {
     backToWork: "Todos os projetos",
@@ -149,6 +150,15 @@ const ptBr: Messages = {
       "Como este site é construído: a stack, as decisões por trás dela e os orçamentos que ele precisa respeitar.",
     eyebrow: "Colofão",
     heading: "Como este site é construído.",
+  },
+  lab: {
+    title: "Lab",
+    description:
+      "Projetos pessoais e experimentos de Otávio Lima: menores que os cases, e todos open source.",
+    eyebrow: "Lab",
+    heading: "Coisas menores, feitas para aprender algo.",
+    intro:
+      "Projetos fora do trabalho. Cada um existe para testar uma ideia direito — um modelo de framework, um pedaço de matemática — e todos são open source.",
   },
   footer: {
     builtWith: "Feito com Next.js, TypeScript e Tailwind CSS.",

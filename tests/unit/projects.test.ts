@@ -85,6 +85,18 @@ describe("lab projects", () => {
     for (const project of labProjects) {
       expectComplete(project.outcome, project.slug);
       expect(project.stack.length, project.slug).toBeGreaterThan(0);
+      expect(project.highlights, project.slug).toHaveLength(3);
+      project.highlights.forEach((item, index) =>
+        expectComplete(item, `${project.slug}.highlights[${index}]`),
+      );
+    }
+  });
+
+  it("links each one to its public repository", () => {
+    for (const project of labProjects) {
+      expect(project.repo, project.slug).toMatch(
+        /^https:\/\/github\.com\/lima300\//,
+      );
     }
   });
 });

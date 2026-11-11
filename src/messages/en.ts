@@ -55,6 +55,7 @@ const en = {
     viewCode: "Code",
     confidential: "Client work — code and screenshots withheld",
     role: "Role",
+    moreInLab: "Side projects in the lab",
   },
   caseStudy: {
     backToWork: "All work",
@@ -147,6 +148,15 @@ const en = {
       "How this site is built: the stack, the decisions behind it, and the budgets it is held to.",
     eyebrow: "Colophon",
     heading: "How this site is built.",
+  },
+  lab: {
+    title: "Lab",
+    description:
+      "Side projects and experiments by Otávio Lima: smaller than the case studies, and all open source.",
+    eyebrow: "Lab",
+    heading: "Smaller things, built to learn something.",
+    intro:
+      "Side projects outside the day job. Each one exists to try an idea properly — a framework model, a piece of mathematics — and each one is open source.",
   },
   footer: {
     builtWith: "Built with Next.js, TypeScript and Tailwind CSS.",

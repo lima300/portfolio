@@ -30,13 +30,7 @@ export type Project = {
    * no proprietary screenshots, per the Bentley and SYDLE constraints.
    */
   motif: "federation" | "migration" | "components";
-  /**
-   * Public repository, if there is one.
-   *
-   * TODO(otavio): the live and repository URLs for the DXP, Barber Time and
-   * Zeno's Paradox are not published yet. Left empty rather than guessed —
-   * a broken link on a portfolio is worse than a missing one.
-   */
+  /** Public repository, if there is one. */
   repo?: string;
   live?: string;
   /** True when the client cannot be named or the code shown. */
@@ -106,6 +100,7 @@ export const projects: readonly Project[] = [
       },
     ],
     motif: "federation",
+    repo: "https://github.com/lima300/developer-experience-platform",
     rank: 1,
   },
   {
@@ -247,9 +242,14 @@ export type LabProject = {
   slug: string;
   title: string;
   outcome: Localized;
+  /**
+   * Three things worth knowing, each taken from the project's own README —
+   * the lab card summarises the repository, it does not embellish it.
+   */
+  highlights: readonly Localized[];
   stack: readonly string[];
-  /** TODO(otavio): confirm deployment URLs, then fill these in. */
-  repo?: string;
+  repo: string;
+  /** No deployments yet; the card links the code alone until there is one. */
   live?: string;
 };
 
@@ -259,6 +259,34 @@ export type LabProject = {
  */
 export const labProjects: readonly LabProject[] = [
   {
+    slug: "zenos-paradox",
+    title: "Zeno's Paradox",
+    outcome: {
+      en: "Achilles and the tortoise, animated to the actual mathematics.",
+      "pt-br":
+        "Aquiles e a tartaruga, animados conforme a matemática de verdade.",
+    },
+    highlights: [
+      {
+        en: "Positions come from the real series, so the animation shows exactly when and where an infinite sequence of gaps closes in finite time.",
+        "pt-br":
+          "As posições vêm da série de verdade, então a animação mostra exatamente quando e onde uma sequência infinita de distâncias se fecha em tempo finito.",
+      },
+      {
+        en: "Play, pause, step through each interval, or change the speeds and the head start and watch the meeting point move.",
+        "pt-br":
+          "Dá para tocar, pausar, avançar intervalo por intervalo, ou mudar as velocidades e a vantagem inicial e ver o ponto de encontro se mover.",
+      },
+      {
+        en: "The mathematics lives in pure functions, apart from the components and the animation loop that draw it.",
+        "pt-br":
+          "A matemática vive em funções puras, separada dos componentes e do loop de animação que a desenham.",
+      },
+    ],
+    stack: ["React", "TypeScript", "Vite", "Framer Motion"],
+    repo: "https://github.com/lima300/achilles-torroise-paradox",
+  },
+  {
     slug: "barber-time",
     title: "Barber Time",
     outcome: {
@@ -266,6 +294,23 @@ export const labProjects: readonly LabProject[] = [
       "pt-br":
         "Um app de agendamentos no App Router, com tudo no lado do servidor.",
     },
+    highlights: [
+      {
+        en: "Server Components read straight from PostgreSQL through Prisma, with no REST layer in between for reads.",
+        "pt-br":
+          "Server Components leem direto do PostgreSQL via Prisma, sem uma camada REST no meio para as leituras.",
+      },
+      {
+        en: "Google sign-in through NextAuth, with sessions persisted in the database so they survive a deploy.",
+        "pt-br":
+          "Login com Google via NextAuth, com sessões persistidas no banco para sobreviverem a um deploy.",
+      },
+      {
+        en: "A mobile-first booking flow: search, a service sheet, a date picker and a 30-minute slot grid.",
+        "pt-br":
+          "Um fluxo de agendamento pensado para o celular: busca, detalhes do serviço, seletor de data e uma grade de horários de 30 minutos.",
+      },
+    ],
     stack: [
       "Next.js",
       "React Server Components",
@@ -274,15 +319,6 @@ export const labProjects: readonly LabProject[] = [
       "NextAuth",
       "Zod",
     ],
-  },
-  {
-    slug: "zenos-paradox",
-    title: "Zeno's Paradox",
-    outcome: {
-      en: "Achilles and the tortoise, animated to the actual mathematics.",
-      "pt-br":
-        "Aquiles e a tartaruga, animados conforme a matemática de verdade.",
-    },
-    stack: ["React", "SVG", "Motion"],
+    repo: "https://github.com/lima300/barber-time",
   },
 ] as const;
