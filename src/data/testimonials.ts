@@ -31,7 +31,10 @@ export const testimonials: readonly Testimonial[] = [
   {
     id: "ivan-gasparetto",
     name: "Ivan Gasparetto Filho",
-    role: { en: "Manager", "pt-br": "Gestor" },
+    role: {
+      en: "Director of Software Development",
+      "pt-br": "Diretor de Desenvolvimento de Software",
+    },
     company: "Bentley Systems",
     relationship: {
       en: "Managed me directly",
@@ -64,8 +67,8 @@ export const testimonials: readonly Testimonial[] = [
     role: { en: "Frontend Engineer", "pt-br": "Engenheiro Frontend" },
     company: "Bentley Systems",
     relationship: {
-      en: "Engineer I mentored on the frontend team",
-      "pt-br": "Engenheiro que mentorei no time de frontend",
+      en: "Teammate on the frontend team",
+      "pt-br": "Colega no time de frontend",
     },
     quote: {
       en: "I had the pleasure of working with Otávio for quite a while on the frontend team — both on projects we built side by side and on separate ones that were part of a bigger product. He's super committed, has solid technical skills, and is always learning and staying ahead of the curve.\n\nHe's one of those people you naturally turn to when you need a second opinion or want to sanity check an idea — especially when it comes to React. A solid dev, great to work with, and someone I’d definitely team up with again.",
