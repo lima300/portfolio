@@ -554,6 +554,14 @@ html[data-theme-switching]::view-transition-new(root) {
     translate: 0 110%;
     opacity: 0;
   }
+  /*
+   * Full opacity a quarter of the way in. The mask is doing the reveal; the
+   * fade only softens the first instant, and holding it longer leaves large
+   * display type sitting below contrast for most of the animation.
+   */
+  25% {
+    opacity: 1;
+  }
   to {
     translate: 0 0;
     opacity: 1;

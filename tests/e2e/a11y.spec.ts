@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 const ROUTES = [
   "/en",
@@ -9,9 +9,46 @@ const ROUTES = [
   "/en/dev/kitchen-sink",
 ];
 
+/**
+ * Waits for entrance animations to finish before scanning.
+ *
+ * Without this the scan races the page: it once caught a hero word mid-fade
+ * at 1.33:1 and reported a contrast violation for a state that lasts 400ms
+ * and that no one is expected to read. Transient frames of an entrance are
+ * not what WCAG 1.4.3 is about, and a scan that fires at a different moment
+ * on every run is not a gate.
+ *
+ * Only time-driven, finite animations are awaited. The aurora loops forever
+ * and the timeline fills on scroll, so their `finished` promises never
+ * settle — awaiting those would hang the test rather than stabilise it.
+ */
+async function settleAnimations(page: Page) {
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        const pending = document
+          .getAnimations()
+          .filter((animation) => {
+            if (animation.timeline !== document.timeline) return false;
+            const timing = animation.effect?.getTiming();
+            return timing ? timing.iterations !== Infinity : false;
+          })
+          .map((animation) => animation.finished.catch(() => undefined));
+
+        // A safety net, so a stalled animation fails the assertion rather
+        // than the test runner's global timeout.
+        const timeout = new Promise<void>((done) => setTimeout(done, 3000));
+        void Promise.race([Promise.all(pending), timeout]).then(() =>
+          resolve(),
+        );
+      }),
+  );
+}
+
 for (const route of ROUTES) {
   test(`${route} has no accessibility violations`, async ({ page }) => {
     await page.goto(route);
+    await settleAnimations(page);
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
