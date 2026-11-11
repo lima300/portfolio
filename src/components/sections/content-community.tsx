@@ -16,6 +16,8 @@ import {
   mentoring,
 } from "@/data/content";
 import { getI18n } from "@/i18n/dictionary";
+import { getYearsOfExperience } from "@/lib/build-time";
+import { withYears } from "@/lib/years";
 import { cn } from "@/lib/cn";
 
 /**
@@ -29,6 +31,7 @@ import { cn } from "@/lib/cn";
  */
 export async function ContentCommunity() {
   const { locale, messages } = await getI18n();
+  const years = await getYearsOfExperience();
 
   return (
     <section
@@ -148,7 +151,7 @@ export async function ContentCommunity() {
                       {theme.title[locale]}
                     </h4>
                     <p className="mt-2 text-small text-fg-muted">
-                      {theme.description[locale]}
+                      {withYears(theme.description[locale], years)}
                     </p>
                   </Card>
                 </Reveal>

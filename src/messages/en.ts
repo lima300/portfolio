@@ -38,7 +38,7 @@ const en = {
     subline:
       "Senior Frontend Engineer, {years}+ years. I build micro-frontends, design systems and the developer experience around them. Remote from Brazil (GMT-3), with a working day that overlaps US hours.",
     viewWork: "View work",
-    downloadResume: "Download résumé",
+    resume: "Résumé",
     copyEmail: "Copy email",
   },
   impact: {
@@ -68,7 +68,7 @@ const en = {
   },
   experience: {
     eyebrow: "Experience",
-    heading: "Six years, mostly spent making large frontends smaller.",
+    heading: "{years}+ years, mostly spent making large frontends smaller.",
     present: "Present",
     education: "Education",
     highlights: "Highlights",

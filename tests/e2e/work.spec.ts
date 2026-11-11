@@ -66,12 +66,31 @@ test.describe("selected work", () => {
 });
 
 test.describe("experience timeline", () => {
+  test("states the same career length as the hero", async ({ page }) => {
+    await page.goto("/en");
+
+    const hero = await page
+      .getByText(/Senior Frontend Engineer, \d+\+ years/)
+      .textContent();
+    const years = hero?.match(/(\d+)\+ years/)?.[1];
+    expect(years).toBeTruthy();
+
+    await expect(
+      page.getByRole("heading", {
+        level: 2,
+        name: new RegExp(`^${years}\\+ years, mostly spent`),
+      }),
+    ).toBeVisible();
+  });
+
   test("lists every role, newest first, as an ordered list", async ({
     page,
   }) => {
     await page.goto("/en");
 
-    const timeline = page.getByRole("region", { name: /six years/i });
+    const timeline = page.getByRole("region", {
+      name: /\d+\+ years, mostly spent/i,
+    });
     await timeline.scrollIntoViewIfNeeded();
 
     const headings = timeline.getByRole("heading", { level: 3 });
@@ -144,7 +163,9 @@ test.describe("experience timeline", () => {
   test("shows education with the institution and result", async ({ page }) => {
     await page.goto("/en");
 
-    const timeline = page.getByRole("region", { name: /six years/i });
+    const timeline = page.getByRole("region", {
+      name: /\d+\+ years, mostly spent/i,
+    });
     await expect(
       timeline.getByText(/Federal University of Lavras.*GPA 92\/100/),
     ).toBeVisible();

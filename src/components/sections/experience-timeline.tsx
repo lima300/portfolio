@@ -4,6 +4,8 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { education, experience } from "@/data/experience";
 import { getI18n } from "@/i18n/dictionary";
+import { getYearsOfExperience } from "@/lib/build-time";
+import { withYears } from "@/lib/years";
 import { formatMonth, formatRange } from "@/lib/format-date";
 
 /**
@@ -19,6 +21,7 @@ import { formatMonth, formatRange } from "@/lib/format-date";
  */
 export async function ExperienceTimeline() {
   const { locale, messages } = await getI18n();
+  const years = await getYearsOfExperience();
 
   return (
     <section
@@ -29,7 +32,7 @@ export async function ExperienceTimeline() {
       <Container className="flex flex-col gap-12">
         <SectionHeading
           eyebrow={messages.experience.eyebrow}
-          title={messages.experience.heading}
+          title={withYears(messages.experience.heading, years)}
           headingId="experience-heading"
         />
 

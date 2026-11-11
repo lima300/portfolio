@@ -11,6 +11,7 @@ import { getYearsOfExperience } from "@/lib/build-time";
 import { formatMonth, formatRange } from "@/lib/format-date";
 import { routes } from "@/lib/routes";
 import { site } from "@/lib/site";
+import { withYears } from "@/lib/years";
 
 /*
  * The résumé, as a page that is also the PDF.
@@ -110,7 +111,7 @@ export default async function ResumePage() {
             {messages.resume.summary}
           </SectionTitle>
           <p className="text-body text-fg">
-            {messages.hero.subline.replace("{years}", String(years))}
+            {withYears(messages.hero.subline, years)}
           </p>
         </section>
 

@@ -1,4 +1,4 @@
-import { ArrowRight, Download } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import Link from "next/link";
 
 import { CopyEmail } from "@/components/features/copy-email";
@@ -12,6 +12,7 @@ import { getI18n } from "@/i18n/dictionary";
 import { getYearsOfExperience } from "@/lib/build-time";
 import { cn } from "@/lib/cn";
 import { routes } from "@/lib/routes";
+import { withYears } from "@/lib/years";
 
 /**
  * The sixty-second pitch.
@@ -40,7 +41,7 @@ export async function Hero() {
         </h1>
 
         <p className="measure text-lead text-fg-muted">
-          {messages.hero.subline.replace("{years}", String(years))}
+          {withYears(messages.hero.subline, years)}
         </p>
 
         <div className="mt-1 flex flex-wrap items-center gap-3">
@@ -58,8 +59,8 @@ export async function Hero() {
             href={routes.resume(locale)}
             className={cn(buttonStyles({ variant: "secondary", size: "lg" }))}
           >
-            <Download aria-hidden className="size-4" />
-            {messages.hero.downloadResume}
+            <FileText aria-hidden className="size-4" />
+            {messages.hero.resume}
           </Link>
 
           <CopyEmail variant="ghost" size="lg" />

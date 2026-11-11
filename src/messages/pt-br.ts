@@ -39,7 +39,7 @@ const ptBr: Messages = {
     subline:
       "Engenheiro Frontend Sênior, {years}+ anos. Construo micro-frontends, design systems e a experiência de desenvolvimento por trás deles. Remoto do Brasil (GMT-3), com um dia de trabalho que cruza com o horário dos EUA.",
     viewWork: "Ver projetos",
-    downloadResume: "Baixar currículo",
+    resume: "Currículo",
     copyEmail: "Copiar e-mail",
   },
   impact: {
@@ -70,7 +70,7 @@ const ptBr: Messages = {
   experience: {
     eyebrow: "Experiência",
     heading:
-      "Seis anos, a maior parte deles deixando frontends grandes menores.",
+      "{years}+ anos, a maior parte deles deixando frontends grandes menores.",
     present: "Atual",
     education: "Formação",
     highlights: "Destaques",

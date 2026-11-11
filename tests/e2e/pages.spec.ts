@@ -3,7 +3,11 @@ import { expect, test } from "@playwright/test";
 test.describe("résumé", () => {
   test("opens from the hero and lists every role", async ({ page }) => {
     await page.goto("/en");
-    await page.getByRole("link", { name: /download résumé/i }).click();
+    // Scoped to <main>: the nav carries a "Résumé" link of its own.
+    await page
+      .getByRole("main")
+      .getByRole("link", { name: "Résumé", exact: true })
+      .click();
 
     await expect(page).toHaveURL(/\/en\/resume$/);
     await expect(
@@ -97,9 +101,9 @@ test.describe("about", () => {
     await expect(
       page.getByRole("region", { name: /what the people i worked with say/i }),
     ).toHaveCount(1);
-    await expect(page.getByRole("region", { name: /six years/i })).toHaveCount(
-      1,
-    );
+    await expect(
+      page.getByRole("region", { name: /\d+\+ years, mostly spent/i }),
+    ).toHaveCount(1);
   });
 });
 

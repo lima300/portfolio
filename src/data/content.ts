@@ -64,9 +64,9 @@ export const contentThemes: readonly ContentTheme[] = [
       "pt-br": "Disciplina acima de motivação",
     },
     description: {
-      en: "The unglamorous half of a career in software: showing up, shipping, and the habits that make six years add up to something.",
+      en: "The unglamorous half of a career in software: showing up, shipping, and the habits that make {years} years add up to something.",
       "pt-br":
-        "A metade sem glamour de uma carreira em software: aparecer, entregar, e os hábitos que fazem seis anos somarem alguma coisa.",
+        "A metade sem glamour de uma carreira em software: aparecer, entregar, e os hábitos que fazem {years} anos somarem alguma coisa.",
     },
   },
 ] as const;

@@ -72,7 +72,12 @@ export default async function AboutPage() {
             </p>
           </div>
 
-          <Reveal className="lg:col-span-2">
+          {/*
+            No <Reveal> here: this card is above the fold, so a fade would
+            only delay content that is already on screen — and leave it
+            below contrast while it runs.
+          */}
+          <div className="lg:col-span-2">
             <Card variant="sunken" padding="lg">
               <h2 className="font-mono text-label tracking-widest text-fg-subtle uppercase">
                 {messages.about.factsEyebrow}
@@ -90,7 +95,7 @@ export default async function AboutPage() {
                 ))}
               </dl>
             </Card>
-          </Reveal>
+          </div>
         </Container>
       </section>
 
