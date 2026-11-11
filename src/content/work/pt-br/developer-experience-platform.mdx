@@ -8,8 +8,10 @@ gargalo.
 
 A Plataforma de Experiência do Desenvolvedor é a minha resposta à pergunta que
 esse problema sempre faz — **como cinco times fazem deploy de forma
-independente sem quebrar uns aos outros?** — construída como um sistema que
-funciona, e não como um diagrama num slide.
+independente sem quebrar uns aos outros?** É um projeto pessoal que modela uma
+plataforma interna do jeito que uma organização grande a operaria, construído
+como um sistema que funciona, e não como um diagrama num slide, e é
+[open source](https://github.com/lima300/developer-experience-platform).
 
 ## Restrições
 
@@ -22,17 +24,24 @@ funciona, e não como um diagrama num slide.
 
 ## Arquitetura
 
-Um **shell host**, construído com Webpack 5, é dono do que toda página
-compartilha: layout, navegação, autenticação e controle de acesso por papéis.
-Ele não sabe, em tempo de build, o que o produto contém. Em tempo de execução,
-lê um **registro** de remotes e das rotas de cada um, e os carrega via Module
-Federation.
+Um **shell host**, construído com Webpack 5, é dono das responsabilidades da
+plataforma: autenticação, navegação, orquestração de rotas, controle de acesso
+por papéis, error boundaries e telemetria. O mapa estático de `remotes` dele é
+vazio de propósito. Em tempo de execução, ele busca um **registro** — a fonte
+da verdade de rota, URL, versão, permissões e estado de cada remote — e
+carrega cada remote via Module Federation na primeira vez que sua rota é
+visitada.
 
-Cada **remote**, construído com Rsbuild, é dono de uma fatia do produto e tem
-deploy próprio. Host e remotes seguem um **contrato de federação tipado**,
-compartilham **design tokens** para parecerem uma única aplicação e expõem
-ganchos de observabilidade para que uma falha possa ser rastreada até o remote
-que a causou. A plataforma inteira vive num monorepo Turborepo.
+Cinco **remotes**, cada um construído com Rsbuild, são donos do produto:
+feature flags, experimentos, logs, um explorador de API e documentação. Cada
+um expõe exatamente uma coisa, uma função `mount(container, props)`, e nada
+mais atravessa a fronteira.
+
+Três pacotes compartilhados mantêm o sistema coerente sem acoplar os times
+entre si: os **contratos de federação**, um **pacote de UI** com primitivas e
+design tokens, e um wrapper de **observabilidade** que registra quanto tempo
+cada remote leva para carregar. A plataforma inteira vive num monorepo
+Turborepo.
 
 ## Decisões e trade-offs
 
@@ -40,37 +49,49 @@ que a causou. A plataforma inteira vive num monorepo Turborepo.
 
 Se o código de cada time fosse um pacote npm, o host teria que refazer build e
 deploy para receber qualquer mudança, o que coloca todos os times de volta no
-mesmo trem de release. O Module Federation carrega os remotes em tempo de
-execução, então o deploy de um remote entra no ar sem que o host seja tocado.
-O custo é que a integração passa a acontecer em produção — e é para isso que
-serve a próxima decisão.
+mesmo trem de release. Aqui o shell não importa nenhum remote de forma
+estática: adicionar, desativar ou apontar um remote para outro lugar é uma
+mudança no registro, e não no shell. O custo é que a integração passa a
+acontecer no navegador — e é para isso que serve a próxima decisão.
 
 </Decision>
 
-<Decision chose="Um contrato tipado" over="Convenção">
+<Decision chose="Contratos verificados duas vezes" over="Confiar na fronteira">
 
-A composição em tempo de execução leva o ponto de integração para o navegador,
-onde uma incompatibilidade entre host e remote é uma tela em branco. Descrever
-o contrato em TypeScript e verificá-lo no build transforma uma mudança
-incompatível em erro de compilação para o time que a fez, antes que chegue a
-qualquer outro.
-
-</Decision>
-
-<Decision chose="Roteamento orientado a registro" over="Rotas fixas no host">
-
-Se o host listasse todas as rotas, adicionar uma página exigiria uma release do
-host, e o host viraria, silenciosamente, o gargalo que a plataforma existe para
-eliminar. Com um registro, um novo remote ou rota é uma mudança de dados.
+Em tempo de execução, uma incompatibilidade entre host e remote é uma tela em
+branco. Os contratos são interfaces TypeScript, que pegam uma mudança
+incompatível na compilação, e schemas Zod, que verificam os dados que de fato
+chegam: o registro é validado antes de o shell lê-lo, e a função de mount de
+cada remote é validada antes de o shell chamá-la.
 
 </Decision>
 
-<Decision chose="Um error boundary por remote" over="Um boundary para a aplicação">
+<Decision chose="Router e cache isolados por remote" over="Estado global compartilhado">
 
-Isolamento só é real se as falhas também forem isoladas. Cada remote renderiza
-dentro do próprio boundary, então uma quebra degrada apenas aquela fatia da
-página, e o shell, a navegação e todos os outros remotes continuam
-funcionando.
+Cada remote é montado com um router próprio em memória, para que o shell siga
+sendo o único dono da URL, e com um cache de queries novo, para que nenhum
+remote leia ou corrompa os dados de outro. Desmontar libera os dois. Os times
+perdem a conveniência de mexer em estado compartilhado — e esse é justamente o
+objetivo.
+
+</Decision>
+
+<Decision chose="Falha isolada por remote" over="Um error boundary para a aplicação">
+
+Cada remote carrega com timeout e nova tentativa, renderiza dentro do próprio
+error boundary e, se falhar, cai numa tela de nova tentativa só dele. Um
+remote quebrado degrada uma rota; o shell, a navegação e todos os outros
+remotes continuam funcionando.
+
+</Decision>
+
+<Decision chose="Uma CLI de scaffolding" over="Copiar o último remote">
+
+O `create-mfe` gera um remote novo já configurado com Rsbuild, Module
+Federation, os contratos, os design tokens compartilhados e uma estrutura de
+testes com limites de cobertura. Depois, uma entrada no registro o coloca no
+ar. As convenções da plataforma ficam codificadas numa ferramenta, e não em
+conhecimento tribal.
 
 </Decision>
 
@@ -80,7 +101,12 @@ Cinco remotes fazem deploy de forma independente, e publicar um não exige
 nenhuma coordenação com os outros: os dois números no topo desta página são
 propriedades da arquitetura, e não de uma semana boa. Responsabilidades que
 cada time resolveria por conta própria — roteamento, permissões, tratamento de
-falhas, linguagem visual — são resolvidas uma vez, na plataforma.
+falhas, telemetria, linguagem visual — são resolvidas uma vez, na plataforma.
+
+A barra de qualidade faz parte do design, porque frontends distribuídos falham
+nas fronteiras: TypeScript estrito, um teste do contrato de mount em cada
+remote, limites de 80% de cobertura e uma CI rodando lint, tipos, testes e
+builds em todo o monorepo.
 
 {/*
   TODO(otavio): ver a versão em inglês — mesmos itens pendentes.

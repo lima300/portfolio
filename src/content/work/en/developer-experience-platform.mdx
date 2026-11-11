@@ -7,7 +7,10 @@ team's fix, and the deploy queue becomes the real bottleneck.
 
 The Developer Experience Platform is my answer to the question that problem
 keeps asking — **how do five teams deploy independently without breaking each
-other?** — built as a working system rather than a diagram on a slide.
+other?** It is a personal project that models an internal platform the way a
+large organisation would run one, built as a working system rather than a
+diagram on a slide, and it is
+[open source](https://github.com/lima300/developer-experience-platform).
 
 ## Constraints
 
@@ -20,17 +23,22 @@ other?** — built as a working system rather than a diagram on a slide.
 
 ## Architecture
 
-A **host shell**, built with Webpack 5, owns what every page shares: the
-layout, navigation, authentication and role-based access control. It does not
-know at build time what the product contains. At runtime it reads a
-**registry** of remotes and the routes each one owns, and loads them through
-Module Federation.
+A **host shell**, built with Webpack 5, owns the platform's concerns:
+authentication, navigation, route orchestration, role-based access control,
+error boundaries and telemetry. Its static `remotes` map is deliberately
+empty. At runtime it fetches a **registry** — the source of truth for every
+remote's route, URL, version, permissions and enabled state — and loads each
+remote through Module Federation when its route is first visited.
 
-Each **remote**, built with Rsbuild, owns one slice of the product and is
-deployed on its own. Host and remotes agree on a **typed federation contract**,
-share **design tokens** so they look like one application, and expose
-observability hooks so a failure can be traced to the remote that caused it.
-The whole platform lives in a Turborepo monorepo.
+Five **remotes**, each built with Rsbuild, own the product: feature flags,
+experiments, logs, an API explorer and documentation. Each exposes exactly one
+thing, a `mount(container, props)` function, and nothing else crosses the
+boundary.
+
+Three shared packages keep the system coherent without coupling the teams to
+each other: the **federation contracts**, a **UI package** of primitives and
+design tokens, and an **observability** wrapper that records how long each
+remote takes to load. The whole platform lives in a Turborepo monorepo.
 
 ## Decisions and trade-offs
 
@@ -38,49 +46,66 @@ The whole platform lives in a Turborepo monorepo.
 
 If each team's code were an npm package, the host would have to rebuild and
 redeploy to pick up any change, which puts every team back on the same release
-train. Module Federation loads remotes at runtime, so a remote's deploy is
-live without the host being touched. The cost is that integration now
-happens in production, which is what the next decision is for.
+train. Here the shell imports no remote statically: adding, disabling or
+re-pointing one is a change to the registry, not to the shell. The cost is
+that integration now happens in the browser, which is what the next decision
+is for.
 
 </Decision>
 
-<Decision chose="A typed contract" over="Convention">
+<Decision chose="Contracts checked twice" over="Trusting the boundary">
 
-Runtime composition moves the integration point to the browser, where a
-mismatch between host and remote is a blank screen. Describing the contract in
-TypeScript and checking it at build time turns a breaking change into a
-compile error for the team that made it, before it reaches anyone else.
-
-</Decision>
-
-<Decision chose="Registry-driven routing" over="Routes hard-coded in the host">
-
-If the host listed every route, adding a page would mean a host release, and
-the host would quietly become the bottleneck the platform exists to remove.
-With a registry, a new remote or route is a data change.
+At runtime, a mismatch between host and remote is a blank screen. The
+contracts are TypeScript interfaces, which catch a breaking change at compile
+time, and Zod schemas, which check the data that actually arrives: the
+registry is validated before the shell reads it, and every remote's mount
+function is validated before the shell calls it.
 
 </Decision>
 
-<Decision chose="An error boundary per remote" over="One boundary for the app">
+<Decision chose="An isolated router and cache per remote" over="Shared global state">
 
-Isolation is only real if failures are isolated too. Each remote renders
-inside its own boundary, so a crash degrades that slice of the page and the
-shell, navigation and every other remote keep working.
+Every remote mounts with its own in-memory router, so the shell stays the only
+owner of the URL, and with a fresh query cache, so no remote can read or
+corrupt another's data. Unmounting releases both. Teams lose the convenience
+of reaching into shared state, which is the point.
+
+</Decision>
+
+<Decision chose="Failure isolated per remote" over="One error boundary for the app">
+
+Each remote loads with a timeout and a retry, renders inside its own error
+boundary, and fails into a retry screen of its own. A broken remote degrades
+one route; the shell, the navigation and every other remote keep working.
+
+</Decision>
+
+<Decision chose="A scaffolding CLI" over="Copying the last remote">
+
+`create-mfe` generates a new remote already wired for Rsbuild, Module
+Federation, the contracts, the shared design tokens and a test setup with
+coverage thresholds. Then a registry entry puts it live. The platform's
+conventions are encoded in a tool rather than in tribal knowledge.
 
 </Decision>
 
 ## Results
 
 Five remotes deploy independently, and shipping one requires no coordination
-with the others: the two figures at the top of this page are properties of the
-architecture, not of a good week. Concerns every team would otherwise solve
-for itself — routing, permissions, failure handling, the design language —
-are solved once, in the platform.
+with the others: the two figures at the top of this page are properties of
+the architecture, not of a good week. The concerns every team would otherwise
+solve for itself — routing, permissions, failure handling, telemetry, the
+design language — are solved once, in the platform.
+
+The quality bar is part of the design, because distributed frontends fail at
+their boundaries: strict TypeScript, a mount-contract test in every remote,
+80% coverage thresholds, and CI running lint, types, tests and builds across
+the monorepo.
 
 {/*
   TODO(otavio): the template also asks for:
   - why Rsbuild for the remotes but Webpack 5 for the host (build speed?
     plugin compatibility?) — state the real reason, then add a <Decision>;
-  - a "What I'd do differently" section;
-  - the public repository link, in projects.ts (`repo`).
+  - a "What I'd do differently" section. The README's roadmap (canary
+    routing, end-to-end coverage of federation loading) may be a start.
 */}

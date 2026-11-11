@@ -24,6 +24,21 @@ test.describe("selected work", () => {
     ).toHaveCount(3);
   });
 
+  test("links the open-source platform to its code", async ({ page }) => {
+    await page.goto("/en");
+
+    const card = page
+      .getByRole("listitem")
+      .filter({ hasText: "Developer Experience Platform" })
+      .first();
+    await card.scrollIntoViewIfNeeded();
+
+    await expect(card.getByRole("link", { name: "Code" })).toHaveAttribute(
+      "href",
+      "https://github.com/lima300/developer-experience-platform",
+    );
+  });
+
   test("withholds code and live links for client work", async ({ page }) => {
     await page.goto("/en");
 
