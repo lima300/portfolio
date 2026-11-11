@@ -69,7 +69,7 @@ test.describe("footer", () => {
     const page = await context.newPage();
     await page.goto("/en");
 
-    const footer = page.locator("footer");
+    const footer = page.getByRole("contentinfo");
     await expect(footer).toContainText(/It's \d{2}:\d{2} in Brazil/);
 
     const shown = await footer
@@ -94,7 +94,7 @@ test.describe("footer", () => {
     await page.goto("/en");
 
     const elsewhere = page
-      .locator("footer")
+      .getByRole("contentinfo")
       .getByRole("navigation", { name: "Elsewhere" });
 
     for (const name of ["GitHub", "LinkedIn", "Instagram"]) {
