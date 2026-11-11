@@ -64,17 +64,32 @@ test.describe("content and community", () => {
 });
 
 test.describe("testimonials", () => {
-  test("renders nothing while there are no real quotes", async ({ page }) => {
+  test("attributes every quote to a named colleague", async ({ page }) => {
     await page.goto("/en");
 
-    /*
-     * Flip this to an assertion that the quotes *are* present once the
-     * LinkedIn recommendations land in src/data/testimonials.ts. Until then,
-     * the point is that no empty "References" heading ships.
-     */
-    await expect(
-      page.getByRole("region", { name: /what the people i worked with say/i }),
-    ).toHaveCount(0);
+    const section = page.getByRole("region", {
+      name: /what the people i worked with say/i,
+    });
+    await section.scrollIntoViewIfNeeded();
+
+    const quotes = section.locator("blockquote");
+    await expect(quotes).toHaveCount(3);
+    for (const name of [
+      "Ivan Gasparetto Filho",
+      "Gesebel Medeiros",
+      "Leonardo Portes",
+    ]) {
+      await expect(section.getByText(name, { exact: true })).toBeVisible();
+    }
+  });
+
+  test("is translated, not just the chrome", async ({ page }) => {
+    await page.goto("/pt-br");
+
+    const section = page.getByRole("region", {
+      name: /o que dizem as pessoas com quem trabalhei/i,
+    });
+    await expect(section.getByText(/sem hesitar/)).toBeVisible();
   });
 });
 

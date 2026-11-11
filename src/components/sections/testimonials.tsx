@@ -45,8 +45,16 @@ export async function Testimonials() {
                 >
                   <Quote aria-hidden className="size-5 shrink-0 text-accent" />
 
-                  <blockquote className="text-body text-fg">
-                    <p>“{testimonial.quote[locale]}”</p>
+                  <blockquote className="flex flex-col gap-3 text-body text-fg">
+                    {testimonial.quote[locale]
+                      .split("\n\n")
+                      .map((paragraph, i, all) => (
+                        <p key={i}>
+                          {i === 0 && "“"}
+                          {paragraph}
+                          {i === all.length - 1 && "”"}
+                        </p>
+                      ))}
                   </blockquote>
 
                   {/*
