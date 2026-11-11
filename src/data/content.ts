@@ -119,24 +119,40 @@ export type SocialPost = {
  *
  * `kind` is read off the URL — `img_index` only appears on a carousel.
  *
- * TODO(otavio): add a one-line `caption` for each, and optionally a
- * `thumbnail` under /public/content. The cards render without either; a
- * caption just makes them worth clicking.
+ * Ordered as Otávio ranks them. Captions are one-line summaries written for
+ * this page, not the posts' own captions.
+ *
+ * TODO(otavio): optionally add a `thumbnail` for each under /public/content.
  */
 export const featuredPosts: readonly SocialPost[] = [
   {
-    id: "post-1",
-    url: "https://www.instagram.com/p/DPjYE-Rjk2r/",
-    kind: "carousel",
-  },
-  {
-    id: "post-2",
+    id: "javascript-fundamentals",
     url: "https://www.instagram.com/p/DL5oeWNyCDA/",
     kind: "carousel",
+    caption: {
+      en: "Do you understand JavaScript, or just memorise tutorials? The concepts that made it click.",
+      "pt-br":
+        "Você entende JavaScript ou só decora tutorial? Os conceitos que fizeram tudo fazer sentido.",
+    },
   },
   {
-    id: "post-3",
+    id: "free-resources",
+    url: "https://www.instagram.com/p/DPjYE-Rjk2r/",
+    kind: "carousel",
+    caption: {
+      en: "Five free resources that take a developer from starting out to standing out.",
+      "pt-br":
+        "Cinco recursos gratuitos para sair do começo e se destacar como dev.",
+    },
+  },
+  {
+    id: "tech-roadmap",
     url: "https://www.instagram.com/p/DUQm7xsjo95/",
     kind: "carousel",
+    caption: {
+      en: "Getting into tech isn't about being a genius. The roadmap I wish I'd had, in order.",
+      "pt-br":
+        "Entrar em TI não é sobre ser gênio. O roadmap que eu queria ter tido, na ordem certa.",
+    },
   },
 ] as const;
