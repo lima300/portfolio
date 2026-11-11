@@ -1,0 +1,71 @@
+## The problem
+
+An enterprise digital-twin platform had grown into a large React application
+with two problems that made each other worse.
+
+The first was **state**. A single Redux store held almost everything, and
+components subscribed to far more of it than they read, so ordinary
+interactions re-rendered large parts of the page.
+
+The second was **integration**. Features owned by other teams arrived as
+iframes. Each one was a separate document with its own load, its own copy of
+everything, no shared styling, and a `postMessage` boundary for every
+conversation with the page around it.
+
+The product stays unnamed here, and the diagram above is redrawn from
+scratch: none of this work's code or UI can be shown.
+
+## Decisions and trade-offs
+
+<Decision chose="React Query + Zustand" over="One Redux store">
+
+Most of what lived in the store was server data, so the store was doing a
+cache's job without a cache's tools. Splitting state by kind fixed both
+problems at once: server data moved to React Query, which caches, deduplicates
+and refetches it, and the small amount of genuine client state moved to
+Zustand, where a component subscribes to exactly the slice it reads. The
+migration to React 18 landed alongside it.
+
+</Decision>
+
+<Decision chose="Module Federation" over="Iframes">
+
+Iframes isolate by building a wall. Federated modules keep the isolation that
+matters — each team still builds and deploys on its own — while sharing the
+page, the React instance and the design language. Six iframe integrations
+became six independently deployable micro-frontends.
+
+</Decision>
+
+<Decision chose="One reusable pipeline" over="A pipeline per team">
+
+Six independently deployable apps means six deploy paths, and six chances for
+them to drift apart. I built one reusable Azure DevOps pipeline that takes any
+of them to Azure CDN the same way. It became the company-wide reference for
+frontend delivery.
+
+</Decision>
+
+<Decision chose="A testing pyramid" over="End-to-end tests alone">
+
+Independent deploys are only safe if each piece can be trusted on its own.
+Jest and React Testing Library cover behaviour quickly and close to the code;
+Cypress and Playwright sit on top for the journeys that cross boundaries.
+
+</Decision>
+
+## Results
+
+- **60% lower page performance cost** after the state migration.
+- **Six micro-frontends** in place of iframe integrations, each deployed on
+  its own schedule.
+- **A delivery pipeline** that the rest of the company now builds on.
+
+{/*
+  TODO(otavio): the template also asks for:
+  - how the 60% was measured (which metric, which pages, before/after values);
+  - team size and your exact scope, in a "Constraints" section — e.g. whether
+    feature work continued during the migration;
+  - a "What I'd do differently" section.
+  Confidentiality: no client names, internal URLs or screenshots.
+*/}

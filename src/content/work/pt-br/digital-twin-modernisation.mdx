@@ -1,0 +1,66 @@
+## O problema
+
+Uma plataforma corporativa de gêmeos digitais tinha crescido até virar uma
+aplicação React grande, com dois problemas que pioravam um ao outro.
+
+O primeiro era o **estado**. Uma única store Redux guardava quase tudo, e os
+componentes se inscreviam em muito mais do que liam, então interações comuns
+renderizavam de novo partes grandes da página.
+
+O segundo era a **integração**. Funcionalidades de outros times chegavam como
+iframes. Cada um era um documento separado, com carregamento próprio, sua
+própria cópia de tudo, nenhum estilo compartilhado e uma fronteira de
+`postMessage` para qualquer conversa com a página ao redor.
+
+O produto não é nomeado aqui, e o diagrama acima foi redesenhado do zero:
+nada do código ou da interface deste trabalho pode ser mostrado.
+
+## Decisões e trade-offs
+
+<Decision chose="React Query + Zustand" over="Uma store Redux">
+
+A maior parte do que vivia na store era dado do servidor, então a store fazia
+o trabalho de um cache sem as ferramentas de um cache. Separar o estado por
+tipo resolveu os dois problemas de uma vez: dados do servidor foram para o
+React Query, que faz cache, deduplica e busca de novo, e o pouco estado
+realmente de cliente foi para o Zustand, onde um componente se inscreve
+exatamente na fatia que lê. A migração para o React 18 veio junto.
+
+</Decision>
+
+<Decision chose="Module Federation" over="Iframes">
+
+Iframes isolam construindo um muro. Módulos federados mantêm o isolamento que
+importa — cada time continua fazendo build e deploy por conta própria — e
+compartilham a página, a instância do React e a linguagem visual. Seis
+integrações por iframe viraram seis micro-frontends com deploy independente.
+
+</Decision>
+
+<Decision chose="Um pipeline reutilizável" over="Um pipeline por time">
+
+Seis aplicações com deploy independente significam seis caminhos de deploy, e
+seis chances de eles se afastarem. Construí um pipeline reutilizável de Azure
+DevOps que leva qualquer uma delas ao Azure CDN do mesmo jeito. Ele virou a
+referência de entrega de frontend da empresa inteira.
+
+</Decision>
+
+<Decision chose="Uma pirâmide de testes" over="Só testes ponta a ponta">
+
+Deploy independente só é seguro se cada peça for confiável sozinha. Jest e
+React Testing Library cobrem o comportamento rápido e perto do código; Cypress
+e Playwright ficam no topo, para as jornadas que cruzam fronteiras.
+
+</Decision>
+
+## Resultados
+
+- **60% menos custo de performance das páginas** depois da migração de estado.
+- **Seis micro-frontends** no lugar das integrações por iframe, cada um com
+  deploy no próprio ritmo.
+- **Um pipeline de entrega** em que o resto da empresa hoje se apoia.
+
+{/*
+  TODO(otavio): ver a versão em inglês — mesmos itens pendentes.
+*/}

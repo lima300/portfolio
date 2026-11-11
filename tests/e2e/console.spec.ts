@@ -1,6 +1,11 @@
 import { expect, test } from "@playwright/test";
 
-const ROUTES = ["/en", "/pt-br"];
+const ROUTES = [
+  "/en",
+  "/pt-br",
+  "/en/work/developer-experience-platform",
+  "/pt-br/work/digital-twin-modernisation",
+];
 
 /**
  * The browser console is part of the product: a recruiter's engineer friend

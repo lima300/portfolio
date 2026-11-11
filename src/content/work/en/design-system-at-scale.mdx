@@ -1,0 +1,60 @@
+## The problem
+
+The company's products were built on different stacks, and each of them was
+rebuilding the same inputs, tables and dialogs. Every copy behaved slightly
+differently, every fix had to be made several times, and a product's look
+depended on which team had built it.
+
+A component library for one framework would have helped one product. The
+problem was that there was more than one framework.
+
+## Decisions and trade-offs
+
+<Decision chose="Web Components" over="A framework-specific library">
+
+A custom element is understood by every framework and by none in particular,
+so one implementation can serve all of them. The design system was
+framework-agnostic by construction rather than by wrapper: a product adopted
+it without a rewrite, whatever it was built on.
+
+</Decision>
+
+<Decision chose="StencilJS" over="Hand-written custom elements">
+
+Stencil compiles to standard Web Components, so the output carries no
+framework dependency, while authoring stays in TypeScript and JSX with
+lazy-loading built in. At more than a hundred components, that authoring
+experience is what kept the library maintainable.
+
+</Decision>
+
+<Decision chose="Design tokens" over="Styles inside each component">
+
+Colours, spacing and type were defined once as tokens and consumed by every
+component, so a visual decision is made in one place and lands everywhere.
+
+</Decision>
+
+## Beyond the components
+
+The same role covered two other pieces of work worth naming. I refactored the
+company blog to **server-side rendering**, which made it 80% faster and lifted
+sales conversions by 40%. And I migrated legacy JavaScript codebases to
+**TypeScript** incrementally, without freezing feature work while it happened.
+
+## Results
+
+- **100+ components** shipped, serving products on different stacks from one
+  implementation.
+- **30% less application development time**.
+- A **BPMN marketplace** built on the system, used by a platform with more
+  than 100,000 users.
+
+{/*
+  TODO(otavio): the template also asks for:
+  - the constraints you worked under (team size, how adoption was driven,
+    whether existing products migrated or only new ones adopted it);
+  - how the 30% was measured;
+  - a "What I'd do differently" section.
+  Confidentiality: no internal screenshots or code.
+*/}

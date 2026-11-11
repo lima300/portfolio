@@ -1,0 +1,87 @@
+## O problema
+
+Um frontend compartilhado, uma hora, deixa de ser um problema técnico e vira
+um problema de coordenação. Quando vários times contribuem para uma mesma
+aplicação, cada release é a release de todo mundo: a mudança inacabada de um
+time bloqueia a correção de outro, e a fila de deploy vira o verdadeiro
+gargalo.
+
+A Plataforma de Experiência do Desenvolvedor é a minha resposta à pergunta que
+esse problema sempre faz — **como cinco times fazem deploy de forma
+independente sem quebrar uns aos outros?** — construída como um sistema que
+funciona, e não como um diagrama num slide.
+
+## Restrições
+
+- **Cada time controla o próprio ritmo de release.** Nada que um time publique
+  pode exigir que outro time refaça build ou deploy.
+- **Continua sendo um produto só.** Navegação, permissões e linguagem visual
+  precisam parecer uma única aplicação, e não cinco sites costurados.
+- **Uma falha fica local.** Um bug no código de um time não pode derrubar a
+  página para todos os outros.
+
+## Arquitetura
+
+Um **shell host**, construído com Webpack 5, é dono do que toda página
+compartilha: layout, navegação, autenticação e controle de acesso por papéis.
+Ele não sabe, em tempo de build, o que o produto contém. Em tempo de execução,
+lê um **registro** de remotes e das rotas de cada um, e os carrega via Module
+Federation.
+
+Cada **remote**, construído com Rsbuild, é dono de uma fatia do produto e tem
+deploy próprio. Host e remotes seguem um **contrato de federação tipado**,
+compartilham **design tokens** para parecerem uma única aplicação e expõem
+ganchos de observabilidade para que uma falha possa ser rastreada até o remote
+que a causou. A plataforma inteira vive num monorepo Turborepo.
+
+## Decisões e trade-offs
+
+<Decision chose="Composição em tempo de execução" over="Pacotes em tempo de build">
+
+Se o código de cada time fosse um pacote npm, o host teria que refazer build e
+deploy para receber qualquer mudança, o que coloca todos os times de volta no
+mesmo trem de release. O Module Federation carrega os remotes em tempo de
+execução, então o deploy de um remote entra no ar sem que o host seja tocado.
+O custo é que a integração passa a acontecer em produção — e é para isso que
+serve a próxima decisão.
+
+</Decision>
+
+<Decision chose="Um contrato tipado" over="Convenção">
+
+A composição em tempo de execução leva o ponto de integração para o navegador,
+onde uma incompatibilidade entre host e remote é uma tela em branco. Descrever
+o contrato em TypeScript e verificá-lo no build transforma uma mudança
+incompatível em erro de compilação para o time que a fez, antes que chegue a
+qualquer outro.
+
+</Decision>
+
+<Decision chose="Roteamento orientado a registro" over="Rotas fixas no host">
+
+Se o host listasse todas as rotas, adicionar uma página exigiria uma release do
+host, e o host viraria, silenciosamente, o gargalo que a plataforma existe para
+eliminar. Com um registro, um novo remote ou rota é uma mudança de dados.
+
+</Decision>
+
+<Decision chose="Um error boundary por remote" over="Um boundary para a aplicação">
+
+Isolamento só é real se as falhas também forem isoladas. Cada remote renderiza
+dentro do próprio boundary, então uma quebra degrada apenas aquela fatia da
+página, e o shell, a navegação e todos os outros remotes continuam
+funcionando.
+
+</Decision>
+
+## Resultados
+
+Cinco remotes fazem deploy de forma independente, e publicar um não exige
+nenhuma coordenação com os outros: os dois números no topo desta página são
+propriedades da arquitetura, e não de uma semana boa. Responsabilidades que
+cada time resolveria por conta própria — roteamento, permissões, tratamento de
+falhas, linguagem visual — são resolvidas uma vez, na plataforma.
+
+{/*
+  TODO(otavio): ver a versão em inglês — mesmos itens pendentes.
+*/}

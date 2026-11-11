@@ -57,6 +57,16 @@ const ptBr: Messages = {
     confidential: "Trabalho de cliente — código e telas não divulgados",
     role: "Função",
   },
+  caseStudy: {
+    backToWork: "Todos os projetos",
+    tldr: "Resumo",
+    keyFigures: "Números-chave",
+    period: "Período",
+    role: "Papel",
+    stack: "Stack",
+    next: "Próximo case",
+    over: "em vez de",
+  },
   experience: {
     eyebrow: "Experiência",
     heading:

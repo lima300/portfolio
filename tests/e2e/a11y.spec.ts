@@ -7,6 +7,8 @@ const ROUTES = [
   // Scanning the design system directly means a violation is caught in the
   // primitive, not once it has been composed into six different pages.
   "/en/dev/kitchen-sink",
+  "/en/work/developer-experience-platform",
+  "/pt-br/work/design-system-at-scale",
 ];
 
 /**

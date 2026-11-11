@@ -1,3 +1,6 @@
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
+
 import { describe, expect, it } from "vitest";
 
 import {
@@ -82,6 +85,42 @@ describe("lab projects", () => {
     for (const project of labProjects) {
       expectComplete(project.outcome, project.slug);
       expect(project.stack.length, project.slug).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("case studies", () => {
+  const file = (locale: string, slug: string) =>
+    join(process.cwd(), "src/content/work", locale, `${slug}.mdx`);
+
+  it("has a body in every locale for every project", () => {
+    // The page imports the body by path; a missing file is a build-time
+    // crash for that one route, so catch it here first.
+    for (const project of projects) {
+      for (const locale of locales) {
+        expect(
+          existsSync(file(locale, project.slug)),
+          file(locale, project.slug),
+        ).toBe(true);
+      }
+    }
+  });
+
+  it("has a three-bullet TL;DR, translated", () => {
+    for (const project of projects) {
+      expect(project.tldr, project.slug).toHaveLength(3);
+      project.tldr.forEach((item, index) =>
+        expectComplete(item, `${project.slug}.tldr[${index}]`),
+      );
+    }
+  });
+
+  it("starts article headings at h2, since the page owns the h1", () => {
+    for (const project of projects) {
+      for (const locale of locales) {
+        const body = readFileSync(file(locale, project.slug), "utf8");
+        expect(body, `${locale}/${project.slug}`).not.toMatch(/^# /m);
+      }
     }
   });
 });

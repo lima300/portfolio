@@ -1,0 +1,86 @@
+## The problem
+
+A shared frontend eventually stops being a technical problem and becomes a
+coordination problem. When several teams contribute to one application, every
+release is everyone's release: one team's unfinished change blocks another
+team's fix, and the deploy queue becomes the real bottleneck.
+
+The Developer Experience Platform is my answer to the question that problem
+keeps asking — **how do five teams deploy independently without breaking each
+other?** — built as a working system rather than a diagram on a slide.
+
+## Constraints
+
+- **Each team owns its release cadence.** Nothing one team ships should
+  require another team to rebuild or redeploy.
+- **It is still one product.** Navigation, permissions and the visual language
+  have to feel like a single application, not five sites stitched together.
+- **A failure stays local.** A bug in one team's code must not take the page
+  down for everyone else.
+
+## Architecture
+
+A **host shell**, built with Webpack 5, owns what every page shares: the
+layout, navigation, authentication and role-based access control. It does not
+know at build time what the product contains. At runtime it reads a
+**registry** of remotes and the routes each one owns, and loads them through
+Module Federation.
+
+Each **remote**, built with Rsbuild, owns one slice of the product and is
+deployed on its own. Host and remotes agree on a **typed federation contract**,
+share **design tokens** so they look like one application, and expose
+observability hooks so a failure can be traced to the remote that caused it.
+The whole platform lives in a Turborepo monorepo.
+
+## Decisions and trade-offs
+
+<Decision chose="Runtime composition" over="Build-time packages">
+
+If each team's code were an npm package, the host would have to rebuild and
+redeploy to pick up any change, which puts every team back on the same release
+train. Module Federation loads remotes at runtime, so a remote's deploy is
+live without the host being touched. The cost is that integration now
+happens in production, which is what the next decision is for.
+
+</Decision>
+
+<Decision chose="A typed contract" over="Convention">
+
+Runtime composition moves the integration point to the browser, where a
+mismatch between host and remote is a blank screen. Describing the contract in
+TypeScript and checking it at build time turns a breaking change into a
+compile error for the team that made it, before it reaches anyone else.
+
+</Decision>
+
+<Decision chose="Registry-driven routing" over="Routes hard-coded in the host">
+
+If the host listed every route, adding a page would mean a host release, and
+the host would quietly become the bottleneck the platform exists to remove.
+With a registry, a new remote or route is a data change.
+
+</Decision>
+
+<Decision chose="An error boundary per remote" over="One boundary for the app">
+
+Isolation is only real if failures are isolated too. Each remote renders
+inside its own boundary, so a crash degrades that slice of the page and the
+shell, navigation and every other remote keep working.
+
+</Decision>
+
+## Results
+
+Five remotes deploy independently, and shipping one requires no coordination
+with the others: the two figures at the top of this page are properties of the
+architecture, not of a good week. Concerns every team would otherwise solve
+for itself — routing, permissions, failure handling, the design language —
+are solved once, in the platform.
+
+{/*
+  TODO(otavio): the template also asks for:
+  - why Rsbuild for the remotes but Webpack 5 for the host (build speed?
+    plugin compatibility?) — state the real reason, then add a <Decision>;
+  - a "What I'd do differently" section;
+  - the public repository link, in projects.ts (`repo`).
+*/}

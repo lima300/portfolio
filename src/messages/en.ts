@@ -56,6 +56,16 @@ const en = {
     confidential: "Client work — code and screenshots withheld",
     role: "Role",
   },
+  caseStudy: {
+    backToWork: "All work",
+    tldr: "TL;DR",
+    keyFigures: "Key figures",
+    period: "Period",
+    role: "Role",
+    stack: "Stack",
+    next: "Next case study",
+    over: "over",
+  },
   experience: {
     eyebrow: "Experience",
     heading: "Six years, mostly spent making large frontends smaller.",

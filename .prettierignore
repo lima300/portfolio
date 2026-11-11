@@ -9,3 +9,7 @@ pnpm-lock.yaml
 package-lock.json
 public/
 *.ico
+
+# Prettier's MDX parser predates MDX 2 expressions: it reads `{/* … */}`
+# comments as emphasis and rewrites them into invalid JavaScript.
+src/content/**/*.mdx

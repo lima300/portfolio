@@ -95,8 +95,6 @@ function ProjectCard({
             <div className="mt-2 flex flex-wrap items-center gap-x-5 gap-y-2">
               <Link
                 href={routes.caseStudy(locale, project.slug)}
-                // Case study pages arrive with the MDX pipeline.
-                prefetch={false}
                 className="inline-flex items-center gap-1.5 text-small font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:decoration-accent"
               >
                 {messages.work.caseStudy}

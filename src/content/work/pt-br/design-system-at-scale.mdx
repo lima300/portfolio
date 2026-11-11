@@ -1,0 +1,57 @@
+## O problema
+
+Os produtos da empresa eram construídos em stacks diferentes, e cada um
+reconstruía os mesmos inputs, tabelas e diálogos. Cada cópia se comportava de
+um jeito um pouco diferente, cada correção precisava ser feita várias vezes, e
+a cara de um produto dependia de qual time o tinha construído.
+
+Uma biblioteca de componentes para um framework teria ajudado um produto. O
+problema é que havia mais de um framework.
+
+## Decisões e trade-offs
+
+<Decision chose="Web Components" over="Uma biblioteca de um framework só">
+
+Um custom element é entendido por todos os frameworks e não pertence a nenhum,
+então uma única implementação pode atender a todos. O design system era
+agnóstico de framework por construção, e não por wrapper: um produto o
+adotava sem reescrita, qualquer que fosse a base dele.
+
+</Decision>
+
+<Decision chose="StencilJS" over="Custom elements escritos à mão">
+
+O Stencil compila para Web Components padrão, então o resultado não carrega
+dependência de framework, enquanto a escrita continua em TypeScript e JSX, com
+lazy loading embutido. Com mais de cem componentes, foi essa experiência de
+escrita que manteve a biblioteca sustentável.
+
+</Decision>
+
+<Decision chose="Design tokens" over="Estilos dentro de cada componente">
+
+Cores, espaçamentos e tipografia foram definidos uma vez, como tokens,
+e consumidos por todos os componentes, então uma decisão visual é tomada num
+lugar só e chega a todos.
+
+</Decision>
+
+## Além dos componentes
+
+O mesmo cargo incluiu dois outros trabalhos que valem ser citados. Refatorei o
+blog da empresa para **renderização no servidor**, o que o deixou 80% mais
+rápido e aumentou as conversões de vendas em 40%. E migrei bases legadas de
+JavaScript para **TypeScript** de forma incremental, sem congelar o
+desenvolvimento de features enquanto isso acontecia.
+
+## Resultados
+
+- **Mais de 100 componentes** entregues, atendendo produtos em stacks
+  diferentes a partir de uma única implementação.
+- **30% menos tempo de desenvolvimento** das aplicações.
+- Um **marketplace de BPMN** construído sobre o sistema, usado por uma
+  plataforma com mais de 100 mil usuários.
+
+{/*
+  TODO(otavio): ver a versão em inglês — mesmos itens pendentes.
+*/}
