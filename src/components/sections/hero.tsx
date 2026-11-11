@@ -56,8 +56,6 @@ export async function Hero() {
 
           <Link
             href={routes.resume(locale)}
-            // Built in the secondary-pages chunk.
-            prefetch={false}
             className={cn(buttonStyles({ variant: "secondary", size: "lg" }))}
           >
             <Download aria-hidden className="size-4" />

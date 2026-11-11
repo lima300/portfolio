@@ -41,8 +41,6 @@ export async function AboutTeaser() {
 
           <Link
             href={routes.about(locale)}
-            // The /about page arrives with the secondary pages.
-            prefetch={false}
             className="inline-flex items-center gap-1.5 text-small font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:decoration-accent"
           >
             {messages.about.readMore}

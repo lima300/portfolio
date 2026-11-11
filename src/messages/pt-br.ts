@@ -120,6 +120,36 @@ const ptBr: Messages = {
     evening: "provavelmente gravando algo 🎥",
     night: "provavelmente dormindo — respondo de manhã",
   },
+  resume: {
+    title: "Currículo",
+    role: "Engenheiro Frontend Sênior",
+    description:
+      "Currículo de Otávio Lima: Engenheiro Frontend Sênior, micro-frontends e design systems. Pronto para imprimir e sempre atualizado.",
+    print: "Imprimir ou salvar em PDF",
+    summary: "Resumo",
+    experience: "Experiência",
+    skills: "Habilidades",
+    education: "Formação",
+    languages: "Idiomas",
+  },
+  aboutPage: {
+    title: "Sobre",
+    description:
+      "Quem é Otávio Lima, como ele trabalha e os detalhes práticos: localização, horário de trabalho, idiomas.",
+    heading: "Engenheiro, professor, corredor. Mais ou menos nessa ordem.",
+    mentoringEyebrow: "Retribuindo",
+    nextEyebrow: "Próximo passo",
+    nextHeading: "O trabalho é a melhor apresentação.",
+    seeWork: "Ver os projetos",
+    readResume: "Ler o currículo",
+  },
+  colophon: {
+    title: "Colofão",
+    description:
+      "Como este site é construído: a stack, as decisões por trás dela e os orçamentos que ele precisa respeitar.",
+    eyebrow: "Colofão",
+    heading: "Como este site é construído.",
+  },
   footer: {
     builtWith: "Feito com Next.js, TypeScript e Tailwind CSS.",
     sourceOnGithub: "Código no GitHub",

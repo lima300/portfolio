@@ -9,6 +9,10 @@ const ROUTES = [
   "/en/dev/kitchen-sink",
   "/en/work/developer-experience-platform",
   "/pt-br/work/design-system-at-scale",
+  "/en/about",
+  "/pt-br/resume",
+  "/en/resume",
+  "/en/colophon",
 ];
 
 /**

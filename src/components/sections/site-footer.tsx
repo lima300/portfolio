@@ -21,7 +21,7 @@ export async function SiteFooter() {
   ]);
 
   return (
-    <footer className="border-t">
+    <footer className="border-t print:hidden">
       <Container className="flex flex-col gap-10 py-12 md:py-16">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-2">
@@ -69,8 +69,6 @@ export async function SiteFooter() {
             </a>
             <Link
               href={routes.colophon(locale)}
-              // Built in the secondary-pages chunk.
-              prefetch={false}
               className="font-medium text-fg-muted underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-accent"
             >
               {messages.footer.colophon}

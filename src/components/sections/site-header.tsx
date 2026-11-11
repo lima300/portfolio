@@ -57,7 +57,7 @@ export function SiteHeader() {
         ref={header}
         data-scrolled="false"
         className={[
-          "sticky top-0 z-50 border-b border-transparent",
+          "sticky top-0 z-50 border-b border-transparent print:hidden",
           "transition-[background-color,border-color,box-shadow,backdrop-filter] duration-200 ease-out-expo",
           "data-[scrolled=true]:border-glass-border data-[scrolled=true]:bg-glass",
           "data-[scrolled=true]:shadow-soft data-[scrolled=true]:backdrop-blur-xl data-[scrolled=true]:backdrop-saturate-150",

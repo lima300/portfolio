@@ -1,0 +1,59 @@
+This site has two jobs: to tell a recruiter in under a minute what I do, and
+to be evidence of it. The second job means the build is part of the
+portfolio, so here is how it is put together. Every choice below has a
+short decision record in the
+[repository](https://github.com/lima300/otaviolima.dev/tree/main/docs/adr),
+with what it was chosen over and what it costs.
+
+## The stack
+
+- **[Next.js 16](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0001-stack.md)**
+  with the App Router, React Server Components and Cache Components. Every
+  page prerenders to static HTML; the only JavaScript that ships is for the
+  few things you can actually interact with.
+- **TypeScript** in `strict` mode, including for the content: job titles,
+  metrics and translations are typed data, so a missing translation is a
+  compile error rather than a blank space.
+- **[Tailwind CSS v4](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0003-design-tokens.md)**,
+  driven by design tokens defined once as CSS custom properties. Light, dark
+  and "follow the system" are three real states, and the manual choice wins
+  in both directions.
+- **[MDX](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0005-mdx-prose-typed-facts.md)**
+  for long-form prose, like the case studies and this page. The facts those
+  pages show come from the same typed records as everything else.
+- **Inter** and **JetBrains Mono**, self-hosted through `next/font`, so there
+  is no request to a font service and no layout shift when they load.
+
+## What it deliberately leaves out
+
+- **No i18n library.** [English and Portuguese](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0002-native-i18n.md)
+  are typed dictionaries on top of Next's own routing primitives. Portuguese
+  has to match English key for key, or the build fails.
+- **No animation library.** [Motion](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0004-native-motion.md)
+  is CSS scroll-driven animations, the View Transitions API for the theme
+  switch, and a handful of small native primitives. All of it respects
+  _reduce motion_, and the site is complete without it.
+- **No analytics and no cookies.** Nothing on this site follows you.
+
+## How it is held to account
+
+Every pull request, and every push to `main`, runs the same gates in CI:
+
+- **Formatting, lint and types:** Prettier, ESLint and TypeScript, with zero
+  warnings allowed.
+- **Unit tests** for the data and the helpers, including a contrast test that
+  reads the real colour tokens and checks every text-on-surface pair against
+  WCAG AA in both themes.
+- **End-to-end tests** in Chromium and WebKit, against both a production
+  build and the dev server, including an automated accessibility scan of
+  every main page against WCAG 2.2 AA, and a check that nothing logs to the
+  browser console.
+
+The targets it is built against are a Lighthouse score of 95 or more on
+mobile and under 120 kB of JavaScript on first load.
+
+## Source
+
+The whole thing is open source on
+[GitHub](https://github.com/lima300/otaviolima.dev), decision records
+included.

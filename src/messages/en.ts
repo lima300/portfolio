@@ -118,6 +118,36 @@ const en = {
     evening: "probably recording something 🎥",
     night: "probably asleep — I'll reply in the morning",
   },
+  resume: {
+    title: "Résumé",
+    role: "Senior Frontend Engineer",
+    description:
+      "Otávio Lima's résumé: Senior Frontend Engineer, micro-frontends and design systems. Print-ready, and always current.",
+    print: "Print or save as PDF",
+    summary: "Summary",
+    experience: "Experience",
+    skills: "Skills",
+    education: "Education",
+    languages: "Languages",
+  },
+  aboutPage: {
+    title: "About",
+    description:
+      "Who Otávio Lima is, how he works, and the practical details: location, working hours, languages.",
+    heading: "Engineer, teacher, runner. Mostly in that order.",
+    mentoringEyebrow: "Giving back",
+    nextEyebrow: "Next",
+    nextHeading: "The work is the better introduction.",
+    seeWork: "See the work",
+    readResume: "Read the résumé",
+  },
+  colophon: {
+    title: "Colophon",
+    description:
+      "How this site is built: the stack, the decisions behind it, and the budgets it is held to.",
+    eyebrow: "Colophon",
+    heading: "How this site is built.",
+  },
   footer: {
     builtWith: "Built with Next.js, TypeScript and Tailwind CSS.",
     sourceOnGithub: "Source on GitHub",

@@ -629,3 +629,31 @@ html[data-theme-switching]::view-transition-new(root) {
     scale: 1 1;
   }
 }
+
+/*
+ * Print: always the light palette, whatever theme is on screen. Paper is
+ * white, and a dark theme printed faithfully is a page of grey ink. The
+ * overrides sit on the same selectors the dark theme uses, so they win in
+ * every theme state without !important.
+ */
+@media print {
+  :root,
+  :root:not([data-theme="light"]),
+  :root[data-theme="dark"] {
+    color-scheme: light;
+    --bg: #ffffff;
+    --bg-elevated: #ffffff;
+    --bg-sunken: #ffffff;
+    --fg: #000000;
+    --fg-muted: #2b2b2e;
+    --fg-subtle: #4a4a4f;
+    --border: rgb(0 0 0 / 0.14);
+    --border-strong: rgb(0 0 0 / 0.24);
+    --accent: #14793c;
+    --accent-soft: #e8f7ee;
+  }
+
+  @page {
+    margin: 14mm 16mm;
+  }
+}

@@ -11,7 +11,7 @@ export const routes = {
   home: (locale: Locale) => `/${locale}`,
   work: (locale: Locale) => `/${locale}#work`,
   caseStudy: (locale: Locale, slug: string) => `/${locale}/work/${slug}`,
-  about: (locale: Locale) => `/${locale}#about`,
+  about: (locale: Locale) => `/${locale}/about`,
   content: (locale: Locale) => `/${locale}#content`,
   contact: (locale: Locale) => `/${locale}#contact`,
   resume: (locale: Locale) => `/${locale}/resume`,
@@ -35,6 +35,5 @@ export const navItems: readonly NavItem[] = [
   { id: "work", href: routes.work, prefetch: true },
   { id: "about", href: routes.about, prefetch: true },
   { id: "content", href: routes.content, prefetch: true },
-  // Built in the secondary-pages chunk.
-  { id: "resume", href: routes.resume, prefetch: false },
+  { id: "resume", href: routes.resume, prefetch: true },
 ] as const;

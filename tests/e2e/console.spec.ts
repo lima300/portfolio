@@ -5,6 +5,9 @@ const ROUTES = [
   "/pt-br",
   "/en/work/developer-experience-platform",
   "/pt-br/work/digital-twin-modernisation",
+  "/en/about",
+  "/en/resume",
+  "/pt-br/colophon",
 ];
 
 /**
