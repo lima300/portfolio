@@ -1,15 +1,21 @@
+import { AboutTeaser } from "@/components/sections/about-teaser";
 import { Contact } from "@/components/sections/contact";
+import { ContentCommunity } from "@/components/sections/content-community";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
 import { Hero } from "@/components/sections/hero";
 import { ImpactStrip } from "@/components/sections/impact-strip";
 import { SelectedWork } from "@/components/sections/selected-work";
 import { SkillsBento } from "@/components/sections/skills-bento";
+import { Testimonials } from "@/components/sections/testimonials";
 
 /*
  * The home page: one scroll, in the order a recruiter reads.
  *
- * The content and community section and the about teaser slot in between the
- * skills grid and the contact block as the remaining chunks land.
+ * Proof first (work, experience, capability), then credibility from other
+ * people, then the human paragraph, then the one thing to do next.
+ *
+ * Testimonials render nothing until real recommendations exist, so the page
+ * reads correctly either way.
  */
 export default function HomePage() {
   return (
@@ -19,11 +25,9 @@ export default function HomePage() {
       <SelectedWork />
       <ExperienceTimeline />
       <SkillsBento />
-
-      {/* Anchor targets for the nav until the real sections land. */}
-      <div id="about" className="scroll-mt-24" />
-      <div id="content" className="scroll-mt-24" />
-
+      <ContentCommunity />
+      <Testimonials />
+      <AboutTeaser />
       <Contact />
     </main>
   );

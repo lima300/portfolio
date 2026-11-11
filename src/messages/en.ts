@@ -18,6 +18,7 @@ const en = {
     closeMenu: "Close menu",
     primaryNavigation: "Primary",
     socialLinks: "Elsewhere",
+    verified: "Verified account",
     homeLink: "Otávio Lima — home",
   },
   theme: {
@@ -67,6 +68,28 @@ const en = {
     heading: "What I reach for, and what I reach for it to do.",
     description:
       "Grouped by the problem rather than the logo. No proficiency bars: a self-assigned 80% is not information.",
+  },
+  content: {
+    eyebrow: "Content & community",
+    heading: "I explain this work to 30,000 developers.",
+    description:
+      "Teaching the same architecture I ship has made me better at both. Explaining a trade-off to someone learning it is the fastest way to find out whether you understand it.",
+    followLabel: "Follow on Instagram",
+    mentoringEyebrow: "Mentoring",
+    themesEyebrow: "What it covers",
+    postsEyebrow: "Favourites",
+    viewPost: "View on Instagram",
+    postKinds: { reel: "Reel", carousel: "Carousel", post: "Post" },
+  },
+  testimonials: {
+    eyebrow: "References",
+    heading: "What the people I worked with say.",
+  },
+  about: {
+    eyebrow: "About",
+    heading: "The short, human version.",
+    readMore: "More about me",
+    factsEyebrow: "The practical details",
   },
   contact: {
     eyebrow: "Contact",

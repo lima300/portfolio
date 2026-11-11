@@ -19,6 +19,7 @@ const ptBr: Messages = {
     closeMenu: "Fechar menu",
     primaryNavigation: "Principal",
     socialLinks: "Em outros lugares",
+    verified: "Conta verificada",
     homeLink: "Otávio Lima — início",
   },
   theme: {
@@ -69,6 +70,28 @@ const ptBr: Messages = {
     heading: "O que eu uso, e para quê.",
     description:
       "Agrupado pelo problema, não pelo logo. Sem barras de proficiência: um 80% autoatribuído não é informação.",
+  },
+  content: {
+    eyebrow: "Conteúdo & comunidade",
+    heading: "Eu explico esse trabalho para 30 mil devs.",
+    description:
+      "Ensinar a mesma arquitetura que eu entrego me deixou melhor nas duas coisas. Explicar um trade-off para quem está aprendendo é a forma mais rápida de descobrir se você realmente entende.",
+    followLabel: "Seguir no Instagram",
+    mentoringEyebrow: "Mentoria",
+    themesEyebrow: "Sobre o que é",
+    postsEyebrow: "Favoritos",
+    viewPost: "Ver no Instagram",
+    postKinds: { reel: "Reel", carousel: "Carrossel", post: "Post" },
+  },
+  testimonials: {
+    eyebrow: "Referências",
+    heading: "O que dizem as pessoas com quem trabalhei.",
+  },
+  about: {
+    eyebrow: "Sobre",
+    heading: "A versão curta e humana.",
+    readMore: "Mais sobre mim",
+    factsEyebrow: "Os detalhes práticos",
   },
   contact: {
     eyebrow: "Contato",
