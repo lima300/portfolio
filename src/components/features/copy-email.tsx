@@ -4,9 +4,9 @@ import { Check, Copy } from "lucide-react";
 import { useCallback, useState } from "react";
 
 import { Button, type ButtonProps } from "@/components/ui/button";
-import { useToast } from "@/components/ui/toast";
 import { useMessages } from "@/i18n/provider";
 import { site } from "@/lib/site";
+import { useCopyEmail } from "@/lib/use-copy-email";
 
 type CopyEmailProps = Omit<ButtonProps, "onClick" | "children"> & {
   /** Shows the address next to the icon, for the contact section. */
@@ -27,21 +27,14 @@ export function CopyEmail({
   ...props
 }: CopyEmailProps) {
   const messages = useMessages();
-  const { toast } = useToast();
+  const copyEmail = useCopyEmail();
   const [copied, setCopied] = useState(false);
 
   const onClick = useCallback(async () => {
-    try {
-      await navigator.clipboard.writeText(site.email);
-      toast(messages.contact.emailCopied);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Denied permission, or an insecure context. Tell them the address
-      // rather than failing silently.
-      toast(messages.contact.emailCopyFailed, "info");
-    }
-  }, [messages, toast]);
+    if (!(await copyEmail())) return;
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }, [copyEmail]);
 
   return (
     <Button variant={variant} onClick={onClick} {...props}>

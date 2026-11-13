@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 
+import { CommandsProvider } from "@/components/features/commands/commands-provider";
 import { ThemeProvider } from "@/components/features/theme-provider";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
 import { ToastProvider } from "@/components/ui/toast";
+import { featuredProjects } from "@/data/projects";
 import { bcp47, locales } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { I18nProvider } from "@/i18n/provider";
@@ -69,6 +71,12 @@ export default async function RootLayout({
   children,
 }: LayoutProps<"/[locale]">) {
   const { locale, messages } = await getI18n();
+  // Resolved here, so the palette's chunk carries titles rather than the
+  // whole project catalogue in both languages.
+  const caseStudies = featuredProjects.map((project) => ({
+    slug: project.slug,
+    title: project.title[locale],
+  }));
 
   return (
     <html
@@ -87,15 +95,17 @@ export default async function RootLayout({
         <ThemeProvider>
           <I18nProvider locale={locale} messages={messages}>
             <ToastProvider>
-              <a
-                href="#main"
-                className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-100 focus-visible:rounded-control focus-visible:bg-accent focus-visible:px-4 focus-visible:py-2 focus-visible:text-small focus-visible:font-medium focus-visible:text-accent-fg"
-              >
-                {messages.a11y.skipToContent}
-              </a>
-              <SiteHeader />
-              {children}
-              <SiteFooter />
+              <CommandsProvider caseStudies={caseStudies}>
+                <a
+                  href="#main"
+                  className="sr-only focus-visible:not-sr-only focus-visible:fixed focus-visible:top-4 focus-visible:left-4 focus-visible:z-100 focus-visible:rounded-control focus-visible:bg-accent focus-visible:px-4 focus-visible:py-2 focus-visible:text-small focus-visible:font-medium focus-visible:text-accent-fg"
+                >
+                  {messages.a11y.skipToContent}
+                </a>
+                <SiteHeader />
+                {children}
+                <SiteFooter />
+              </CommandsProvider>
             </ToastProvider>
           </I18nProvider>
         </ThemeProvider>

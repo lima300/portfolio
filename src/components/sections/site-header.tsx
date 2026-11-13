@@ -4,6 +4,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useCallback, useEffect, useRef } from "react";
 
+import { PaletteButton } from "@/components/features/commands/palette-button";
 import { LanguageSwitch } from "@/components/features/language-switch";
 import { ThemeToggle } from "@/components/features/theme-toggle";
 import { BrandMark } from "@/components/ui/brand-mark";
@@ -85,6 +86,7 @@ export function SiteHeader() {
           </ul>
 
           <div className="flex items-center gap-2">
+            <PaletteButton />
             <LanguageSwitch />
             <ThemeToggle />
             <IconButton

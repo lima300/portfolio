@@ -160,6 +160,48 @@ const ptBr: Messages = {
     intro:
       "Projetos fora do trabalho. Cada um existe para testar uma ideia direito — um modelo de framework, um pedaço de matemática — e todos são open source.",
   },
+  commands: {
+    open: "Abrir a paleta de comandos",
+    label: "Paleta de comandos",
+    placeholder: "Digite um comando ou busque…",
+    empty: "Nada encontrado.",
+    groups: {
+      navigate: "Ir para",
+      caseStudies: "Cases",
+      actions: "Ações",
+      elsewhere: "Em outros lugares",
+    },
+    items: {
+      home: "Início",
+      work: "Trabalhos selecionados",
+      about: "Sobre",
+      resume: "Currículo",
+      lab: "Lab",
+      uses: "Setup",
+      colophon: "Como este site foi construído",
+      copyEmail: "Copiar endereço de e-mail",
+      themeSystem: "Usar o tema do sistema",
+      themeLight: "Usar o tema claro",
+      themeDark: "Usar o tema escuro",
+      switchLanguage: "Read in English",
+      shortcuts: "Mostrar atalhos de teclado",
+    },
+  },
+  shortcuts: {
+    title: "Atalhos de teclado",
+    then: "depois",
+    close: "Fechar",
+    items: {
+      palette: "Abrir a paleta de comandos",
+      home: "Ir para o início",
+      work: "Ir para os trabalhos selecionados",
+      about: "Ir para o sobre",
+      resume: "Ir para o currículo",
+      lab: "Ir para o lab",
+      theme: "Trocar o tema",
+      help: "Mostrar esta lista",
+    },
+  },
   uses: {
     title: "Setup",
     description:

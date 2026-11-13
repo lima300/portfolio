@@ -158,6 +158,49 @@ const en = {
     intro:
       "Side projects outside the day job. Each one exists to try an idea properly — a framework model, a piece of mathematics — and each one is open source.",
   },
+  commands: {
+    open: "Open command palette",
+    label: "Command palette",
+    placeholder: "Type a command or search…",
+    empty: "Nothing matches that.",
+    groups: {
+      navigate: "Go to",
+      caseStudies: "Case studies",
+      actions: "Actions",
+      elsewhere: "Elsewhere",
+    },
+    items: {
+      home: "Home",
+      work: "Selected work",
+      about: "About",
+      resume: "Résumé",
+      lab: "Lab",
+      uses: "Setup",
+      colophon: "How this site was built",
+      copyEmail: "Copy email address",
+      themeSystem: "Use the system theme",
+      themeLight: "Use the light theme",
+      themeDark: "Use the dark theme",
+      /** Written in the language it switches to. */
+      switchLanguage: "Ler em português",
+      shortcuts: "Show keyboard shortcuts",
+    },
+  },
+  shortcuts: {
+    title: "Keyboard shortcuts",
+    then: "then",
+    close: "Close",
+    items: {
+      palette: "Open the command palette",
+      home: "Go home",
+      work: "Go to selected work",
+      about: "Go to about",
+      resume: "Go to the résumé",
+      lab: "Go to the lab",
+      theme: "Change the theme",
+      help: "Show this list",
+    },
+  },
   uses: {
     title: "Uses",
     description:
