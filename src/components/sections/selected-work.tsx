@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { Spotlight } from "@/components/motion/spotlight";
+import { SharedMotif } from "@/components/motion/shared-motif";
 import { ProjectMotif } from "@/components/sections/project-motif";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import { Card } from "@/components/ui/card";
@@ -45,10 +46,12 @@ function ProjectCard({
     <Spotlight className="rounded-hero">
       <Card variant="product" padding="none" className="h-full">
         <div className="grid gap-8 p-6 md:grid-cols-2 md:items-center md:gap-10 md:p-10">
-          <ProjectMotif
-            motif={project.motif}
-            className="order-first aspect-[2/1] md:order-last"
-          />
+          <SharedMotif slug={project.slug}>
+            <ProjectMotif
+              motif={project.motif}
+              className="order-first aspect-[2/1] md:order-last"
+            />
+          </SharedMotif>
 
           <div className="flex flex-col items-start gap-4">
             <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-label text-fg-subtle">

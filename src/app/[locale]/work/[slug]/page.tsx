@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import type { ComponentType } from "react";
 
 import { Reveal } from "@/components/motion/reveal";
+import { SharedMotif } from "@/components/motion/shared-motif";
 import { ProjectMotif } from "@/components/sections/project-motif";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import { Card } from "@/components/ui/card";
@@ -203,10 +204,12 @@ export default async function CaseStudyPage({ params }: Props) {
                   diagrams are drawn for that ratio, and stretching one to
                   the header's height only adds empty frame.
                 */}
-                <ProjectMotif
-                  motif={project.motif}
-                  className="aspect-[2/1] w-full"
-                />
+                <SharedMotif slug={project.slug}>
+                  <ProjectMotif
+                    motif={project.motif}
+                    className="aspect-[2/1] w-full"
+                  />
+                </SharedMotif>
               </Card>
             </div>
           </Container>
@@ -292,7 +295,9 @@ export default async function CaseStudyPage({ params }: Props) {
                       className="mt-2 size-6 text-accent transition-transform duration-300 group-hover:translate-x-1"
                     />
                   </div>
-                  <ProjectMotif motif={next.motif} className="aspect-[2/1]" />
+                  <SharedMotif slug={next.slug}>
+                    <ProjectMotif motif={next.motif} className="aspect-[2/1]" />
+                  </SharedMotif>
                 </Card>
               </Link>
             </Reveal>

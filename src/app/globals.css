@@ -412,6 +412,51 @@ html[data-theme-switching]::view-transition-new(root) {
 }
 
 /* ==========================================================================
+   Shared motif
+   A project's motif morphs from its card into the case study header (see
+   `SharedMotif`). The blur mid-flight hides the scaling of the snapshot; the
+   reduced-motion clamp above does not reach these pseudo-elements, so it is
+   repeated here.
+   ========================================================================== */
+
+::view-transition-group(.motif-morph) {
+  animation-duration: 450ms;
+  animation-timing-function: var(--ease-out-expo);
+}
+
+::view-transition-image-pair(.motif-morph) {
+  animation: motif-blur 450ms var(--ease-out-expo);
+}
+
+/*
+ * A motif with no partner on screen — another card on the page being left,
+ * say — snaps like the rest of the page instead of fading out where it was.
+ */
+::view-transition-old(.motif-morph):only-child {
+  animation: none;
+  opacity: 0;
+}
+
+::view-transition-new(.motif-morph):only-child {
+  animation: none;
+}
+
+@keyframes motif-blur {
+  30% {
+    filter: blur(3px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-image-pair(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
    Tooltip
    ========================================================================== */
 
