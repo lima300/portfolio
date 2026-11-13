@@ -136,6 +136,11 @@ test.describe("impact strip", () => {
     // pt-BR groups thousands with a dot, not a comma.
     await page.goto("/pt-br");
 
-    await expect(page.getByText("100.000+", { exact: true })).toBeVisible();
+    // Scoped: the recruiter summary repeats the figure in a closed dialog.
+    const strip = page.getByRole("region", {
+      name: /o que esse trabalho de fato mudou/i,
+    });
+    await strip.scrollIntoViewIfNeeded();
+    await expect(strip.getByText("100.000+", { exact: true })).toBeVisible();
   });
 });

@@ -185,6 +185,7 @@ const ptBr: Messages = {
       themeDark: "Usar o tema escuro",
       switchLanguage: "Read in English",
       shortcuts: "Mostrar atalhos de teclado",
+      summary: "A versão de 60 segundos",
     },
   },
   shortcuts: {
@@ -201,6 +202,16 @@ const ptBr: Messages = {
       theme: "Trocar o tema",
       help: "Mostrar esta lista",
     },
+  },
+  recruiter: {
+    open: "A versão de 60 segundos",
+    title: "A versão de 60 segundos",
+    close: "Fechar o resumo",
+    years: "{years}+ anos",
+    numbers: "Em números",
+    topWork: "Principais projetos",
+    facts: "O essencial",
+    readCaseStudy: "Ler o case",
   },
   notFound: {
     title: "Página não encontrada",

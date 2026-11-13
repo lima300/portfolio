@@ -184,6 +184,7 @@ const en = {
       /** Written in the language it switches to. */
       switchLanguage: "Ler em português",
       shortcuts: "Show keyboard shortcuts",
+      summary: "The 60-second version",
     },
   },
   shortcuts: {
@@ -200,6 +201,16 @@ const en = {
       theme: "Change the theme",
       help: "Show this list",
     },
+  },
+  recruiter: {
+    open: "The 60-second version",
+    title: "The 60-second version",
+    close: "Close the summary",
+    years: "{years}+ years",
+    numbers: "In numbers",
+    topWork: "Top projects",
+    facts: "Practicalities",
+    readCaseStudy: "Read the case study",
   },
   notFound: {
     title: "Page not found",

@@ -2,9 +2,11 @@ import { ArrowRight, FileText } from "lucide-react";
 import Link from "next/link";
 
 import { CopyEmail } from "@/components/features/copy-email";
+import { RecruiterMode } from "@/components/features/recruiter-mode";
 import { Magnetic } from "@/components/motion/magnetic";
 import { WordReveal } from "@/components/motion/word-reveal";
 import { Aurora } from "@/components/sections/aurora";
+import { RecruiterSummary } from "@/components/sections/recruiter-summary";
 import { buttonStyles } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Pill } from "@/components/ui/pill";
@@ -34,7 +36,12 @@ export async function Hero() {
       <Aurora />
 
       <Container className="relative flex flex-col items-start gap-7 pt-20 pb-24 md:pt-28 md:pb-32">
-        <Pill dot>{messages.hero.availability}</Pill>
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
+          <Pill dot>{messages.hero.availability}</Pill>
+          <RecruiterMode>
+            <RecruiterSummary />
+          </RecruiterMode>
+        </div>
 
         <h1 className="max-w-[19ch] text-display">
           <WordReveal text={messages.hero.headline} />

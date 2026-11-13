@@ -22,7 +22,10 @@ test("a project's motif morphs from its card into the case study", async ({
 
   await page.goto("/en");
   await expect(page.locator("html")).toHaveAttribute("data-shortcuts", "ready");
-  const link = page.locator('a[href="/en/work/developer-experience-platform"]');
+  // The card's link, not the recruiter summary's (in a closed dialog).
+  const link = page
+    .getByRole("region", { name: /platforms that stayed fast/i })
+    .locator('a[href="/en/work/developer-experience-platform"]');
   await link.first().scrollIntoViewIfNeeded();
 
   // Record which elements take part in the transition the click starts.

@@ -6,6 +6,7 @@ import {
   BookOpen,
   Briefcase,
   Copy,
+  Timer,
   FileText,
   FlaskConical,
   Home,
@@ -34,6 +35,7 @@ import { socials } from "@/data/socials";
 import { locales } from "@/i18n/config";
 import { useI18n } from "@/i18n/provider";
 import { rememberLocale, swapLocale } from "@/i18n/switch";
+import { OPEN_SUMMARY_EVENT, SUMMARY_HASH } from "@/lib/recruiter-mode";
 import { routes } from "@/lib/routes";
 import { shortcuts, type ShortcutId } from "@/lib/shortcuts";
 import {
@@ -232,6 +234,22 @@ export default function CommandPalette({
           </Command.Group>
 
           <Command.Group heading={t.groups.actions}>
+            <Item
+              value={t.items.summary}
+              keywords={["recruiter", "summary", "tldr", "resumo"]}
+              icon={Timer}
+              onSelect={act(() => {
+                // The summary lives on the home page. Already there: open it.
+                // Elsewhere: go home with the hash that opens it on arrival.
+                if (pathname === routes.home(locale)) {
+                  window.dispatchEvent(new Event(OPEN_SUMMARY_EVENT));
+                } else {
+                  router.push(routes.home(locale) + SUMMARY_HASH);
+                }
+              })}
+            >
+              {t.items.summary}
+            </Item>
             <Item
               value={t.items.copyEmail}
               keywords={["email", "e-mail", "contact", "contato"]}
