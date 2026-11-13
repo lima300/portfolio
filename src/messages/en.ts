@@ -201,6 +201,27 @@ const en = {
       help: "Show this list",
     },
   },
+  notFound: {
+    title: "Page not found",
+    eyebrow: "404",
+    heading: "Nothing here but a UFO.",
+    body: "I'm from Varginha, Brazil's UFO city, so this was bound to happen eventually. The address below doesn't lead anywhere. Want it gone?",
+    brokenLabel: "The address that led nowhere",
+    abduct: "Beam it up",
+    abducted: "Taken. Somewhere real, instead:",
+    home: "Home",
+    work: "Selected work",
+    about: "About",
+    paletteHint: "Or press {shortcut} to search the whole site.",
+  },
+  delight: {
+    awayTitle: "☕ Coffee break? Come back!",
+    console: {
+      greeting: "Hey, curious dev 👀",
+      body: "I'm from Varginha, the UFO city 🛸. The source of this site is on GitHub:",
+      cta: "Press ⌘K for everything else, or copy my email from the contact section. Let's talk.",
+    },
+  },
   uses: {
     title: "Uses",
     description:

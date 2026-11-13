@@ -15,6 +15,7 @@ const ROUTES = [
   "/en/colophon",
   "/en/lab",
   "/pt-br/uses",
+  "/en/this-page-does-not-exist",
 ];
 
 /**

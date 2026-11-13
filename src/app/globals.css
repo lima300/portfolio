@@ -657,3 +657,114 @@ html[data-theme-switching]::view-transition-new(root) {
     margin: 14mm 16mm;
   }
 }
+
+/* ==========================================================================
+   UFO 404
+   The ship bobs and blinks while it waits. `data-ufo-stage` drives the rest:
+   "beaming" opens the tractor beam and lifts the address into the ship,
+   "gone" sends the ship off. Under reduced motion the global clamp above
+   collapses every step to its end state.
+   ========================================================================== */
+
+.ufo-ship {
+  position: relative;
+  z-index: 1;
+  animation: ufo-bob 3.2s ease-in-out infinite;
+}
+
+.ufo-light {
+  animation: ufo-blink 1.1s ease-in-out infinite alternate;
+}
+
+.ufo-beam {
+  width: 9rem;
+  height: 7rem;
+  margin-top: -0.5rem;
+  clip-path: polygon(38% 0, 62% 0, 100% 100%, 0 100%);
+  background: linear-gradient(
+    to bottom,
+    color-mix(in oklab, var(--accent) 45%, transparent),
+    transparent
+  );
+  opacity: 0;
+  transform-origin: top;
+  scale: 1 0.2;
+  transition:
+    opacity 300ms var(--ease-out-expo),
+    scale 400ms var(--ease-out-expo);
+}
+
+.ufo-address {
+  transition:
+    translate 900ms var(--ease-out-expo) 300ms,
+    scale 900ms var(--ease-out-expo) 300ms,
+    opacity 700ms ease-in 500ms;
+}
+
+[data-ufo-stage="beaming"] .ufo-beam,
+[data-ufo-stage="gone"] .ufo-beam {
+  opacity: 1;
+  scale: 1;
+}
+
+[data-ufo-stage="beaming"] .ufo-address,
+[data-ufo-stage="gone"] .ufo-address {
+  translate: 0 -7rem;
+  scale: 0.3;
+  opacity: 0;
+}
+
+[data-ufo-stage="gone"] .ufo-beam {
+  opacity: 0;
+  transition-delay: 0ms;
+}
+
+.ufo-action {
+  transition: opacity 300ms var(--ease-out-expo);
+}
+
+[data-ufo-stage="beaming"] .ufo-action {
+  opacity: 0;
+}
+
+.ufo-result {
+  animation: ufo-result-in 500ms var(--ease-out-expo) 250ms both;
+}
+
+[data-ufo-stage="gone"] .ufo-ship {
+  animation: ufo-leave 700ms cubic-bezier(0.5, 0, 0.75, 0) forwards;
+}
+
+@keyframes ufo-bob {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -0.5rem;
+  }
+}
+
+@keyframes ufo-blink {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes ufo-result-in {
+  from {
+    opacity: 0;
+    translate: 0 0.5rem;
+  }
+}
+
+@keyframes ufo-leave {
+  to {
+    translate: 40vw -12rem;
+    rotate: 12deg;
+    opacity: 0;
+  }
+}

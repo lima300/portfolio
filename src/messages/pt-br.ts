@@ -202,6 +202,27 @@ const ptBr: Messages = {
       help: "Mostrar esta lista",
     },
   },
+  notFound: {
+    title: "Página não encontrada",
+    eyebrow: "404",
+    heading: "Nada aqui além de um OVNI.",
+    body: "Sou de Varginha, a cidade do ET, então uma hora isso ia acontecer. O endereço abaixo não leva a lugar nenhum. Quer que ele suma?",
+    brokenLabel: "O endereço que não levou a lugar nenhum",
+    abduct: "Abduzir",
+    abducted: "Levado. Agora, um lugar que existe:",
+    home: "Início",
+    work: "Trabalhos selecionados",
+    about: "Sobre",
+    paletteHint: "Ou aperte {shortcut} para buscar no site inteiro.",
+  },
+  delight: {
+    awayTitle: "☕ Pausa pro café? Volta aqui!",
+    console: {
+      greeting: "Opa, espiando o código? 👀",
+      body: "Sou de Varginha, a cidade do ET 🛸. O código deste site está no GitHub:",
+      cta: "Aperte ⌘K para o resto, ou copie meu e-mail na seção de contato. Bora conversar.",
+    },
+  },
   uses: {
     title: "Setup",
     description:

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 
 import { CommandsProvider } from "@/components/features/commands/commands-provider";
+import { Delights } from "@/components/features/delights";
 import { ThemeProvider } from "@/components/features/theme-provider";
 import { SiteFooter } from "@/components/sections/site-footer";
 import { SiteHeader } from "@/components/sections/site-header";
@@ -105,6 +106,7 @@ export default async function RootLayout({
                 <SiteHeader />
                 {children}
                 <SiteFooter />
+                <Delights />
               </CommandsProvider>
             </ToastProvider>
           </I18nProvider>
