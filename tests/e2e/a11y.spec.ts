@@ -14,6 +14,7 @@ const ROUTES = [
   "/en/resume",
   "/en/colophon",
   "/en/lab",
+  "/pt-br/uses",
 ];
 
 /**

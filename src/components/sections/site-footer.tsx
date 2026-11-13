@@ -68,6 +68,12 @@ export async function SiteFooter() {
               {messages.footer.sourceOnGithub}
             </a>
             <Link
+              href={routes.uses(locale)}
+              className="font-medium text-fg-muted underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-accent"
+            >
+              {messages.footer.uses}
+            </Link>
+            <Link
               href={routes.colophon(locale)}
               className="font-medium text-fg-muted underline decoration-border underline-offset-4 transition-colors duration-200 hover:text-accent hover:decoration-accent"
             >

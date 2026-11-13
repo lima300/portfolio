@@ -160,10 +160,20 @@ const ptBr: Messages = {
     intro:
       "Projetos fora do trabalho. Cada um existe para testar uma ideia direito — um modelo de framework, um pedaço de matemática — e todos são open source.",
   },
+  uses: {
+    title: "Setup",
+    description:
+      "O setup em que Otávio Lima trabalha: computador, telas, teclados e mesa.",
+    eyebrow: "Setup",
+    heading: "A mesa onde o trabalho acontece.",
+    intro:
+      "O hardware da mesa, item por item: a máquina, as telas, os teclados e a própria mesa.",
+  },
   footer: {
     builtWith: "Feito com Next.js, TypeScript e Tailwind CSS.",
     sourceOnGithub: "Código no GitHub",
     colophon: "Como este site foi construído",
+    uses: "Setup",
     rights: "Todos os direitos reservados.",
   },
 };

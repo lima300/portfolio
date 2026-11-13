@@ -182,3 +182,27 @@ test.describe("lab", () => {
     ).toBeVisible();
   });
 });
+
+test.describe("uses", () => {
+  test("opens from the footer and lists the setup", async ({ page }) => {
+    await page.goto("/en");
+    await page
+      .getByRole("contentinfo")
+      .getByRole("link", { name: "Setup" })
+      .click();
+
+    await expect(page).toHaveURL(/\/en\/uses$/);
+    const main = page.getByRole("main");
+    await expect(
+      main.getByRole("heading", { level: 1, name: /the desk the work/i }),
+    ).toBeVisible();
+    await expect(main.getByText("Keychron K2")).toBeVisible();
+  });
+
+  test("is translated", async ({ page }) => {
+    await page.goto("/pt-br/uses");
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Teclados e mouse" }),
+    ).toBeVisible();
+  });
+});

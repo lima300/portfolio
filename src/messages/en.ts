@@ -158,10 +158,20 @@ const en = {
     intro:
       "Side projects outside the day job. Each one exists to try an idea properly — a framework model, a piece of mathematics — and each one is open source.",
   },
+  uses: {
+    title: "Uses",
+    description:
+      "The setup Otávio Lima works at: computer, screens, keyboards and desk.",
+    eyebrow: "Setup",
+    heading: "The desk the work happens at.",
+    intro:
+      "The hardware on the desk, item by item: the machine, the screens, the keyboards and the desk itself.",
+  },
   footer: {
     builtWith: "Built with Next.js, TypeScript and Tailwind CSS.",
     sourceOnGithub: "Source on GitHub",
     colophon: "How this site was built",
+    uses: "Setup",
     rights: "All rights reserved.",
   },
 } as const;
