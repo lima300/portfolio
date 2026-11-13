@@ -61,9 +61,16 @@ Cypress and Playwright sit on top for the journeys that cross boundaries.
   its own schedule.
 - **A delivery pipeline** that the rest of the company now builds on.
 
+## How it was measured
+
+The 60% comes from the same two sources before and after the migration:
+the platform's observability data and Lighthouse reports. Together they
+tracked the three things the state migration was meant to change — how fast
+pages loaded, how many re-renders an interaction caused that it did not need,
+and how many duplicate requests went out for data the page already had.
+
 {/*
   TODO(otavio): the template also asks for:
-  - how the 60% was measured (which metric, which pages, before/after values);
   - team size and your exact scope, in a "Constraints" section — e.g. whether
     feature work continued during the migration;
   - a "What I'd do differently" section.

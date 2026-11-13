@@ -8,6 +8,13 @@ a cara de um produto dependia de qual time o tinha construído.
 Uma biblioteca de componentes para um framework teria ajudado um produto. O
 problema é que havia mais de um framework.
 
+## Restrições
+
+- **Um time pequeno para um sistema da empresa inteira.** Seis pessoas: uma no
+  design, uma na liderança técnica e quatro devs, contando comigo.
+- **Os produtos não podiam parar por causa dele.** A adoção começou só pelos
+  produtos novos; os projetos mais antigos migraram aos poucos depois.
+
 ## Decisões e trade-offs
 
 <Decision chose="Web Components" over="Uma biblioteca de um framework só">
@@ -36,6 +43,13 @@ lugar só e chega a todos.
 
 </Decision>
 
+## Usando na prática
+
+Eu também era um dos consumidores do sistema. Construí o
+[marketplace da SYDLE](https://www.sydle.com/br/marketplace) em Angular em cima
+dos componentes — a decisão de ser agnóstico de framework testada do outro
+lado: um time de produto pegando custom elements e entregando com eles.
+
 ## Além dos componentes
 
 O mesmo cargo incluiu dois outros trabalhos que valem ser citados. Refatorei o
@@ -48,7 +62,8 @@ desenvolvimento de features enquanto isso acontecia.
 
 - **Mais de 100 componentes** entregues, atendendo produtos em stacks
   diferentes a partir de uma única implementação.
-- **30% menos tempo de desenvolvimento** das aplicações.
+- **30% menos tempo de desenvolvimento** das aplicações, medido comparando o
+  tempo gasto em tickets de desenvolvimento antes e depois da adoção.
 - Um **marketplace de BPMN** construído sobre o sistema, usado por uma
   plataforma com mais de 100 mil usuários.
 

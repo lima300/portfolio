@@ -77,21 +77,15 @@ export const mentoring = {
   company: "Bentley Systems",
   years: 3,
   outcome: {
-    en: "Three years running, the student teams I mentored won at national and worldwide level.",
+    en: "In every edition of the challenge I mentored — three years running — the student teams won at national and worldwide level.",
     "pt-br":
-      "Por três anos consecutivos, os times de estudantes que mentorei venceram em nível nacional e mundial.",
+      "Em todas as edições do desafio que mentorei — três anos seguidos — os times de estudantes venceram em nível nacional e mundial.",
   } satisfies Localized,
   detail: {
     en: "I led Bentley's mentoring for the iTwin4Good Challenge, an Enactus initiative where student teams build digital-twin solutions for social and environmental problems. My part was the engineering: helping teams scope something achievable, then get it working well enough to demo under pressure.",
     "pt-br":
       "Liderei a mentoria da Bentley no iTwin4Good Challenge, uma iniciativa da Enactus em que times de estudantes constroem soluções de gêmeos digitais para problemas sociais e ambientais. Minha parte era a engenharia: ajudar os times a definir um escopo alcançável e então fazê-lo funcionar bem o bastante para demonstrar sob pressão.",
   } satisfies Localized,
-  /**
-   * TODO(otavio): the plan asks for the exact competition names and years, to
-   * make this verifiable. Left out rather than approximated — a specific claim
-   * that turns out to be slightly wrong costs more than a general one.
-   */
-  competitions: [] as readonly string[],
 } as const;
 
 export type SocialPost = {

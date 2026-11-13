@@ -13,7 +13,9 @@ test.describe("content and community", () => {
 
     await expect(content.getByText("@otaviolima.dev")).toBeVisible();
     await expect(
-      content.getByText(/student teams I mentored won at national/i),
+      content.getByText(
+        /the student teams won at national and worldwide level/i,
+      ),
     ).toBeVisible();
   });
 

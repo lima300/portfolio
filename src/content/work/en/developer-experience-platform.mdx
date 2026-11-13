@@ -103,9 +103,10 @@ their boundaries: strict TypeScript, a mount-contract test in every remote,
 the monorepo.
 
 {/*
-  TODO(otavio): the template also asks for:
-  - why Rsbuild for the remotes but Webpack 5 for the host (build speed?
-    plugin compatibility?) — state the real reason, then add a <Decision>;
-  - a "What I'd do differently" section. The README's roadmap (canary
-    routing, end-to-end coverage of federation loading) may be a start.
+  TODO(otavio): the template also asks for a "What I'd do differently"
+  section. The README's roadmap (canary routing, end-to-end coverage of
+  federation loading) may be a start.
+
+  The host/remote bundler split (Webpack 5 vs Rsbuild) is deliberately not
+  explained: the plan is to move everything onto one bundler.
 */}

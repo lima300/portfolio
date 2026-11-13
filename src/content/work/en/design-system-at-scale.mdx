@@ -8,6 +8,13 @@ depended on which team had built it.
 A component library for one framework would have helped one product. The
 problem was that there was more than one framework.
 
+## Constraints
+
+- **A small team for a company-wide system.** Six people: a designer, a tech
+  lead, and four developers including me.
+- **Products could not stop for it.** Adoption started with new products
+  only; older projects migrated gradually afterwards.
+
 ## Decisions and trade-offs
 
 <Decision chose="Web Components" over="A framework-specific library">
@@ -35,6 +42,13 @@ component, so a visual decision is made in one place and lands everywhere.
 
 </Decision>
 
+## Using it myself
+
+I was also one of the system's consumers. I built the
+[SYDLE marketplace](https://www.sydle.com/br/marketplace) in Angular on top of
+the components, which is the framework-agnostic decision tested from the
+other side: a product team picking up custom elements and shipping with them.
+
 ## Beyond the components
 
 The same role covered two other pieces of work worth naming. I refactored the
@@ -46,15 +60,13 @@ sales conversions by 40%. And I migrated legacy JavaScript codebases to
 
 - **100+ components** shipped, serving products on different stacks from one
   implementation.
-- **30% less application development time**.
+- **30% less application development time**, measured by comparing the
+  time spent on development tickets before and after adoption.
 - A **BPMN marketplace** built on the system, used by a platform with more
   than 100,000 users.
 
 {/*
-  TODO(otavio): the template also asks for:
-  - the constraints you worked under (team size, how adoption was driven,
-    whether existing products migrated or only new ones adopted it);
-  - how the 30% was measured;
-  - a "What I'd do differently" section.
+  TODO(otavio): the template also asks for a "What I'd do differently"
+  section.
   Confidentiality: no internal screenshots or code.
 */}
