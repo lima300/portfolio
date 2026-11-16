@@ -173,6 +173,23 @@ const ptBr: Messages = {
       "Projetos fora do trabalho. Cada um existe para testar uma ideia direito — um modelo de framework, um pedaço de matemática — e todos são open source.",
     runDemo: "Rodar a demo ao vivo",
   },
+  forCompany: {
+    title: "Para {company}",
+    description:
+      "Uma nota de Otávio Lima para o time da {company}, com os trabalhos mais relevantes primeiro.",
+    draft:
+      "Rascunho: esta página ainda tem texto provisório. Reescreva a nota e remova `draft` em src/data/companies.ts antes de compartilhar o link.",
+    eyebrow: "Para o time da {company}",
+    heading: "Olá, {company}. Aqui vai a versão curta.",
+    intro:
+      "Uma página para acompanhar minha candidatura à vaga de {role}: por que a {company}, e os trabalhos que melhor mostram o que eu traria, na ordem em que eu gostaria que vocês lessem. {years}+ anos de frontend, remoto do Brasil.",
+    why: "Por que a {company}",
+    workHeading: "Os trabalhos mais relevantes, primeiro.",
+    workIntro: "Os mesmos cases do resto do site, ordenados para a {company}.",
+    nextHeading: "Vamos conversar sobre a vaga de {role}.",
+    nextBody:
+      "O currículo tem o histórico completo. O jeito mais rápido de falar comigo é por e-mail — um clique copia o endereço.",
+  },
   commands: {
     open: "Abrir a paleta de comandos",
     label: "Paleta de comandos",

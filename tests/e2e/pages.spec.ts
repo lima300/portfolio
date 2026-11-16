@@ -206,3 +206,87 @@ test.describe("uses", () => {
     ).toBeVisible();
   });
 });
+
+test.describe("content", () => {
+  test("is the nav's destination and opens from the home section", async ({
+    page,
+  }) => {
+    await page.goto("/en");
+    // By href, not role: on a phone the nav sits in the closed menu, out of
+    // the accessibility tree until it opens.
+    await expect(
+      page.getByRole("banner").locator('a[href="/en/content"]').first(),
+    ).toBeAttached();
+
+    const section = page.getByRole("region", {
+      name: /explain this work to 30,000 developers/i,
+    });
+    await section.scrollIntoViewIfNeeded();
+    await section
+      .getByRole("link", { name: /everything on content & community/i })
+      .click();
+
+    await expect(page).toHaveURL(/\/en\/content$/);
+    const main = page.getByRole("main");
+    await expect(
+      main.getByRole("heading", {
+        level: 1,
+        name: /explain this work to 30,000 developers/i,
+      }),
+    ).toBeVisible();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveCount(1);
+    // On its own page, each block heads its own part of the outline.
+    await expect(
+      main.getByRole("heading", { level: 2, name: "Mentoring" }),
+    ).toBeVisible();
+    await expect(
+      main.getByRole("link", { name: /view on instagram/i }),
+    ).toHaveCount(3);
+  });
+
+  test("is translated", async ({ page }) => {
+    await page.goto("/pt-br/content");
+    await expect(
+      page.getByRole("heading", { level: 2, name: "Sobre o que é" }),
+    ).toBeVisible();
+  });
+});
+
+test.describe("company pages", () => {
+  test("open with the company, reorder the work and stay out of search", async ({
+    page,
+  }) => {
+    await page.goto("/en/for/example");
+
+    await expect(
+      page.getByRole("heading", { level: 1, name: /hi, example co\./i }),
+    ).toBeVisible();
+    await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
+      "content",
+      "noindex, nofollow",
+    );
+
+    // The draft banner stays until the placeholder copy is replaced.
+    await expect(page.getByRole("note")).toContainText(/draft/i);
+
+    const work = page.getByRole("region", { name: /most relevant work/i });
+    const titles = work.getByRole("heading", { level: 3 });
+    await expect(titles).toHaveCount(3);
+    await expect(titles.first()).toHaveText(
+      "A design system for 100,000+ users",
+    );
+    await expect(titles.nth(1)).toHaveText("Developer Experience Platform");
+  });
+
+  test("are translated", async ({ page }) => {
+    await page.goto("/pt-br/for/example");
+    await expect(
+      page.getByRole("heading", { level: 2, name: /por que a example co\./i }),
+    ).toBeVisible();
+  });
+
+  test("return 404 for a company that does not exist", async ({ page }) => {
+    const response = await page.goto("/en/for/no-such-company");
+    expect(response?.status()).toBe(404);
+  });
+});

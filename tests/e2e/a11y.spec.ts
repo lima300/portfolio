@@ -14,6 +14,10 @@ const ROUTES = [
   "/en/resume",
   "/en/colophon",
   "/en/lab",
+  "/en/content",
+  "/pt-br/content",
+  "/en/for/example",
+  "/en/work/digital-twin-modernisation",
   "/pt-br/uses",
   "/en/this-page-does-not-exist",
 ];

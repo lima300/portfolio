@@ -171,6 +171,24 @@ const en = {
       "Side projects outside the day job. Each one exists to try an idea properly — a framework model, a piece of mathematics — and each one is open source.",
     runDemo: "Run the live demo",
   },
+  forCompany: {
+    title: "For {company}",
+    description:
+      "A note from Otávio Lima for the {company} team, with the most relevant work first.",
+    draft:
+      "Draft: this page still has placeholder copy. Rewrite the note and remove `draft` in src/data/companies.ts before sharing the link.",
+    eyebrow: "For the {company} team",
+    heading: "Hi, {company}. Here's the short version.",
+    intro:
+      "A page to go with my application for {role}: why {company}, and the work that best shows what I'd bring, in the order I'd want you to read it. {years}+ years of frontend, remote from Brazil.",
+    why: "Why {company}",
+    workHeading: "The most relevant work, first.",
+    workIntro:
+      "The same case studies as the rest of the site, ordered for {company}.",
+    nextHeading: "Let's talk about {role}.",
+    nextBody:
+      "The résumé has the full history. The fastest way to reach me is email — one click copies it.",
+  },
   commands: {
     open: "Open command palette",
     label: "Command palette",

@@ -10,6 +10,8 @@ const ROUTES = [
   "/pt-br/colophon",
   "/pt-br/lab",
   "/en/uses",
+  "/pt-br/content",
+  "/en/for/example",
 ];
 
 /**
