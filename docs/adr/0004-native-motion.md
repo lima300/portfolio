@@ -8,7 +8,8 @@
 
 The design calls for section reveals, count-up metrics, a magnetic primary
 CTA, parallax drift, a circular theme-switch reveal and hover lift on product
-cards. It also sets a first-load budget of 120 kB of JavaScript — and the
+cards. It also sets a first-load budget of 120 kB of JavaScript (since revised to
+175 kB by [0006](0006-js-budget.md); the argument here holds either way) — and the
 Next.js 16 framework runtime alone already accounts for ~117 kB of that.
 
 ## Decision

@@ -7,7 +7,8 @@
 
 This site has two jobs: convert a recruiter in under 60 seconds, and be
 evidence of senior frontend work. That means the artefact itself has to hit
-Lighthouse ≥ 95 on mobile, stay under a 120 kB first-load JS budget, and ship
+Lighthouse ≥ 95 on mobile, stay under a first-load JS budget (120 kB here; revised to a measured
+175 kB in [0006](0006-js-budget.md)), and ship
 in two languages with per-locale metadata.
 
 ## Decision

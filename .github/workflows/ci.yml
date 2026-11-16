@@ -100,6 +100,11 @@ jobs:
       - name: Playwright (production build)
         run: pnpm test:e2e
 
+      # The Playwright run above built the app; this reads that build's chunk
+      # list and fails if any route's first-load JS is over budget.
+      - name: JS budget
+        run: pnpm check:bundle
+
       # React's diagnostic warnings only exist in its development build, so
       # this run is the only thing that can catch them.
       - name: Playwright (dev server)
