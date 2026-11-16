@@ -7,11 +7,11 @@
 Built to answer one question in under 60 seconds: _can this person build things we'd want to ship?_
 The site is the answer; this repository is the proof.
 
-[![CI](https://github.com/lima300/otaviolima.dev/actions/workflows/ci.yml/badge.svg)](https://github.com/lima300/otaviolima.dev/actions/workflows/ci.yml)
+[![CI](https://github.com/lima300/portfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/lima300/portfolio/actions/workflows/ci.yml)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Lighthouse](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flima300%2Fotaviolima.dev%2Fbadges%2Flighthouse.json)](https://github.com/lima300/otaviolima.dev/actions/workflows/ci.yml)
+[![Lighthouse](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flima300%2Fportfolio%2Fbadges%2Flighthouse.json)](https://github.com/lima300/portfolio/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1A8F4A)](LICENSE)
 
 [**Live site →**](https://otaviolima.dev) · [Architecture decisions](docs/adr) · [How it was built](https://otaviolima.dev/en/colophon)

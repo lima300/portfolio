@@ -2,23 +2,23 @@ Este site tem dois trabalhos: dizer a um recrutador, em menos de um minuto, o
 que eu faço, e ser prova disso. O segundo trabalho significa que o próprio
 build faz parte do portfólio, então aqui está como ele é montado. Cada
 escolha abaixo tem um registro de decisão curto no
-[repositório](https://github.com/lima300/otaviolima.dev/tree/main/docs/adr),
+[repositório](https://github.com/lima300/portfolio/tree/main/docs/adr),
 com o que foi descartado e quanto ela custa.
 
 ## A stack
 
-- **[Next.js 16](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0001-stack.md)**
+- **[Next.js 16](https://github.com/lima300/portfolio/blob/main/docs/adr/0001-stack.md)**
   com App Router, React Server Components e Cache Components. Toda página é
   pré-renderizada como HTML estático; o único JavaScript enviado é o das
   poucas coisas com que você realmente interage.
 - **TypeScript** em modo `strict`, inclusive para o conteúdo: cargos, métricas
   e traduções são dados tipados, então uma tradução faltando é erro de
   compilação, e não um espaço em branco.
-- **[Tailwind CSS v4](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0003-design-tokens.md)**,
+- **[Tailwind CSS v4](https://github.com/lima300/portfolio/blob/main/docs/adr/0003-design-tokens.md)**,
   guiado por design tokens definidos uma vez como propriedades CSS. Claro,
   escuro e "seguir o sistema" são três estados reais, e a escolha manual
   vence nas duas direções.
-- **[MDX](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0005-mdx-prose-typed-facts.md)**
+- **[MDX](https://github.com/lima300/portfolio/blob/main/docs/adr/0005-mdx-prose-typed-facts.md)**
   para os textos longos, como os cases e esta página. Os fatos que essas
   páginas mostram vêm dos mesmos registros tipados que todo o resto.
 - **Inter** e **JetBrains Mono**, hospedadas pelo próprio site com
@@ -27,11 +27,11 @@ com o que foi descartado e quanto ela custa.
 
 ## O que fica de fora, de propósito
 
-- **Nenhuma biblioteca de i18n.** [Inglês e português](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0002-native-i18n.md)
+- **Nenhuma biblioteca de i18n.** [Inglês e português](https://github.com/lima300/portfolio/blob/main/docs/adr/0002-native-i18n.md)
   são dicionários tipados sobre as primitivas de roteamento do próprio Next.
   O português precisa ter exatamente as mesmas chaves do inglês, ou o build
   falha.
-- **Nenhuma biblioteca de animação.** O [movimento](https://github.com/lima300/otaviolima.dev/blob/main/docs/adr/0004-native-motion.md)
+- **Nenhuma biblioteca de animação.** O [movimento](https://github.com/lima300/portfolio/blob/main/docs/adr/0004-native-motion.md)
   é feito com animações CSS guiadas por scroll, a View Transitions API na
   troca de tema e algumas poucas primitivas nativas. Tudo respeita a opção
   de _reduzir movimento_, e o site fica completo sem ele.
@@ -56,5 +56,5 @@ mobile e menos de 120 kB de JavaScript no primeiro carregamento.
 
 ## Código-fonte
 
-Tudo é open source no [GitHub](https://github.com/lima300/otaviolima.dev),
+Tudo é open source no [GitHub](https://github.com/lima300/portfolio),
 com os registros de decisão incluídos.

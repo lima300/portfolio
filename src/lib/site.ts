@@ -11,7 +11,7 @@ export const site = {
   email: "otavio.lima.vga@gmail.com",
   timeZone: "America/Sao_Paulo",
   location: "Brazil",
-  repo: "https://github.com/lima300/otaviolima.dev",
+  repo: "https://github.com/lima300/portfolio",
   socials: {
     github: "https://github.com/lima300",
     linkedin: "https://www.linkedin.com/in/otavio-lima-soares",

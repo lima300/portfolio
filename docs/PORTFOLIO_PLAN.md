@@ -364,7 +364,7 @@ tests/
 
 ### Phase 0: Foundations (Days 1–2)
 
-- [ ] Buy domain; create repo `lima300/otaviolima.dev`; Vercel project + preview deploys
+- [ ] Buy domain; create repo `lima300/portfolio`; Vercel project + preview deploys
 - [ ] Scaffold Next.js + TS strict + Tailwind v4 + ESLint/Prettier/Husky
 - [ ] Set up `next-intl` routing (`/en`, `/pt-br`) and `next-themes` (system default)
 - [ ] Design tokens in `globals.css` (`@theme`), fonts via `next/font`
