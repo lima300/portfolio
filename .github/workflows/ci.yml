@@ -116,3 +116,58 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  lighthouse:
+    name: Lighthouse
+    runs-on: ubuntu-latest
+    # Only the push to main publishes the badge; every run asserts the scores.
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm build
+
+      # Mobile, applied throttling, median of three runs per page. Fails on
+      # performance < 95, anything else < 100, or CLS > 0.05.
+      - name: Lighthouse CI
+        run: pnpm lighthouse
+
+      - name: Badge
+        if: ${{ !cancelled() }}
+        run: pnpm lighthouse:badge
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: lighthouse
+          path: .lighthouseci/
+          retention-days: 14
+
+      # The README's badge reads this file from the `badges` branch, which
+      # holds nothing else — so publishing a score never touches main.
+      - name: Publish badge
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        run: |
+          cp .lighthouseci/badge.json "$RUNNER_TEMP/lighthouse.json"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git fetch --depth=1 origin badges:badges 2>/dev/null; then
+            git switch badges
+          else
+            # A fresh orphan branch starts with an empty index and tree.
+            git switch --orphan badges
+          fi
+          cp "$RUNNER_TEMP/lighthouse.json" lighthouse.json
+          git add lighthouse.json
+          git diff --cached --quiet || git commit -m "chore(ci): update lighthouse badge"
+          git push origin badges

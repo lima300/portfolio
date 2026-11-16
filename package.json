@@ -18,6 +18,8 @@
     "test:e2e:dev": "E2E_TARGET=dev playwright test",
     "test:e2e:ui": "playwright test --ui",
     "check:bundle": "node scripts/check-bundle.mjs",
+    "lighthouse": "lhci autorun",
+    "lighthouse:badge": "node scripts/lighthouse-badge.mjs",
     "verify": "pnpm format:check && pnpm lint && pnpm typecheck && pnpm test",
     "prepare": "husky"
   },
@@ -41,6 +43,7 @@
     "@axe-core/playwright": "^4.14.0",
     "@commitlint/cli": "^21.2.4",
     "@commitlint/config-conventional": "^21.2.4",
+    "@lhci/cli": "^0.16.1",
     "@playwright/test": "^1.65.0",
     "@tailwindcss/turbopack": "^4",
     "@testing-library/jest-dom": "^7.0.1",

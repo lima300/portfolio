@@ -11,6 +11,7 @@ The site is the answer; this repository is the proof.
 [![Next.js 16](https://img.shields.io/badge/Next.js-16-000?logo=nextdotjs&logoColor=white)](https://nextjs.org)
 [![TypeScript strict](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Lighthouse](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Flima300%2Fotaviolima.dev%2Fbadges%2Flighthouse.json)](https://github.com/lima300/otaviolima.dev/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-1A8F4A)](LICENSE)
 
 [**Live site →**](https://otaviolima.dev) · [Architecture decisions](docs/adr) · [How it was built](https://otaviolima.dev/en/colophon)
@@ -37,13 +38,13 @@ standard as the site.
 
 ## Goals it is built against
 
-| Area                 | Target                                                                                                     |
-| -------------------- | ---------------------------------------------------------------------------------------------------------- |
-| Performance          | Lighthouse ≥ 95 in all four categories on mobile · LCP < 1.8s · CLS < 0.05 · INP < 150ms                   |
-| JS budget            | < 120 kB gzipped on first load for the home page                                                           |
-| Accessibility        | WCAG 2.2 AA · zero `axe` violations · full keyboard support · `prefers-reduced-motion` honoured everywhere |
-| Internationalisation | Complete parity between English and Brazilian Portuguese, including metadata and OG images                 |
-| Quality              | CI fails on a lint error, a type error, a failing test, or an accessibility regression                     |
+| Area                 | Target                                                                                                                                   |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Performance          | Lighthouse ≥ 95 performance, 100 elsewhere, on mobile — enforced in CI · LCP < 1.8s · CLS < 0.05 · INP < 150ms                           |
+| JS budget            | ≤ 175 kB gzipped first load per route, enforced in CI — the measured framework floor is ~133 kB ([ADR 0006](docs/adr/0006-js-budget.md)) |
+| Accessibility        | WCAG 2.2 AA · zero `axe` violations · full keyboard support · `prefers-reduced-motion` honoured everywhere                               |
+| Internationalisation | Complete parity between English and Brazilian Portuguese, including metadata and OG images                                               |
+| Quality              | CI fails on a lint error, a type error, a failing test, or an accessibility regression                                                   |
 
 ## Stack
 
@@ -115,16 +116,18 @@ pnpm dev             # http://localhost:3000 → redirects to /en or /pt-br
 
 ### Scripts
 
-| Command             | Does                                                                      |
-| ------------------- | ------------------------------------------------------------------------- |
-| `pnpm dev`          | Dev server with Turbopack                                                 |
-| `pnpm build`        | Production build — prerenders every locale                                |
-| `pnpm verify`       | **Format, lint, typecheck and unit tests.** Run this before pushing       |
-| `pnpm typecheck`    | Regenerates route types, then `tsc --noEmit`                              |
-| `pnpm test`         | Vitest                                                                    |
-| `pnpm test:e2e`     | Playwright against a production build, including the `axe` scan           |
-| `pnpm test:e2e:dev` | Playwright against `next dev` — catches React's development-only warnings |
-| `pnpm format`       | Prettier, with Tailwind class sorting                                     |
+| Command             | Does                                                                                        |
+| ------------------- | ------------------------------------------------------------------------------------------- |
+| `pnpm dev`          | Dev server with Turbopack                                                                   |
+| `pnpm build`        | Production build — prerenders every locale                                                  |
+| `pnpm verify`       | **Format, lint, typecheck and unit tests.** Run this before pushing                         |
+| `pnpm typecheck`    | Regenerates route types, then `tsc --noEmit`                                                |
+| `pnpm test`         | Vitest                                                                                      |
+| `pnpm test:e2e`     | Playwright against a production build, including the `axe` scan                             |
+| `pnpm test:e2e:dev` | Playwright against `next dev` — catches React's development-only warnings                   |
+| `pnpm check:bundle` | First-load JS per route against the budget (after `pnpm build`)                             |
+| `pnpm lighthouse`   | Lighthouse CI on mobile, 3 runs per page, against the production build (after `pnpm build`) |
+| `pnpm format`       | Prettier, with Tailwind class sorting                                                       |
 
 > The `pre-commit` hook runs `lint-staged`; `commit-msg` runs `commitlint`.
 > Both are installed by `pnpm install` via `husky`.
