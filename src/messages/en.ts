@@ -66,6 +66,9 @@ const en = {
     stack: "Stack",
     next: "Next case study",
     over: "over",
+    before: "Before",
+    after: "After",
+    compare: "Compare before and after",
   },
   experience: {
     eyebrow: "Experience",
@@ -166,6 +169,7 @@ const en = {
     heading: "Smaller things, built to learn something.",
     intro:
       "Side projects outside the day job. Each one exists to try an idea properly — a framework model, a piece of mathematics — and each one is open source.",
+    runDemo: "Run the live demo",
   },
   commands: {
     open: "Open command palette",

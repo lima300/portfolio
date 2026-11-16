@@ -14,6 +14,11 @@ import { cn } from "@/lib/cn";
  *
  * Next requires this file for `@next/mdx` in the App Router, at the root of
  * `src/`.
+ *
+ * Server components only. A client component registered here is reachable
+ * solely through the case study's dynamic MDX import, which Turbopack's dev
+ * server cannot instantiate during instant-navigation validation. Interactive
+ * components are passed by the page instead — see `BeforeAfter`.
  */
 
 /**

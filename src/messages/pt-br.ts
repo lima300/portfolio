@@ -67,6 +67,9 @@ const ptBr: Messages = {
     stack: "Stack",
     next: "Próximo case",
     over: "em vez de",
+    before: "Antes",
+    after: "Depois",
+    compare: "Comparar antes e depois",
   },
   experience: {
     eyebrow: "Experiência",
@@ -168,6 +171,7 @@ const ptBr: Messages = {
     heading: "Coisas menores, feitas para aprender algo.",
     intro:
       "Projetos fora do trabalho. Cada um existe para testar uma ideia direito — um modelo de framework, um pedaço de matemática — e todos são open source.",
+    runDemo: "Rodar a demo ao vivo",
   },
   commands: {
     open: "Abrir a paleta de comandos",

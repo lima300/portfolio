@@ -2,8 +2,10 @@ import { ArrowLeft, ArrowRight, ExternalLink, Lock } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { MDXComponents } from "mdx/types";
 import type { ComponentType } from "react";
 
+import { BeforeAfter } from "@/components/features/before-after-figure";
 import { Reveal } from "@/components/motion/reveal";
 import { SharedMotif } from "@/components/motion/shared-motif";
 import { ProjectMotif } from "@/components/sections/project-motif";
@@ -44,6 +46,9 @@ export function generateStaticParams() {
 
 export const ensureStatic = "navigation";
 
+/** Interactive MDX components, merged over `src/mdx-components.tsx`. */
+const caseStudyComponents: MDXComponents = { BeforeAfter };
+
 type Props = PageProps<"/[locale]/work/[slug]">;
 
 async function resolve(params: Props["params"]) {
@@ -60,7 +65,7 @@ async function resolve(params: Props["params"]) {
  */
 async function loadBody(locale: Locale, slug: string) {
   const mod = (await import(`@/content/work/${locale}/${slug}.mdx`)) as {
-    default: ComponentType;
+    default: ComponentType<{ components?: MDXComponents }>;
   };
   return mod.default;
 }
@@ -252,7 +257,7 @@ export default async function CaseStudyPage({ params }: Props) {
           </section>
 
           <div className="mx-auto max-w-[70ch] py-16 md:py-24">
-            <Body />
+            <Body components={caseStudyComponents} />
           </div>
         </Container>
       </article>

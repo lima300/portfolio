@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
 
+import { LiveEmbed } from "@/components/features/live-embed";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
@@ -19,7 +20,8 @@ import { routes } from "@/lib/routes";
  * to the code; nothing here claims more than the repository shows.
  *
  * TODO(otavio): neither project is deployed yet. Once they are, set `live`
- * in `src/data/projects.ts` and the card grows a "Live" link on its own.
+ * in `src/data/projects.ts` and the card grows a "Live" link on its own —
+ * and, for a project marked `embed`, a frame that runs the demo in place.
  */
 
 export const ensureStatic = "navigation";
@@ -71,6 +73,14 @@ export default async function LabPage() {
                     </li>
                   ))}
                 </ul>
+
+                {project.live && project.embed ? (
+                  <LiveEmbed
+                    src={project.live}
+                    title={project.title}
+                    labels={{ load: messages.lab.runDemo }}
+                  />
+                ) : null}
 
                 <ul className="mt-auto flex flex-wrap gap-1.5">
                   {project.stack.map((item) => (

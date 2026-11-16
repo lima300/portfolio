@@ -251,6 +251,11 @@ export type LabProject = {
   repo: string;
   /** No deployments yet; the card links the code alone until there is one. */
   live?: string;
+  /**
+   * The live URL can be framed, so the card offers to run it in place.
+   * Inert until `live` is set: there is nothing to embed before a deploy.
+   */
+  embed?: boolean;
 };
 
 /**
@@ -285,6 +290,9 @@ export const labProjects: readonly LabProject[] = [
     ],
     stack: ["React", "TypeScript", "Vite", "Framer Motion"],
     repo: "https://github.com/lima300/achilles-torroise-paradox",
+    // TODO(otavio): set `live` to the Vercel URL once deployed; the card
+    // then grows a "Run the live demo" frame on its own.
+    embed: true,
   },
   {
     slug: "barber-time",

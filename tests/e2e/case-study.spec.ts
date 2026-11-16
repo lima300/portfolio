@@ -94,3 +94,48 @@ test.describe("case study", () => {
     expect(response?.status()).toBe(404);
   });
 });
+
+test.describe("before/after comparison", () => {
+  test("plays to the after state, then follows the keyboard", async ({
+    page,
+  }) => {
+    await page.goto("/en/work/digital-twin-modernisation");
+
+    const slider = page.getByRole("slider", {
+      name: "Compare before and after",
+    });
+    await slider.scrollIntoViewIfNeeded();
+
+    // The figure plays once from before to after when it comes into view.
+    await expect(slider).toHaveValue("100");
+    await expect(page.getByText("100 → 40")).toBeVisible();
+
+    await slider.focus();
+    await page.keyboard.press("Home");
+    await expect(slider).toHaveValue("0");
+    await expect(slider).toHaveAttribute(
+      "aria-valuetext",
+      "Page performance cost: 100",
+    );
+
+    await page.getByRole("button", { name: "After", exact: true }).click();
+    await expect(slider).toHaveAttribute(
+      "aria-valuetext",
+      "Page performance cost: 40",
+    );
+  });
+
+  test("shows the after state at once with reduced motion", async ({
+    page,
+  }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
+    await page.goto("/pt-br/work/design-system-at-scale");
+
+    const slider = page.getByRole("slider", {
+      name: "Comparar antes e depois",
+    });
+    await slider.scrollIntoViewIfNeeded();
+    await expect(slider).toHaveValue("100");
+    await expect(page.getByText("+40%")).toBeVisible();
+  });
+});

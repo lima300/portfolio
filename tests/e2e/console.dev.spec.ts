@@ -22,6 +22,20 @@ type Journey = { name: string; from: string; to: RegExp; link: string };
 const JOURNEYS: Journey[] = [
   { name: "/en → /pt-br", from: "/en", to: /\/pt-br$/, link: "Português" },
   { name: "/pt-br → /en", from: "/pt-br", to: /\/en$/, link: "English" },
+  // The client components added since: the comparison slider, and the pages
+  // built from shared blocks.
+  {
+    name: "/en/work/digital-twin-modernisation → /pt-br",
+    from: "/en/work/digital-twin-modernisation",
+    to: /\/pt-br\/work\/digital-twin-modernisation$/,
+    link: "Português",
+  },
+  {
+    name: "/pt-br/content → /en",
+    from: "/pt-br/content",
+    to: /\/en\/content$/,
+    link: "English",
+  },
 ];
 
 for (const journey of JOURNEYS) {
