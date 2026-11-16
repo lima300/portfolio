@@ -5,10 +5,10 @@ import { Container } from "@/components/ui/container";
 import { facts } from "@/data/about";
 import { education, experience } from "@/data/experience";
 import { skillGroups } from "@/data/skills";
-import type { Locale } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { getYearsOfExperience } from "@/lib/build-time";
 import { formatMonth, formatRange } from "@/lib/format-date";
+import { pageMetadata } from "@/lib/metadata";
 import { routes } from "@/lib/routes";
 import { site } from "@/lib/site";
 import { withYears } from "@/lib/years";
@@ -27,20 +27,13 @@ export const ensureStatic = "navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale, messages } = await getI18n();
-  const path = (target: Locale) => routes.resume(target);
 
-  return {
+  return pageMetadata({
+    locale,
+    path: routes.resume,
     title: messages.resume.title,
     description: messages.resume.description,
-    alternates: {
-      canonical: path(locale),
-      languages: {
-        en: path("en"),
-        "pt-BR": path("pt-br"),
-        "x-default": path("en"),
-      },
-    },
-  };
+  });
 }
 
 /** `https://www.linkedin.com/in/x` → `linkedin.com/in/x`, for paper. */

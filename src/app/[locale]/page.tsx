@@ -1,3 +1,4 @@
+import { JsonLd } from "@/components/seo/json-ld";
 import { AboutTeaser } from "@/components/sections/about-teaser";
 import { Contact } from "@/components/sections/contact";
 import { ContentCommunity } from "@/components/sections/content-community";
@@ -7,6 +8,8 @@ import { ImpactStrip } from "@/components/sections/impact-strip";
 import { SelectedWork } from "@/components/sections/selected-work";
 import { SkillsBento } from "@/components/sections/skills-bento";
 import { Testimonials } from "@/components/sections/testimonials";
+import { getI18n } from "@/i18n/dictionary";
+import { homeGraph } from "@/lib/structured-data";
 
 /*
  * The home page: one scroll, in the order a recruiter reads.
@@ -17,9 +20,12 @@ import { Testimonials } from "@/components/sections/testimonials";
  * Testimonials render nothing until real recommendations exist, so the page
  * reads correctly either way.
  */
-export default function HomePage() {
+export default async function HomePage() {
+  const { locale, messages } = await getI18n();
+
   return (
     <main id="main" className="flex-1">
+      <JsonLd data={homeGraph(locale, messages)} />
       <Hero />
       <ImpactStrip />
       <SelectedWork />

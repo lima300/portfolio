@@ -11,7 +11,7 @@ import { isLocale, type Locale } from "./config";
  * couple of kilobytes, they never change at runtime, and keeping them static
  * lets every page prerender without an async waterfall.
  */
-const dictionaries: Record<Locale, Messages> = {
+export const dictionaries: Record<Locale, Messages> = {
   en,
   "pt-br": ptBr,
 };

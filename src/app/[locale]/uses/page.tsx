@@ -4,8 +4,8 @@ import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { usesGroups } from "@/data/uses";
-import type { Locale } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
+import { pageMetadata } from "@/lib/metadata";
 import { routes } from "@/lib/routes";
 
 /*
@@ -17,20 +17,13 @@ export const ensureStatic = "navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale, messages } = await getI18n();
-  const path = (target: Locale) => routes.uses(target);
 
-  return {
+  return pageMetadata({
+    locale,
+    path: routes.uses,
     title: messages.uses.title,
     description: messages.uses.description,
-    alternates: {
-      canonical: path(locale),
-      languages: {
-        en: path("en"),
-        "pt-BR": path("pt-br"),
-        "x-default": path("en"),
-      },
-    },
-  };
+  });
 }
 
 export default async function UsesPage() {

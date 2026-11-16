@@ -11,6 +11,8 @@ import { featuredProjects } from "@/data/projects";
 import { bcp47, locales } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { I18nProvider } from "@/i18n/provider";
+import { pageMetadata } from "@/lib/metadata";
+import { routes } from "@/lib/routes";
 import { site } from "@/lib/site";
 
 import "../globals.css";
@@ -46,17 +48,17 @@ export async function generateMetadata(): Promise<Metadata> {
       default: messages.meta.title,
       template: messages.meta.titleTemplate,
     },
-    description: messages.meta.description,
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        en: "/en",
-        "pt-BR": "/pt-br",
-        "x-default": "/en",
-      },
-    },
     authors: [{ name: site.legalName, url: site.url }],
     creator: site.legalName,
+    // The home page's values; every other page sends its own through the
+    // same helper, so none inherits the home canonical by accident.
+    ...pageMetadata({
+      locale,
+      path: routes.home,
+      description: messages.meta.description,
+      shareTitle: messages.meta.title,
+      type: "profile",
+    }),
   };
 }
 

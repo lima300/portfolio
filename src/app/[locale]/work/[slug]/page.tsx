@@ -7,6 +7,7 @@ import type { ComponentType } from "react";
 import { Reveal } from "@/components/motion/reveal";
 import { SharedMotif } from "@/components/motion/shared-motif";
 import { ProjectMotif } from "@/components/sections/project-motif";
+import { JsonLd } from "@/components/seo/json-ld";
 import { GitHubIcon } from "@/components/ui/brand-icons";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
@@ -15,7 +16,9 @@ import { featuredProjects, findProject } from "@/data/projects";
 import type { Locale } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { formatRange } from "@/lib/format-date";
+import { pageMetadata } from "@/lib/metadata";
 import { routes } from "@/lib/routes";
+import { caseStudyGraph } from "@/lib/structured-data";
 
 /*
  * The case study template.
@@ -65,25 +68,14 @@ async function loadBody(locale: Locale, slug: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = await resolve(params);
   const { locale } = await getI18n();
-  const path = (target: Locale) => routes.caseStudy(target, project.slug);
 
-  return {
+  return pageMetadata({
+    locale,
+    path: (target) => routes.caseStudy(target, project.slug),
     title: project.title[locale],
     description: project.outcome[locale],
-    alternates: {
-      canonical: path(locale),
-      languages: {
-        en: path("en"),
-        "pt-BR": path("pt-br"),
-        "x-default": path("en"),
-      },
-    },
-    openGraph: {
-      type: "article",
-      title: project.title[locale],
-      description: project.outcome[locale],
-    },
-  };
+    type: "article",
+  });
 }
 
 export default async function CaseStudyPage({ params }: Props) {
@@ -105,6 +97,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
   return (
     <main id="main" className="flex-1">
+      <JsonLd data={caseStudyGraph(project, locale)} />
       <article aria-labelledby="case-study-title">
         <header className="pt-28 pb-12 md:pt-36 md:pb-16">
           <Container className="flex flex-col gap-10">

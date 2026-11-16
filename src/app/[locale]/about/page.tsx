@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { Reveal } from "@/components/motion/reveal";
 import { ExperienceTimeline } from "@/components/sections/experience-timeline";
+import { JsonLd } from "@/components/seo/json-ld";
 import { Testimonials } from "@/components/sections/testimonials";
 import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -12,10 +13,11 @@ import { Pill } from "@/components/ui/pill";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { about, facts } from "@/data/about";
 import { mentoring } from "@/data/content";
-import type { Locale } from "@/i18n/config";
 import { getI18n } from "@/i18n/dictionary";
 import { cn } from "@/lib/cn";
+import { pageMetadata } from "@/lib/metadata";
 import { routes } from "@/lib/routes";
+import { profileGraph } from "@/lib/structured-data";
 
 /*
  * The longer version of the about teaser.
@@ -34,20 +36,14 @@ export const ensureStatic = "navigation";
 
 export async function generateMetadata(): Promise<Metadata> {
   const { locale, messages } = await getI18n();
-  const path = (target: Locale) => routes.about(target);
 
-  return {
+  return pageMetadata({
+    locale,
+    path: routes.about,
     title: messages.aboutPage.title,
     description: messages.aboutPage.description,
-    alternates: {
-      canonical: path(locale),
-      languages: {
-        en: path("en"),
-        "pt-BR": path("pt-br"),
-        "x-default": path("en"),
-      },
-    },
-  };
+    type: "profile",
+  });
 }
 
 export default async function AboutPage() {
@@ -55,6 +51,7 @@ export default async function AboutPage() {
 
   return (
     <main id="main" className="flex-1">
+      <JsonLd data={profileGraph(locale, messages)} />
       <section
         aria-labelledby="about-page-heading"
         className="pt-20 pb-16 md:pt-28 md:pb-24"
