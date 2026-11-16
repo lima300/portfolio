@@ -11,14 +11,16 @@ import { site } from "@/lib/site";
  * duplicates. Read from `routes` and the project records, so a new page or
  * case study only has to be added there.
  *
- * Left out on purpose: the 404, `/dev/*`, and the `#section` anchors that
- * `routes` also knows about but which are not pages.
+ * Left out on purpose: the 404, `/dev/*`, the unlisted `/for/*` company
+ * pages, and the `#section` anchors that `routes` also knows about but which
+ * are not pages.
  */
 const pages: readonly ((locale: Locale) => string)[] = [
   routes.home,
   routes.about,
   routes.resume,
   routes.lab,
+  routes.content,
   routes.uses,
   routes.colophon,
   ...featuredProjects.map(

@@ -12,12 +12,14 @@ export const routes = {
   work: (locale: Locale) => `/${locale}#work`,
   caseStudy: (locale: Locale, slug: string) => `/${locale}/work/${slug}`,
   about: (locale: Locale) => `/${locale}/about`,
-  content: (locale: Locale) => `/${locale}#content`,
+  content: (locale: Locale) => `/${locale}/content`,
   contact: (locale: Locale) => `/${locale}#contact`,
   resume: (locale: Locale) => `/${locale}/resume`,
   lab: (locale: Locale) => `/${locale}/lab`,
   uses: (locale: Locale) => `/${locale}/uses`,
   colophon: (locale: Locale) => `/${locale}/colophon`,
+  /** Unlisted: shared by hand, never linked or put in the sitemap. */
+  company: (locale: Locale, slug: string) => `/${locale}/for/${slug}`,
 } as const;
 
 export type NavItem = {

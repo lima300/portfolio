@@ -16,6 +16,7 @@ const PAGES = [
   "/pt-br/about",
   "/en/resume",
   "/pt-br/lab",
+  "/en/content",
   "/en/uses",
   "/pt-br/colophon",
   "/en/work/developer-experience-platform",
@@ -127,6 +128,8 @@ test.describe("crawling", () => {
     }
     expect(xml).toContain('hreflang="pt-BR"');
     expect(xml).not.toContain("/dev/");
+    // Company pages are unlisted: sent by hand, never offered to a crawler.
+    expect(xml).not.toContain("/for/");
   });
 
   test("robots allows the site, hides /dev and points at the sitemap", async ({

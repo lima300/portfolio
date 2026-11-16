@@ -91,6 +91,15 @@ const en = {
     postsEyebrow: "Favourites",
     viewPost: "View on Instagram",
     postKinds: { reel: "Reel", carousel: "Carousel", post: "Post" },
+    more: "Everything on content & community",
+  },
+  contentPage: {
+    title: "Content & community",
+    description:
+      "Otávio Lima's teaching and mentoring: a verified Instagram for 30,000 Brazilian developers, and three years of award-winning iTwin4Good teams.",
+    intro:
+      "Teaching the same architecture I ship has made me better at both. Here is the audience, the mentoring, what the account covers and the posts I'd start with.",
+    nextHeading: "The work is what all of this is about.",
   },
   testimonials: {
     eyebrow: "References",
@@ -175,6 +184,7 @@ const en = {
       about: "About",
       resume: "Résumé",
       lab: "Lab",
+      content: "Content & community",
       uses: "Setup",
       colophon: "How this site was built",
       copyEmail: "Copy email address",

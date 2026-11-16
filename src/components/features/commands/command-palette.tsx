@@ -12,6 +12,7 @@ import {
   Home,
   Keyboard,
   Languages,
+  Megaphone,
   Monitor,
   Moon,
   Search,
@@ -156,6 +157,13 @@ export default function CommandPalette({
       icon: FlaskConical,
       shortcut: "lab",
       keywords: ["side projects"],
+    },
+    {
+      id: "content",
+      label: t.items.content,
+      href: routes.content(locale),
+      icon: Megaphone,
+      keywords: ["instagram", "mentoring", "community", "conteúdo"],
     },
     {
       id: "uses",

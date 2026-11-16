@@ -93,6 +93,15 @@ const ptBr: Messages = {
     postsEyebrow: "Favoritos",
     viewPost: "Ver no Instagram",
     postKinds: { reel: "Reel", carousel: "Carrossel", post: "Post" },
+    more: "Tudo sobre conteúdo & comunidade",
+  },
+  contentPage: {
+    title: "Conteúdo & comunidade",
+    description:
+      "O ensino e a mentoria de Otávio Lima: um Instagram verificado para 30 mil devs brasileiros, e três anos de times premiados no iTwin4Good.",
+    intro:
+      "Ensinar a mesma arquitetura que eu entrego me deixou melhor nas duas coisas. Aqui estão o público, a mentoria, os temas da conta e os posts por onde eu começaria.",
+    nextHeading: "É sobre o trabalho que tudo isso fala.",
   },
   testimonials: {
     eyebrow: "Referências",
@@ -177,6 +186,7 @@ const ptBr: Messages = {
       about: "Sobre",
       resume: "Currículo",
       lab: "Lab",
+      content: "Conteúdo & comunidade",
       uses: "Setup",
       colophon: "Como este site foi construído",
       copyEmail: "Copiar endereço de e-mail",
