@@ -20,18 +20,27 @@ import "../globals.css";
 /*
  * Inter with the SF-like stylistic sets enabled in `globals.css`
  * (`ss01`, `ss03`, `cv11`). Self-hosted by next/font, so no third-party
- * request and no layout shift.
+ * request.
+ *
+ * `display: "optional"`, not "swap". next/font's size-matched fallback is
+ * built on Arial, which Android does not have, and Inter's stylistic sets
+ * change glyph widths a fallback cannot imitate. With "swap" a late font
+ * re-wrapped the hero headline (209px → 261px on a phone) and pushed the
+ * whole page down 52px: a layout shift of 0.18 on CI against a budget of
+ * 0.05. "optional" uses the font only if it arrives within the first ~100ms
+ * and otherwise keeps the fallback for that visit, so nothing ever moves.
+ * The font is preloaded and then cached, so almost every visit gets Inter.
  */
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin", "latin-ext"],
-  display: "swap",
+  display: "optional",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  display: "swap",
+  display: "optional",
 });
 
 /** Every locale is prerendered at build time. */

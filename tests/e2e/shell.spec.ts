@@ -132,3 +132,25 @@ test.describe("copy email", () => {
     expect(clipboard).toBe("otavio.lima.vga@gmail.com");
   });
 });
+
+test.describe("web fonts", () => {
+  /*
+   * "swap" let a late Inter re-wrap the hero headline and push the page down
+   * 52px on a phone: a layout shift of 0.18, which failed Lighthouse on CI.
+   * "optional" never swaps after first paint. See src/app/[locale]/layout.tsx.
+   */
+  test("never swap in after first paint", async ({ page }) => {
+    await page.goto("/en");
+
+    const displays = await page.evaluate(() =>
+      [...document.fonts]
+        .filter((face) => !face.family.includes("Fallback"))
+        .map((face) => `${face.family}: ${face.display}`),
+    );
+
+    expect(displays.length).toBeGreaterThan(0);
+    for (const entry of displays) {
+      expect(entry).toMatch(/: optional$/);
+    }
+  });
+});
