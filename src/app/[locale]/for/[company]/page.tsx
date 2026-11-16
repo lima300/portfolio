@@ -2,7 +2,7 @@ import { ArrowRight, FileText, TriangleAlert } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { ComponentType } from "react";
+import { Suspense, type ComponentType } from "react";
 
 import { CopyEmail } from "@/components/features/copy-email";
 import { LinkedInIcon } from "@/components/ui/brand-icons";
@@ -82,7 +82,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function CompanyPage({ params }: Props) {
+async function Company({ params }: Pick<Props, "params">) {
   const company = await resolve(params);
   const { locale, messages } = await getI18n();
   const years = await getYearsOfExperience();
@@ -91,7 +91,7 @@ export default async function CompanyPage({ params }: Props) {
   const values = { company: company.name, role: company.role[locale] };
 
   return (
-    <main id="main" className="flex-1 py-20 md:py-28">
+    <>
       <Container className="flex flex-col gap-16">
         {company.draft ? (
           <p
@@ -227,6 +227,35 @@ export default async function CompanyPage({ params }: Props) {
           </div>
         </section>
       </Container>
+    </>
+  );
+}
+
+/*
+ * `params` is read inside <Suspense>, not at the top of the page. Under
+ * Partial Prefetching every company page shares one App Shell, and a param belongs
+ * to a single URL — so reading it outside a boundary blocks a client
+ * navigation, which Next's instant-navigation validation reports in
+ * development. Every URL is still prerendered in full: the boundary resolves
+ * at build time, so a page load gets complete HTML and only a client
+ * navigation can briefly show the skeleton.
+ */
+export default function CompanyPage({ params }: Props) {
+  return (
+    <main id="main" className="flex-1 py-20 md:py-28">
+      <Suspense fallback={<CompanySkeleton />}>
+        <Company params={params} />
+      </Suspense>
     </main>
+  );
+}
+
+function CompanySkeleton() {
+  return (
+    <Container aria-busy className="flex flex-col gap-6">
+      <div className="h-4 w-32 rounded-full bg-bg-sunken" />
+      <div className="h-12 w-full max-w-2xl rounded-control bg-bg-sunken" />
+      <div className="h-6 w-full max-w-xl rounded-control bg-bg-sunken" />
+    </Container>
   );
 }

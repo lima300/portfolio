@@ -46,6 +46,18 @@ export function generateStaticParams() {
 
 export const ensureStatic = "navigation";
 
+/**
+ * Allowed to block on a client navigation, deliberately.
+ *
+ * Every case study shares one App Shell, and the page needs its slug for
+ * everything it renders, so the instant-navigation check (dev only) asks for
+ * a <Suspense> skeleton. A skeleton would break the card → case study morph:
+ * the view transition snapshots the new page as the navigation commits, and
+ * a skeleton has no motif to morph into. The route is prerendered in full for
+ * every slug, so what the navigation waits on is a static payload.
+ */
+export const instant = false;
+
 /** Interactive MDX components, merged over `src/mdx-components.tsx`. */
 const caseStudyComponents: MDXComponents = { BeforeAfter };
 
