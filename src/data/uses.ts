@@ -32,7 +32,7 @@ export const usesGroups: readonly UsesGroup[] = [
         kind: { en: "Main machine", "pt-br": "Máquina principal" },
       },
       {
-        name: "Lenovo ThinkVision i17h",
+        name: "Lenovo ThinkVision T27h-30",
         kind: { en: "Second screen", "pt-br": "Segunda tela" },
       },
     ],
@@ -46,7 +46,7 @@ export const usesGroups: readonly UsesGroup[] = [
         kind: { en: "Mechanical keyboard", "pt-br": "Teclado mecânico" },
       },
       {
-        name: "Logitech MX Keys Max",
+        name: "Logitech MX Keys S",
         kind: { en: "Keyboard", "pt-br": "Teclado" },
       },
       {
@@ -60,7 +60,7 @@ export const usesGroups: readonly UsesGroup[] = [
     title: { en: "Desk", "pt-br": "Mesa" },
     items: [
       {
-        name: "INpro",
+        name: "Inpro Standard",
         kind: {
           en: "Sit-stand desk",
           "pt-br": "Mesa com regulagem de altura",
