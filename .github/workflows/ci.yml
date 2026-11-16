@@ -142,6 +142,12 @@ jobs:
       - name: Lighthouse CI
         run: pnpm lighthouse
 
+      # Scores and failed assertions as annotations, readable on the run's
+      # summary without opening the log.
+      - name: Annotate
+        if: ${{ !cancelled() }}
+        run: node scripts/lighthouse-annotate.mjs
+
       - name: Badge
         if: ${{ !cancelled() }}
         run: pnpm lighthouse:badge
@@ -151,6 +157,8 @@ jobs:
         with:
           name: lighthouse
           path: .lighthouseci/
+          # The folder name starts with a dot, which v4 skips by default.
+          include-hidden-files: true
           retention-days: 14
 
       # The README's badge reads this file from the `badges` branch, which
