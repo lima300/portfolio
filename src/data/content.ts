@@ -1,3 +1,9 @@
+import type { StaticImageData } from "next/image";
+
+import freeResourcesCover from "@/assets/posts/free-resources.jpg";
+import javascriptFundamentalsCover from "@/assets/posts/javascript-fundamentals.jpg";
+import techRoadmapCover from "@/assets/posts/tech-roadmap.jpg";
+
 import type { Localized } from "./types";
 
 /**
@@ -100,8 +106,11 @@ export type SocialPost = {
    * programmatically, so these are supplied by hand.
    */
   caption?: Localized;
-  /** Path under /public. A static thumbnail, never an embed. */
-  thumbnail?: string;
+  /**
+   * The post's cover, statically imported so its size is known up front. A
+   * static image, never an embed.
+   */
+  thumbnail?: StaticImageData;
 };
 
 /**
@@ -116,11 +125,13 @@ export type SocialPost = {
  * Ordered as Otávio ranks them. Captions are one-line summaries written for
  * this page, not the posts' own captions.
  *
- * TODO(otavio): optionally add a `thumbnail` for each under /public/content.
+ * Thumbnails are the carousels' cover slides, at Instagram's 4:5, from
+ * `src/assets/posts`.
  */
 export const featuredPosts: readonly SocialPost[] = [
   {
     id: "javascript-fundamentals",
+    thumbnail: javascriptFundamentalsCover,
     url: "https://www.instagram.com/p/DL5oeWNyCDA/",
     kind: "carousel",
     caption: {
@@ -131,6 +142,7 @@ export const featuredPosts: readonly SocialPost[] = [
   },
   {
     id: "free-resources",
+    thumbnail: freeResourcesCover,
     url: "https://www.instagram.com/p/DPjYE-Rjk2r/",
     kind: "carousel",
     caption: {
@@ -141,6 +153,7 @@ export const featuredPosts: readonly SocialPost[] = [
   },
   {
     id: "tech-roadmap",
+    thumbnail: techRoadmapCover,
     url: "https://www.instagram.com/p/DUQm7xsjo95/",
     kind: "carousel",
     caption: {

@@ -9,10 +9,12 @@ import { Testimonials } from "@/components/sections/testimonials";
 import { buttonStyles } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { PhotoFigure } from "@/components/ui/photo";
 import { Pill } from "@/components/ui/pill";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { about, facts } from "@/data/about";
 import { mentoring } from "@/data/content";
+import { lifePhotos, portrait } from "@/data/photos";
 import { getI18n } from "@/i18n/dictionary";
 import { cn } from "@/lib/cn";
 import { pageMetadata } from "@/lib/metadata";
@@ -24,12 +26,13 @@ import { profileGraph } from "@/lib/structured-data";
  *
  * Built only from what is already established elsewhere on the site — the
  * human paragraph, the practical facts, the mentoring, the career and what
- * colleagues say — so nothing here can contradict the home page.
+ * colleagues say — so nothing here can contradict the home page — plus the
+ * photographs, which say the "away from the keyboard" part better than a
+ * sentence could.
  *
  * TODO(otavio): the plan also asks for a longer story (how you got into
- * frontend, what you care about in how teams work), a "currently" line, and
- * two or three casual photos (running, setup, travel). Each would slot in
- * between the intro and the mentoring block.
+ * frontend, what you care about in how teams work) and a "currently" line.
+ * Both would slot in between the intro and the photos.
  */
 
 export const ensureStatic = "navigation";
@@ -67,19 +70,17 @@ export default async function AboutPage() {
             <p className="measure text-lead text-fg-muted">
               {about.paragraph[locale]}
             </p>
-          </div>
 
-          {/*
-            No <Reveal> here: this card is above the fold, so a fade would
-            only delay content that is already on screen — and leave it
-            below contrast while it runs.
-          */}
-          <div className="lg:col-span-2">
-            <Card variant="sunken" padding="lg">
+            {/*
+              No <Reveal> on anything in this section: it is above the fold,
+              so a fade would only delay content that is already on screen —
+              and leave it below contrast while it runs.
+            */}
+            <Card variant="sunken" padding="lg" className="w-full">
               <h2 className="font-mono text-label tracking-widest text-fg-subtle uppercase">
                 {messages.about.factsEyebrow}
               </h2>
-              <dl className="mt-5 flex flex-col gap-4">
+              <dl className="mt-5 grid gap-4 sm:grid-cols-2">
                 {facts.map((fact) => (
                   <div key={fact.id} className="flex flex-col gap-0.5">
                     <dt className="text-label text-fg-subtle">
@@ -93,6 +94,41 @@ export default async function AboutPage() {
               </dl>
             </Card>
           </div>
+
+          <PhotoFigure
+            photo={portrait}
+            locale={locale}
+            sizes="(min-width: 1024px) 420px, (min-width: 640px) 384px, 100vw"
+            eager
+            className="mx-auto w-full max-w-sm lg:col-span-2 lg:max-w-none"
+          />
+        </Container>
+      </section>
+
+      <section
+        aria-labelledby="about-photos-heading"
+        className="border-t py-20 md:py-28"
+      >
+        <Container className="flex flex-col gap-8">
+          <h2
+            id="about-photos-heading"
+            className="font-mono text-label tracking-widest text-accent uppercase"
+          >
+            {messages.aboutPage.photosHeading}
+          </h2>
+          <ul className="grid gap-6 sm:grid-cols-3">
+            {lifePhotos.map((photo, index) => (
+              <li key={photo.id}>
+                <Reveal delay={index * 60}>
+                  <PhotoFigure
+                    photo={photo}
+                    locale={locale}
+                    sizes="(min-width: 1024px) 380px, (min-width: 640px) 33vw, 100vw"
+                  />
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </Container>
       </section>
 

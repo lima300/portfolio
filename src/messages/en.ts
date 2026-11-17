@@ -148,6 +148,7 @@ const en = {
     description:
       "Who Otávio Lima is, how he works, and the practical details: location, working hours, languages.",
     heading: "Engineer, teacher, runner. Mostly in that order.",
+    photosHeading: "Away from the keyboard",
     mentoringEyebrow: "Giving back",
     nextEyebrow: "Next",
     nextHeading: "The work is the better introduction.",

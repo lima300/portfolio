@@ -150,6 +150,7 @@ const ptBr: Messages = {
     description:
       "Quem é Otávio Lima, como ele trabalha e os detalhes práticos: localização, horário de trabalho, idiomas.",
     heading: "Engenheiro, professor, corredor. Mais ou menos nessa ordem.",
+    photosHeading: "Longe do teclado",
     mentoringEyebrow: "Retribuindo",
     nextEyebrow: "Próximo passo",
     nextHeading: "O trabalho é a melhor apresentação.",

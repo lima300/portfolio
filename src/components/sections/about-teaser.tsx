@@ -4,19 +4,22 @@ import Link from "next/link";
 import { Reveal } from "@/components/motion/reveal";
 import { Card } from "@/components/ui/card";
 import { Container } from "@/components/ui/container";
+import { PhotoFigure } from "@/components/ui/photo";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { about, facts } from "@/data/about";
+import { portrait } from "@/data/photos";
 import { getI18n } from "@/i18n/dictionary";
 import { routes } from "@/lib/routes";
 
 /**
- * The human paragraph, with the practical details beside it.
+ * The human paragraph, the practical details under it, and a face beside both.
  *
- * No portrait yet, and the layout does not pretend otherwise: rather than a
- * grey placeholder frame, the second column carries the facts a recruiter
- * actually checks before a first call — where he is, whether the hours work,
- * which languages. When a photograph exists it replaces this column's
- * position in the grid without the section being redesigned.
+ * The portrait lives here rather than in the hero: there, a photograph would
+ * compete with the one sentence that has to land. Here it is the answer to
+ * "who is this", which is the question the section asks.
+ *
+ * The facts are the ones a recruiter checks before a first call — where he
+ * is, whether the hours work, which languages.
  */
 export async function AboutTeaser() {
   const { locale, messages } = await getI18n();
@@ -39,22 +42,12 @@ export async function AboutTeaser() {
             {about.paragraph[locale]}
           </p>
 
-          <Link
-            href={routes.about(locale)}
-            className="inline-flex items-center gap-1.5 text-small font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:decoration-accent"
-          >
-            {messages.about.readMore}
-            <ArrowUpRight aria-hidden className="size-4" />
-          </Link>
-        </div>
-
-        <Reveal delay={80} className="lg:col-span-2">
-          <Card variant="sunken" padding="lg" className="h-full">
+          <Card variant="sunken" padding="lg" className="w-full">
             <h3 className="font-mono text-label tracking-widest text-accent uppercase">
               {messages.about.factsEyebrow}
             </h3>
 
-            <dl className="mt-5 flex flex-col gap-4">
+            <dl className="mt-5 grid gap-4 sm:grid-cols-2">
               {facts.map((fact) => (
                 <div key={fact.id} className="flex flex-col gap-0.5">
                   <dt className="text-label text-fg-subtle">
@@ -67,6 +60,23 @@ export async function AboutTeaser() {
               ))}
             </dl>
           </Card>
+
+          <Link
+            href={routes.about(locale)}
+            className="inline-flex items-center gap-1.5 text-small font-medium text-accent underline decoration-transparent underline-offset-4 transition-colors duration-200 hover:decoration-accent"
+          >
+            {messages.about.readMore}
+            <ArrowUpRight aria-hidden className="size-4" />
+          </Link>
+        </div>
+
+        <Reveal delay={80} className="lg:col-span-2">
+          <PhotoFigure
+            photo={portrait}
+            locale={locale}
+            sizes="(min-width: 1024px) 420px, (min-width: 640px) 384px, 100vw"
+            className="mx-auto max-w-sm lg:max-w-none"
+          />
         </Reveal>
       </Container>
     </section>

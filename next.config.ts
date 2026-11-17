@@ -5,6 +5,14 @@ const nextConfig: NextConfig = {
   cacheComponents: true,
   partialPrefetching: true,
 
+  // AVIF first: about a fifth smaller than WebP for the photographs, and
+  // every browser this site supports decodes it. WebP stays as the fallback.
+  // `qualities` is the default, stated because Next 16 requires the list.
+  images: {
+    formats: ["image/avif", "image/webp"],
+    qualities: [75],
+  },
+
   // The dev server negotiates HMR for the origin it was opened on. Playwright
   // drives it over 127.0.0.1, which would otherwise fail the handshake.
   allowedDevOrigins: ["127.0.0.1"],

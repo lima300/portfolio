@@ -174,10 +174,13 @@ export function ContentThemes({
 }
 
 /*
- * Favourite posts. No thumbnails yet, so the cards are typographic rather
- * than showing an empty image frame — a link that is honestly a link beats a
- * grey rectangle pretending to be a screenshot. The panel appears above the
- * text once a thumbnail exists.
+ * Favourite posts, each with its cover slide. A post without a thumbnail
+ * stays typographic rather than showing an empty frame — a link that is
+ * honestly a link beats a grey rectangle pretending to be a screenshot.
+ *
+ * The cover is decorative (`alt=""`): it is the post's title slide, in
+ * Portuguese, and the caption under it already says what the post is in the
+ * visitor's language.
  */
 export function FavouritePosts({ locale, messages, level }: BlockProps) {
   if (featuredPosts.length === 0) return null;
@@ -208,9 +211,9 @@ export function FavouritePosts({ locale, messages, level }: BlockProps) {
                     <Image
                       src={post.thumbnail}
                       alt=""
-                      width={640}
-                      height={640}
-                      className="aspect-square w-full rounded-control object-cover"
+                      sizes="(min-width: 1024px) 340px, (min-width: 768px) 30vw, 100vw"
+                      placeholder="blur"
+                      className="aspect-4/5 w-full rounded-control object-cover"
                     />
                   ) : null}
 
